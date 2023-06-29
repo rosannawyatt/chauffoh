@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import os
 
+import os
+from router import accounts
 app = FastAPI()
 
+app.include_router(accounts.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
