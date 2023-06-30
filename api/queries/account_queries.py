@@ -23,19 +23,71 @@ class AccountOut(BaseModel):
     email: str
     is_employee: bool
 
+class DuplicateAccountError(ValueError):
+    pass
+
 
 
 class AccountQueries:
-    def get_account(self,account_id):
+    def create(self, account: AccountIn, hash_password: str) -> AccountOut:
+        try:
+            print("Username", account)
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        INSERT INTO accounts
+                            (
+                            username,
+                            hash_password,
+                            first_name,
+                            last_name,
+                            email,
+                            is_employee)
+                        VALUES
+                            (%s, %s, %s, %s, %s, %s)
+                        RETURNING
+                        id,
+                        username,
+                        hash_password;
+                        """,
+                        [
+                            account.username,
+                            hash_password,
+                            account.first_name,
+                            account.last_name,
+                            account.email,
+                            account.is_employee
+                        ]
+                    )
+                    print("insert worked?")
+                    id = result.fetchone()[0]
+                    print("ID GOTTEN",id)
+                    return AccountOut(
+                        id=id,
+                        username=account.username,
+                        hash_password=hash_password,
+                        first_name=account.first_name,
+                        last_name=account.last_name,
+                        email=account.email,
+                        is_employee=account.is_employee
+                    )
+        except Exception as e:
+            return {"error": e}
+
+
+
+
+    def get_account(self,username: str):
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                     SELECT *
                     FROM accounts
-                    WHERE id = %s
+                    WHERE username = %s
                     """,
-                    [account_id],
+                    [username],
                 )
 
                 record = cur.fetchone()

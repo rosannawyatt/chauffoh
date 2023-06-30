@@ -3,19 +3,20 @@ volumes:
     external: true
 services:
   postgres:
-      image: postgres:14.5-bullseye
-      volumes:
-          - postgres-data:/var/lib/postgresql/data
-      environment:
-          POSTGRES_PASSWORD: password
-          POSTGRES_USER: user
-          POSTGRES_DB: chauffoh_db
-      ports:
-          - 15432:5432
+    image: postgres:14.5-bullseye
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: chauffoh_db
+    ports:
+      - 15432:5432
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
       DATABASE_URL: postgresql://user:password@postgres/chauffoh_db
+      SIGNING_KEY: 17e4be22f7b30f783b8b7bb70dd44bf888fd7dfec30653395dc6b48472fb31a6
     build:
       context: api
       dockerfile: Dockerfile.dev
