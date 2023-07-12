@@ -1,46 +1,56 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useState } from "react";
+import { FormInputRequired } from "../components/Forms.js";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login, token } = useToken();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(username, password);
-    console.log('logged in')
-    console.log(token)
-    e.target.reset();
+    try {
+      await login(username, password);
+      e.target.reset();
+    } catch (err) {
+      e.target.reset();
+    }
   };
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, [token]);
 
   return (
-    <div className="card text-bg-light mb-3">
-      <h5 className="card-header">Login</h5>
-      <div className="card-body">
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className="mb-3">
-            <label className="form-label">Username:</label>
-            <input
-              name="username"
-              type="text"
-              className="form-control"
+    <div className="row">
+      <div className="offset-3 col-6">
+        <div className="shadow p-4 mt-4">
+          <h1>Login</h1>
+          <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+            <FormInputRequired
+              id="username"
+              placeholder="username"
+              labelText="username"
+              value={username}
               onChange={(e) => setUsername(e.target.value)}
+              type="text"
             />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password:</label>
-            <input
-              name="password"
-              type="password"
-              className="form-control"
+            <FormInputRequired
+              id="password"
+              placeholder="password"
+              labelText="password"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
+              type="password"
             />
-          </div>
-          <div>
-            <input className="btn btn-primary" type="submit" value="Login" />
-          </div>
-        </form>
+            <button className="btn btn-primary" type="submit" value="Login">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

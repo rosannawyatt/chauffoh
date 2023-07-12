@@ -10,7 +10,7 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isEmployee, setIsEmployee] = useState(false);
-  const { register, token} = useToken();
+  const { register, token } = useToken();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -28,9 +28,8 @@ function SignUp() {
       accountData,
       `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
     );
-    console.log(token)
+    navigate("/login");
     e.target.reset();
-    navigate("/");
   };
 
   return (
@@ -38,6 +37,7 @@ function SignUp() {
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit} id="create-account-form">
               <FormInputRequired
                 id="first_name"
