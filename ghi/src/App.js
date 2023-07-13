@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp.js";
 import Login from "./pages/Login.js";
 import Nav from "./components/Nav.js";
 import Main from "./pages/Main.js";
+import About from "./pages/About.js";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import PrivateRoutes from "./utils/PrivateRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
@@ -52,6 +53,7 @@ function App() {
                 <Route path="dashboard" element={<UserDashboard />} exact />
                 <Route path="request" element={<RideForm />} exact />
               </Route>
+              <Route path="about" element={<About />} />
             </Routes>
           </div>
         </AuthProvider>

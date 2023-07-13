@@ -20,6 +20,9 @@ export default function Nav() {
           <NavLink to="/request">Request a Ride</NavLink>
         </li>
         <li>
+          <NavLink to="/about">About</NavLink>
+        </li>
+        <li>
           <button className="btn btn-danger" onClick={logout}>
             Logout <i className="bi bi-box-arrow-left"></i>
           </button>
