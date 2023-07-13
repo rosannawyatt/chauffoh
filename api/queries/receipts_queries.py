@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 from decimal import Decimal
 from queries.pool import pool
+from queries.rides_queries import RideAccount, RideOut
 import os
 from psycopg_pool import ConnectionPool
 
@@ -11,10 +12,18 @@ class ReceiptIn(BaseModel):
     total: float
 
 class ReceiptOut(BaseModel):
-    id: int
+    receipt_id: int
+    total: float
     ride_id: int
     account_id : int
+
+
+class ReceiptGet(BaseModel):
+    receipt_id: int
     total: float
+    ride: RideOut
+    account: RideAccount
+
 
 class DuplicateReceiptError(ValueError):
     pass
@@ -43,9 +52,9 @@ class ReceiptQueries:
                          receipt.account_id,
                          receipt.total]
                     )
-                    print('inserted')
+                    # print('inserted')
                     returned_value = result.fetchone()
-                    print(returned_value)
+                    # print(returned_value)
                 return self.record_to_receipt(returned_value)
         except Exception as e:
             return {'error': e}
@@ -87,16 +96,22 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM receipts
-                    WHERE account_id = %s;
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    FROM receipts re
+                    INNER JOIN rides AS r
+                        ON (r.id = re.ride_id)
+                    INNER JOIN accounts AS a
+                        ON (a.id = re.account_id)
+                    WHERE a.id = %s
                     """,
                     [account_id],
                 )
-                print('values fetched \n\n\n')
+                # print('values fetched \n\n\n')
                 returned_values = result.fetchall()
-                print('receipts: ', returned_values)
-                return [self.record_to_receipt(returned_value)
+                # print('receipts: ', returned_values)
+                # print('receipts: ', returned_values[0][8].isoformat())
+                # print('receipts: ', returned_values[1])
+                return [self.get_receipt_record(returned_value)
                          for returned_value in returned_values]
 
     def get_receipt(self, receipt_id: int):
@@ -104,36 +119,67 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM receipts
-                    WHERE id = %s;
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    FROM receipts re
+                    INNER JOIN rides AS r
+                        ON (r.id = re.ride_id)
+                    INNER JOIN accounts AS a
+                        ON (a.id = re.account_id)
+                    WHERE re.id = %s
                     """,
                     [receipt_id],
                 )
 
                 returned_values = result.fetchone()
-                print('receipt: ', returned_values)
-                return self.record_to_receipt(returned_values)
+                # print('receipt: ', returned_values)
+                return self.get_receipt_record(returned_values)
 
     def get_all_receipts(self):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM receipts;
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    FROM receipts re
+                    INNER JOIN rides AS r
+                        ON (r.id = re.ride_id)
+                    INNER JOIN accounts AS a
+                        ON (a.id = re.account_id)
                     """,
                 )
 
                 returned_values = result.fetchall()
-                print('receipts: ', returned_values)
-                return [self.record_to_receipt(returned_value)
+                # print('receipts: ', returned_values)
+                return [self.get_receipt_record(returned_value)
                          for returned_value in returned_values]
 
     def record_to_receipt (self, record):
         return ReceiptOut(
-                        id=record[0],
+                        receipt_id=record[0],
                         ride_id=record[1],
                         account_id=record[2],
                         total=record[3],
                 )
+
+    def get_receipt_record(self,record):
+        return ReceiptGet(
+                        receipt_id=record[1],
+                        total=record[0],
+                        ride=RideOut(
+                            id=record[2],
+                            account_id=record[3],
+                            is_roundtrip=record[4],
+                            start_location=record[5],
+                            end_location=record[6],
+                            ride_status=record[7],
+                            datetime=record[8].isoformat(),
+                            vehicle_info=record[9],
+                            comments=record[10],
+                        ),
+                        account=RideAccount(
+                            username=record[12],
+                            first_name=record[13],
+                            last_name=record[14],
+                            email=record[15]
+                        ),
+        )

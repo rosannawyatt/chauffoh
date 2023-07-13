@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
 from typing import List, Optional, Union
 from pydantic import BaseModel
-from queries.rides_queries import RideQueries, RideIn, RideOut, DuplicateRideError, RideUpdate
+from queries.rides_queries import RideQueries, RideIn, RideOut, DuplicateRideError, RideUpdate, GetRide
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -42,7 +42,7 @@ async def create_ride(
         )
 
 
-@router.get("/api/rides/{ride_id}", response_model=RideOut)
+@router.get("/api/rides/{ride_id}", response_model=GetRide)
 def get_ride(
     ride_id: int,
     response: Response,
@@ -55,7 +55,7 @@ def get_ride(
     else:
         return record
 
-@router.get("/api/rides/", response_model=List[RideOut])
+@router.get("/api/rides/", response_model=List[GetRide])
 def get_all_rides(
     response: Response,
     queries: RideQueries = Depends(),
@@ -67,7 +67,7 @@ def get_all_rides(
     else:
         return record
 
-@router.get("/api/rides/history/{account_id}", response_model=List[RideOut])
+@router.get("/api/rides/history/{account_id}", response_model=List[GetRide])
 def get_rides_by_account(
     account_id: int,
     response: Response,

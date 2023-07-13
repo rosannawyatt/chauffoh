@@ -22,6 +22,31 @@ class RideOut(BaseModel):
     datetime: str
     vehicle_info: str
     comments: str | None
+    driver_id: int | None
+
+class RideAccount(BaseModel):
+    username: str
+    first_name: str
+    last_name: str
+    email: str
+
+class RideDriver(BaseModel):
+    username: str | None
+    first_name: str | None
+    last_name: str | None
+    email: str | None
+
+class GetRide(BaseModel):
+    id: int
+    account: RideAccount
+    is_roundtrip: bool
+    start_location: str
+    end_location: str
+    ride_status: str
+    datetime: str
+    vehicle_info: str
+    comments: str | None
+    driver: RideDriver | None
 
 #LATER FOR UPDATE
 class RideUpdate(BaseModel):
@@ -32,6 +57,7 @@ class RideUpdate(BaseModel):
     datetime: str | None
     vehicle_info: str | None
     comments: str | None
+    driver_id: int | None
 
 
 class DuplicateRideError(ValueError):
@@ -93,32 +119,36 @@ class RideQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM rides
-                    WHERE id = %s;
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    FROM rides r
+                    INNER JOIN accounts AS a ON (r.account_id = a.id)
+                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
+                    WHERE r.id = %s;
                     """,
                     [ride_id],
                 )
 
                 returned_values = result.fetchone()
                 print('ride: ', returned_values)
-                return self.record_to_ride(returned_values)
+                return self.get_ride_record(returned_values) ## DONE
 
     def get_rides_by_account(self, account_id: int):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM rides
-                    WHERE account_id = %s;
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    FROM rides r
+                    INNER JOIN accounts AS a ON (r.account_id = a.id)
+                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
+                    WHERE a.id = %s;
                     """,
                     [account_id],
                 )
                 print('values fetched \n\n\n')
                 returned_values = result.fetchall()
                 print('ride: ', returned_values)
-                return [self.record_to_ride(returned_value)
+                return [self.get_ride_record(returned_value)
                          for returned_value in returned_values]
 
     def get_all_ride(self):
@@ -126,14 +156,16 @@ class RideQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT *
-                    FROM rides;
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    FROM rides r
+                    INNER JOIN accounts AS a ON (r.account_id = a.id)
+                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
                     """,
                 )
 
                 returned_values = result.fetchall()
                 print('ride: ', returned_values)
-                return [self.record_to_ride(returned_value)
+                return [self.get_ride_record(returned_value) ## THIS ONE
                          for returned_value in returned_values]
 
     def update_ride_status(self, _id, status):
@@ -249,6 +281,18 @@ class RideQueries:
                         [RideUpdate.comments,_id],
                     )
                     # print('updated')
+
+                if RideUpdate.driver_id:
+                    result = db.execute(
+                        """
+                        UPDATE rides
+                        SET driver_id = %s
+                        WHERE id = %s
+                        RETURNING *
+                        """,
+                        [RideUpdate.driver_id,_id],
+                    )
+                    # print('updated')
                 returned_values = result.fetchone()
                 print('ride: ', returned_values)
                 return self.record_to_ride(returned_values)
@@ -264,4 +308,28 @@ class RideQueries:
                         datetime=record[6].isoformat(),
                         vehicle_info=record[7],
                         comments=record[8],
-                )
+                        driver_id=record[9]
+                    )
+    def get_ride_record (self, record):
+        return GetRide(
+                        id=record[0],
+                        account= RideAccount(
+                            username=record[10],
+                            first_name=record[11],
+                            last_name=record[12],
+                            email=record[13],
+                            ),
+                        is_roundtrip=record[2],
+                        start_location=record[3],
+                        end_location=record[4],
+                        ride_status=record[5],
+                        datetime=record[6].isoformat(),
+                        vehicle_info=record[7],
+                        comments=record[8],
+                        driver=RideDriver(
+                            username=record[14],
+                            first_name=record[15],
+                            last_name=record[16],
+                            email=record[17],
+                        )
+                    )

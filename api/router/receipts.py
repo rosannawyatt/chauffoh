@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
 from typing import List, Optional, Union
 from pydantic import BaseModel
-from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries
+from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries, ReceiptGet
 
 
 
@@ -36,7 +36,7 @@ async def delete_receipt(
     return delete
 
 
-@router.get("/api/receipts/{receipt_id}", response_model=ReceiptOut)
+@router.get("/api/receipts/{receipt_id}", response_model=ReceiptGet)
 def get_receipt(
     receipt_id: int,
     response: Response,
@@ -49,7 +49,7 @@ def get_receipt(
     else:
         return record
 
-@router.get("/api/receipts/", response_model=List[ReceiptOut])
+@router.get("/api/receipts/", response_model=List[ReceiptGet])
 def get_all_receipts(
     response: Response,
     queries: ReceiptQueries = Depends(),
@@ -61,7 +61,7 @@ def get_all_receipts(
     else:
         return record
 
-@router.get("/api/receipts/history/{account_id}", response_model=List[ReceiptOut])
+@router.get("/api/receipts/history/{account_id}", response_model=List[ReceiptGet])
 def get_receipts_by_account(
     account_id: int,
     response: Response,
