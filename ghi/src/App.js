@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import SignUp from "./pages/SignUp.js";
 import EmployeeSignUp from "./pages/EmployeeSignUp.js";
@@ -14,32 +13,9 @@ import PrivateRoutes from "./utils/PrivateRoutes.js";
 import EmployeeRoutes from "./utils/EmployeeRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
 import RideForm from "./pages/RideRequest.js";
-
+import useUser from "./hooks/useUser.js";
 function App() {
-  //   const [launchInfo, setLaunchInfo] = useState([]);
-  //   const [error, setError] = useState(null);
-
-  //   useEffect(() => {
-  //     async function getData() {
-  //       let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
-  //       console.log("fastapi url: ", url);
-  //       let response = await fetch(url);
-  //       console.log("------- hello? -------");
-  //       let data = await response.json();
-
-  //       if (response.ok) {
-  //         console.log("got launch data!");
-  //         setLaunchInfo(data.launch_details);
-  //       } else {
-  //         console.log("drat! something happened");
-  //         setError(data.message);
-  //       }
-  //     }
-  //     getData();
-  //   }, []);
-
-  // <ErrorNotification error={error} />
-  // <Construct info={launchInfo} />
+  const userData = useUser();
 
   return (
     <>
@@ -53,8 +29,16 @@ function App() {
               <Route path="login" element={<Login />}></Route>
 
               <Route element={<PrivateRoutes />}>
-                <Route path="dashboard" element={<UserDashboard />} exact />
-                <Route path="request" element={<RideForm />} exact />
+                <Route
+                  path="dashboard"
+                  element={<UserDashboard userData={userData} />}
+                  exact
+                />
+                <Route
+                  path="request"
+                  element={<RideForm userData={userData} />}
+                  exact
+                />
               </Route>
 
               <Route element={<EmployeeRoutes />}>
@@ -72,3 +56,28 @@ function App() {
 }
 
 export default App;
+
+//   const [launchInfo, setLaunchInfo] = useState([]);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     async function getData() {
+//       let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
+//       console.log("fastapi url: ", url);
+//       let response = await fetch(url);
+//       console.log("------- hello? -------");
+//       let data = await response.json();
+
+//       if (response.ok) {
+//         console.log("got launch data!");
+//         setLaunchInfo(data.launch_details);
+//       } else {
+//         console.log("drat! something happened");
+//         setError(data.message);
+//       }
+//     }
+//     getData();
+//   }, []);
+
+// <ErrorNotification error={error} />
+// <Construct info={launchInfo} />

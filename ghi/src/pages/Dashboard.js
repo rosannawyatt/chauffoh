@@ -1,28 +1,11 @@
-import { useState, useEffect } from "react";
-
-const UserDashboard = () => {
-  const [userData, setUserData] = useState({});
-
-  const handleUserData = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-    fetch(url, {
-      credentials: "include",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserData(data);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    handleUserData();
-  }, []);
-
+const UserDashboard = ({ userData }) => {
   return (
     <>
-      <h1>User</h1>
-      <p>username: {userData.account && userData.account.username}</p>
+      <h1>
+        Hi, {userData.first_name} {userData.last_name}
+      </h1>
+      <p>username: {userData && userData.username}</p>
+      <p>id: {userData && userData.id}</p>
     </>
   );
 };
