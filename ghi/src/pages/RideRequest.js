@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
 
 const RideForm = ({ userData }) => {
-  const [isRoundtrip, setIsRoundtrip] = useState("");
+  const [isRoundtrip, setIsRoundtrip] = useState(false);
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
   const [vehicle, setVehicle] = useState("");
@@ -22,7 +22,6 @@ const RideForm = ({ userData }) => {
       setCostEstimate(25);
     }
   };
-  console.log("uds", userData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,13 +43,29 @@ const RideForm = ({ userData }) => {
     };
     const response = await fetch(url, fetchConfig);
     if (response.ok) {
-      await response.json();
-      console.log("response", response);
+      const rideResponse = await response.json();
       setIsRoundtrip("");
       setStartLocation("");
       setEndLocation("");
       setVehicle("");
       setComments("");
+      const receiptData = {};
+      receiptData.ride_id = rideResponse.id;
+      receiptData.account_id = userData.id;
+      receiptData.total = costEstimate;
+  
+      const receiptUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/receipts`;
+      const receiptFetchConfig = {
+        method: "POST",
+        body: JSON.stringify(receiptData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const receiptResponse = await fetch(receiptUrl, receiptFetchConfig);
+      if (receiptResponse.ok) {
+        await receiptResponse.json();
+      }
     }
     //Add on submit functionality to create receipt here
     // const receiptData = {} etc.

@@ -13,6 +13,8 @@ import PrivateRoutes from "./utils/PrivateRoutes.js";
 import EmployeeRoutes from "./utils/EmployeeRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
 import RideForm from "./pages/RideRequest.js";
+import ReceiptPreview from "./pages/ReceiptPreview.js";
+
 import useUser from "./hooks/useUser.js";
 function App() {
   const userData = useUser();
@@ -47,6 +49,7 @@ function App() {
 
               <Route path="employee-signup" element={<EmployeeSignUp />} />
               <Route path="about" element={<About />} />
+              <Route path="/" element={<ReceiptPreview />} />
             </Routes>
           </div>
         </AuthProvider>
@@ -79,5 +82,5 @@ export default App;
 //     getData();
 //   }, []);
 
-// <ErrorNotification error={error} />
-// <Construct info={launchInfo} />
+  // <ErrorNotification error={error} />
+  // <Construct info={launchInfo} />

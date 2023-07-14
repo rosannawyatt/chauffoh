@@ -23,6 +23,9 @@ export default function Nav() {
           <NavLink to="/about">About</NavLink>
         </li>
         <li>
+          <NavLink to="/receipt/preview">Receipt Preview</NavLink>
+        </li>
+        <li>
           <NavLink to="/employee-portal">Employee Portal</NavLink>
         </li>
         <li>
