@@ -3,7 +3,7 @@ import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
-function SignUp() {
+function EmployeeSignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -21,7 +21,7 @@ function SignUp() {
     accountData.first_name = firstName;
     accountData.last_name = lastName;
     accountData.email = email;
-    accountData.is_employee = false;
+    accountData.is_employee = true;
     console.log(accountData);
 
     register(
@@ -37,9 +37,7 @@ function SignUp() {
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
-            <h5>Already Have An Account?</h5>
-            <a href="/login">Login</a>
-            <h1>Sign Up</h1>
+            <h1>Employee Sign Up</h1>
             <form onSubmit={handleSubmit} id="create-account-form">
               <FormInputRequired
                 id="first_name"
@@ -81,11 +79,7 @@ function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
               />
-              <button
-                className="btn btn-primary"
-                type="submit"
-                value="Register"
-              >
+              <button className="btn btn-info" type="submit" value="Register">
                 Create
               </button>
             </form>
@@ -96,4 +90,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default EmployeeSignUp;

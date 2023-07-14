@@ -4,12 +4,14 @@ import Construct from "./Construct.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import SignUp from "./pages/SignUp.js";
+import EmployeeSignUp from "./pages/EmployeeSignUp.js";
 import Login from "./pages/Login.js";
 import Nav from "./components/Nav.js";
 import Main from "./pages/Main.js";
 import About from "./pages/About.js";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import PrivateRoutes from "./utils/PrivateRoutes.js";
+import EmployeeRoutes from "./utils/EmployeeRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
 import RideForm from "./pages/RideRequest.js";
 
@@ -49,10 +51,17 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="signup" element={<SignUp />}></Route>
               <Route path="login" element={<Login />}></Route>
+
               <Route element={<PrivateRoutes />}>
                 <Route path="dashboard" element={<UserDashboard />} exact />
                 <Route path="request" element={<RideForm />} exact />
               </Route>
+
+              <Route element={<EmployeeRoutes />}>
+                <Route path="employee-portal" element={<EmployeeRoutes />} />
+              </Route>
+
+              <Route path="employee-signup" element={<EmployeeSignUp />} />
               <Route path="about" element={<About />} />
             </Routes>
           </div>
