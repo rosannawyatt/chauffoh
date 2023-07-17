@@ -1,6 +1,11 @@
+import RideView from "./RideView";
+import RideListbyAccount from "./RideListbyAccount";
+
 const UserDashboard = ({ userData }) => {
+  const id = 6;
   return (
     <>
+      <RideListbyAccount userData={userData} />
       <h1>
         Hi, {userData.first_name} {userData.last_name}
       </h1>

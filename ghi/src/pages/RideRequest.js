@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
+import { useNavigate } from "react-router-dom";
 
 const RideForm = ({ userData }) => {
   const [isRoundtrip, setIsRoundtrip] = useState(false);
@@ -9,6 +10,7 @@ const RideForm = ({ userData }) => {
   const [comments, setComments] = useState("");
   const [showEstimate, setShowEstimate] = useState(false);
   const [costEstimate, setCostEstimate] = useState("");
+  const navigate = useNavigate();
 
   const handleRoundtripChange = (e) => {
     setIsRoundtrip(e.target.checked);
@@ -67,6 +69,7 @@ const RideForm = ({ userData }) => {
       if (receiptResponse.ok) {
         await receiptResponse.json();
       }
+      navigate("/dashboard");
     }
     //Add on submit functionality to create receipt here
     // const receiptData = {} etc.
