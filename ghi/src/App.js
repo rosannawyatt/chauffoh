@@ -13,6 +13,10 @@ import PrivateRoutes from "./utils/PrivateRoutes.js";
 import EmployeeRoutes from "./utils/EmployeeRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
 import RideForm from "./pages/RideRequest.js";
+import RideUpdate from "./pages/RideUpdate";
+import RideList from "./pages/RideList";
+import RideListbyAccount from "./pages/RideListbyAccount";
+import RideView from "./pages/RideView";
 import ReceiptPreview from "./pages/ReceiptPreview.js";
 
 import useUser from "./hooks/useUser.js";
@@ -39,6 +43,23 @@ function App() {
                 <Route
                   path="request"
                   element={<RideForm userData={userData} />}
+                  exact
+                />
+                <Route
+                  path="rides"
+                  element={<RideList userData={userData} />}
+                />
+                <Route
+                  path="account/rides"
+                  element={<RideListbyAccount userData={userData} />}
+                />
+                <Route
+                  path="account/rides/:id"
+                  element={<RideView userData={userData} />}
+                />
+                <Route
+                  path="rides/edit"
+                  element={<RideUpdate userData={userData} />}
                   exact
                 />
               </Route>

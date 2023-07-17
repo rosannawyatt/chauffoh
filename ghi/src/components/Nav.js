@@ -29,6 +29,12 @@ export default function Nav() {
           <NavLink to="/employee-portal">Employee Portal</NavLink>
         </li>
         <li>
+          <NavLink to="/rides">Rides list</NavLink>
+        </li>
+        <li>
+          <NavLink to="/account/rides">Rides list by account</NavLink>
+        </li>
+        <li>
           <button className="btn btn-danger" onClick={logout}>
             Logout <i className="bi bi-box-arrow-left"></i>
           </button>

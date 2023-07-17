@@ -172,7 +172,7 @@ class ReceiptQueries:
                 returned_values = result.fetchall()
                 # print('receipts: ', returned_values)
                 return [self.get_receipt_record(returned_value)
-                         for returned_value in returned_values]
+                        for returned_value in returned_values]
 
     def record_to_receipt (self, record):
         return ReceiptOut(

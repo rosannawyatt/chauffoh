@@ -22,6 +22,7 @@ const RideForm = ({ userData }) => {
       setCostEstimate(25);
     }
   };
+  // console.log("uds", userData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ const RideForm = ({ userData }) => {
       receiptData.ride_id = rideResponse.id;
       receiptData.account_id = userData.id;
       receiptData.total = costEstimate;
-  
+
       const receiptUrl = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/receipts`;
       const receiptFetchConfig = {
         method: "POST",

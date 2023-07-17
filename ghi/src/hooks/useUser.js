@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import useToken from "@galvanize-inc/jwtdown-for-react";
 const useUser = () => {
   const [account, setAccount] = useState({});
 
