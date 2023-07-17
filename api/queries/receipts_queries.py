@@ -112,7 +112,7 @@ class ReceiptQueries:
                 # print('receipts: ', returned_values[0][8].isoformat())
                 # print('receipts: ', returned_values[1])
                 return [self.get_receipt_record(returned_value)
-                         for returned_value in returned_values]
+                        for returned_value in returned_values]
 
     def get_receipt(self, receipt_id: int):
         with pool.connection() as conn:
@@ -133,6 +133,27 @@ class ReceiptQueries:
                 returned_values = result.fetchone()
                 # print('receipt: ', returned_values)
                 return self.get_receipt_record(returned_values)
+
+    def get_receipt_by_ride_id(self, ride_id: int):
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    FROM receipts re
+                    INNER JOIN rides AS r
+                        ON (r.id = re.ride_id)
+                    INNER JOIN accounts AS a
+                        ON (a.id = re.account_id)
+                    WHERE r.id = %s
+                    """,
+                    [ride_id],
+                )
+
+                returned_values = result.fetchone()
+                # print('receipt: ', returned_values)
+                return self.get_receipt_record(returned_values)
+
 
     def get_all_receipts(self):
         with pool.connection() as conn:

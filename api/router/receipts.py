@@ -49,6 +49,20 @@ def get_receipt(
     else:
         return record
 
+@router.get("/api/receipts/rides/{ride_id}", response_model=ReceiptGet)
+def get_receipt_by_ride_id(
+    ride_id: int,
+    response: Response,
+    queries: ReceiptQueries = Depends(),
+):
+    record = queries.get_receipt_by_ride_id(ride_id)
+    print('record got: ', record)
+    if record is None:
+        response.status_code = 404
+    else:
+        return record
+
+
 @router.get("/api/receipts/", response_model=List[ReceiptGet])
 def get_all_receipts(
     response: Response,
