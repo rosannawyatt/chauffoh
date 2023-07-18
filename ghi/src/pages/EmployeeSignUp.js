@@ -30,7 +30,7 @@ function EmployeeSignUp() {
       accountData,
       `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
     );
-    navigate("/employee-login");
+    // navigate("/employee-login");
     // e.target.reset();
   };
 

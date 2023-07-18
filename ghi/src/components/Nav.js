@@ -29,6 +29,9 @@ export default function Nav() {
           <NavLink to="/employee-portal">Employee Portal</NavLink>
         </li>
         <li>
+          <NavLink to="/employee-dashboard">Employee Dashboard</NavLink>
+        </li>
+        <li>
           <NavLink to="/rides">Rides list</NavLink>
         </li>
         <li>
