@@ -18,26 +18,30 @@ import RideList from "./pages/RideList";
 import RideListbyAccount from "./pages/RideListbyAccount";
 import RideView from "./pages/RideView";
 import ReceiptPreview from "./pages/ReceiptPreview.js";
-
 import useUser from "./hooks/useUser.js";
-function App() {
-  const userData = useUser();
+import { useState } from "react";
+import { UserContext } from "./components/UserContext";
 
+function App() {
+
+  const [userData, setUserData] = useState(null);
+  // const userData = useUser()
   return (
     <>
       <BrowserRouter>
         <AuthProvider baseUrl={process.env.REACT_APP_USER_SERVICE_API_HOST}>
           <Nav />
           <div className="container">
+            <UserContext.Provider value={{userData, setUserData}}>
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="signup" element={<SignUp />}></Route>
-              <Route path="login" element={<Login />}></Route>
-
+              <Route path="login" element={
+              <Login />}/>
               <Route element={<PrivateRoutes />}>
                 <Route
                   path="dashboard"
-                  element={<UserDashboard userData={userData} />}
+                  element={<UserDashboard userData={userData}/>}
                   exact
                 />
                 <Route
@@ -63,15 +67,15 @@ function App() {
                   exact
                 />
               </Route>
-
               <Route element={<EmployeeRoutes />}>
                 <Route path="employee-portal" element={<EmployeeRoutes />} />
               </Route>
 
               <Route path="employee-signup" element={<EmployeeSignUp />} />
               <Route path="about" element={<About />} />
-              <Route path="/" element={<ReceiptPreview />} />
+              {/* <Route path="/" element={<ReceiptPreview />} /> */}
             </Routes>
+            </UserContext.Provider>
           </div>
         </AuthProvider>
       </BrowserRouter>

@@ -1,8 +1,8 @@
 import RideView from "./RideView";
 import RideListbyAccount from "./RideListbyAccount";
 
-const UserDashboard = ({ userData }) => {
-  const id = 6;
+const UserDashboard = ({userData}) => {
+
   return (
     <>
       <RideListbyAccount userData={userData} />

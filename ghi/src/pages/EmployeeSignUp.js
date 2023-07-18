@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
-
+import { UserContext } from "../components/UserContext.js";
 function EmployeeSignUp() {
+  const {userData, setUserData} = useContext(UserContext)
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -22,15 +24,52 @@ function EmployeeSignUp() {
     accountData.last_name = lastName;
     accountData.email = email;
     accountData.is_employee = true;
-    console.log(accountData);
+    // console.log(accountData);
 
     register(
       accountData,
       `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
     );
-    navigate("/login");
-    e.target.reset();
+    // navigate("/login");
+    // e.target.reset();
   };
+
+ const handleUserData = async () => {
+      try {
+        const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const { id, username, first_name, last_name, email, is_employee } =
+            data.account;
+          setUserData({
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+          })
+          navigate("/dashboard");
+        } else {
+          // Handle error
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    };
+
+  useEffect(() => {
+    if (token) {
+      handleUserData()
+      ;
+    }
+  }, [token]);
+
 
   return (
     <>
