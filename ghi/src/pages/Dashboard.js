@@ -1,9 +1,13 @@
 import RideView from "./RideView";
 import RideListbyAccount from "./RideListbyAccount";
+<<<<<<< HEAD
+const UserDashboard = ({ userData }) => {
+=======
 import CurrentRides from "./CurrentRides";
 const UserDashboard = ({ userData }) => {
 
 
+>>>>>>> main
   return (
     <>
       <CurrentRides userData={userData} />

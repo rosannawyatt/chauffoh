@@ -4,15 +4,12 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 
-
-const Login = () => {
+const EmployeeLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login, token } = useToken();
   const navigate = useNavigate();
-  const {userData, setUserData} = useContext(UserContext)
-
-
+  const { userData, setUserData } = useContext(UserContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -23,39 +20,38 @@ const Login = () => {
     }
   };
 
- const handleUserData = async () => {
-      try {
-        const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-        const response = await fetch(url, {
-          credentials: "include",
+  const handleUserData = async () => {
+    try {
+      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+      const response = await fetch(url, {
+        credentials: "include",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const { id, username, first_name, last_name, email, is_employee } =
+          data.account;
+        setUserData({
+          id,
+          username,
+          first_name,
+          last_name,
+          email,
+          is_employee,
         });
-        if (response.ok) {
-          const data = await response.json();
-          const { id, username, first_name, last_name, email, is_employee } =
-            data.account;
-          setUserData({
-            id,
-            username,
-            first_name,
-            last_name,
-            email,
-            is_employee,
-          })
-          navigate("/dashboard");
-        } else {
-          // Handle error
-          console.error("Failed to fetch user data");
-        }
-      } catch (error) {
+        navigate("/employee-dashboard");
+      } else {
         // Handle error
-        console.error(error);
+        console.error("Failed to fetch user data");
       }
-    };
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (token) {
-      handleUserData()
-      ;
+      handleUserData();
     }
   }, [token]);
 
@@ -63,7 +59,7 @@ const Login = () => {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Login</h1>
+          <h1 className="text-info">Employee Login</h1>
           <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
             <FormInputRequired
               id="username"
@@ -81,7 +77,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               type="password"
             />
-            <button className="btn btn-primary" type="submit" value="Login">
+            <button className="btn btn-info" type="submit" value="Login">
               Login
             </button>
           </form>
@@ -91,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default EmployeeLogin;

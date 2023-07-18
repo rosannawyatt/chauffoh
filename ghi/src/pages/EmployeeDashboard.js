@@ -1,0 +1,27 @@
+import RideList from "./RideList";
+import RideListbyAccount from "./RideListbyAccount";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+
+const EmployeeDashboard = ({ userData }) => {
+  const navigate = useNavigate();
+
+  const employeeCheck = () => {
+    if (userData.is_employee === false) {
+      navigate("/useralert");
+    }
+  };
+
+  useEffect(() => {
+    employeeCheck();
+  }, []);
+  return (
+    <>
+      <RideList />
+      <h1>EMPLOYEE ONLY</h1>
+      <p>username: {userData && userData.username}</p>
+      <p>id: {userData && userData.id}</p>
+    </>
+  );
+};
+export default EmployeeDashboard;

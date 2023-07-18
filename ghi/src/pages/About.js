@@ -111,7 +111,7 @@ export default function About() {
             <div className="d-flex justify-content-center">
               <a href="#" style={{ marginRight: "0px" }}>
                 <img
-                  ClassName="img-thumbnail"
+                  className="img-thumbnail"
                   style={{ width: "50%" }}
                   src={Linkedin_Logo}
                   alt="linkedin logo"
@@ -119,7 +119,7 @@ export default function About() {
               </a>
               <a href="#">
                 <img
-                  ClassName="img-thumbnail"
+                  className="img-thumbnail"
                   style={{ width: "100%" }}
                   src={GitHub_Logo}
                   alt="github logo"

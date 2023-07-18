@@ -3,7 +3,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const PrivateRoutes = () => {
   let auth = useToken();
-  return auth.token ? <Outlet /> : <Navigate to="/" />;
+  return auth.token ? <Outlet /> : <Navigate to="" />;
 };
 
 export default PrivateRoutes;
