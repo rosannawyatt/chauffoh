@@ -1,11 +1,12 @@
 import RideView from "./RideView";
 import RideListbyAccount from "./RideListbyAccount";
+import CurrentRides from "./CurrentRides";
+const UserDashboard = ({ userData }) => {
 
-const UserDashboard = ({userData}) => {
 
   return (
     <>
-      <RideListbyAccount userData={userData} />
+      <CurrentRides userData={userData} />
       <h1>
         Hi, {userData.first_name} {userData.last_name}
       </h1>

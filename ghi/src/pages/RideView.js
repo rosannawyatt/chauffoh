@@ -22,7 +22,7 @@ const RideView = () => {
     }
   };
 
-  console.log(ride);
+  // console.log(ride);
   // console.log(ride.account.first_name)
 
   useEffect(() => {

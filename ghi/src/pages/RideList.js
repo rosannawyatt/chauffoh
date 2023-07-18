@@ -7,14 +7,14 @@ const RideList = ({userData}) => {
 
     const loadRides = async() => {
         const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/`
-        console.log(url)
+        // console.log(url)
         const response = await fetch(url)
-        console.log(response)
+        // console.log(response)
         if (!response.ok){
             console.log('error with fetch')
         } else {
             const data = await response.json()
-            console.log(data)
+            // console.log(data)
             setRides(data)
         }
     }

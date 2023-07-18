@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const RideListbyAccount = ({ userData }) => {
+const CurrentRides = ({ userData }) => {
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
   const loadRides = async () => {
@@ -19,7 +19,7 @@ const RideListbyAccount = ({ userData }) => {
   };
 
   const loadOneRide = (ride_id) => async () => {
-    navigate(`${ride_id}`);
+    navigate(`/account/rides/${ride_id}`);
   };
 
   const updateStatus = (ride_id) => async () => {
@@ -48,7 +48,7 @@ const RideListbyAccount = ({ userData }) => {
 
   return (
     <div className="container mt-4">
-      <h1>All rides for {userData.username}</h1>
+      <h1>Current rides for {userData.username}</h1>
       {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
       <table className="table table-striped">
         <thead>
@@ -68,6 +68,7 @@ const RideListbyAccount = ({ userData }) => {
         </thead>
         <tbody>
           {rides.map((ride) => {
+            if (ride.ride_status === 'Requested' || ride.ride_status === 'requested'){
             return (
               <tr key={ride.id}>
                 <td>{ride.id}</td>
@@ -110,11 +111,11 @@ const RideListbyAccount = ({ userData }) => {
                 </td>
               </tr>
             );
-          })}
+          }})}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default RideListbyAccount;
+export default CurrentRides;
