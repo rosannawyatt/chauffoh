@@ -31,6 +31,17 @@ def get_all_account(
     else:
         return record
 
+@router.get("/api/users/current", response_model=List[AccountOut])
+def get_current_users(
+    response: Response,
+    queries: AccountQueries = Depends(),
+):
+    record = queries.get_current_users()
+    if record is None:
+        response.status_code = 404
+    else:
+        return record
+
 @router.get("/api/employees", response_model=List[AccountOut])
 def get_all_employees(
     response: Response,

@@ -27,8 +27,6 @@ class AccountOut(BaseModel):
 class DuplicateAccountError(ValueError):
     pass
 
-
-
 class AccountQueries:
     def create(self, account: AccountIn, hash_password: str) -> AccountOut:
         try:
@@ -79,66 +77,94 @@ class AccountQueries:
         except Exception as e:
             return {"error": e}
 
-
-
-
     def get_account(self,username: str):
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    """
-                    SELECT *
-                    FROM accounts
-                    WHERE username = %s;
-                    """,
-                    [username],
-                )
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT *
+                        FROM accounts
+                        WHERE username = %s;
+                        """,
+                        [username],
+                    )
 
-                record = cur.fetchone()
-                print('account row:', record)
-                return self.record_to_account(record)
+                    record = cur.fetchone()
+                    print('account row:', record)
+                    return self.record_to_account(record)
+        except Exception as e:
+            return {"error": e}
 
     def get_all_accounts(self):
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute("""SELECT *
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                                """
+                                SELECT *
                                 FROM accounts;
-                                  """
-                            )
-                record = cur.fetchall()
-                print('account row:', record)
-                return self.record_to_all_account(record)
+                                """
+                                )
+                    record = cur.fetchall()
+                    print('account row:', record)
+                    return self.record_to_all_account(record)
+        except Exception as e:
+            return {"error": e}
 
     def get_all_employees(self):
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                            """
-                            SELECT *
-                            FROM accounts
-                            WHERE is_employee = true;
-                            """
-                            )
-                record = cur.fetchall()
-                print('employee row:', record)
-                return self.record_to_all_account(record)
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                                """
+                                SELECT *
+                                FROM accounts
+                                WHERE is_employee = true;
+                                """
+                                )
+                    record = cur.fetchall()
+                    print('employee row:', record)
+                    return self.record_to_all_account(record)
+        except Exception as e:
+            return {"error": e}
 
     def get_current_employees(self):
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                            """
-                            SELECT *
-                            FROM accounts
-                            WHERE is_employee = true
-                                AND
-                                current_ride = true;
-                            """
-                            )
-                record = cur.fetchall()
-                print('employee row:', record)
-                return self.record_to_all_account(record)
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                                """
+                                SELECT *
+                                FROM accounts
+                                WHERE is_employee = true
+                                    AND
+                                    current_ride = true;
+                                """
+                                )
+                    records = cur.fetchall()
+                    print('employee row:', records)
+                    return self.record_to_all_account(records)
+        except Exception as e:
+            return {"error": e}
 
+    def get_current_users(self):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                                """
+                                SELECT *
+                                FROM accounts
+                                WHERE is_employee = false
+                                    AND current_ride = true
+                                """
+                                )
+                    record = cur.fetchall()
+                    print('user row:', record)
+                    return self.record_to_all_account(record)
+        except Exception as e:
+            return {"error": str(e)}
 
     def record_to_account (self, record):
         return AccountOut(
@@ -156,14 +182,14 @@ class AccountQueries:
         accounts = []
         for record in records:
             accounts.append(AccountOut(
-        id = record[0],
-        username = record[1],
-        hash_password = record[2],
-        first_name = record[3],
-        last_name = record[4],
-        email = record[5],
-        is_employee = record[6],
-        current_ride = record[7]
-        ))
+                id = record[0],
+                username = record[1],
+                hash_password = record[2],
+                first_name = record[3],
+                last_name = record[4],
+                email = record[5],
+                is_employee = record[6],
+                current_ride = record[7]
+                ))
         print(accounts)
         return accounts
