@@ -29,12 +29,14 @@ class RideAccount(BaseModel):
     first_name: str
     last_name: str
     email: str
+    current_ride: bool
 
 class RideDriver(BaseModel):
     username: str | None
     first_name: str | None
     last_name: str | None
     email: str | None
+    current_ride: bool | None
 
 class GetRide(BaseModel):
     id: int
@@ -119,7 +121,7 @@ class RideQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
                     FROM rides r
                     INNER JOIN accounts AS a ON (r.account_id = a.id)
                     LEFT JOIN accounts AS d ON (r.driver_id = d.id)
@@ -130,14 +132,14 @@ class RideQueries:
 
                 returned_values = result.fetchone()
                 print('ride: ', returned_values)
-                return self.get_ride_record(returned_values) ## DONE
+                return self.get_ride_record(returned_values)
 
     def get_rides_by_account(self, account_id: int):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
                     FROM rides r
                     INNER JOIN accounts AS a ON (r.account_id = a.id)
                     LEFT JOIN accounts AS d ON (r.driver_id = d.id)
@@ -156,16 +158,16 @@ class RideQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    SELECT r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
                     FROM rides r
                     INNER JOIN accounts AS a ON (r.account_id = a.id)
-                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
+                    LEFT JOIN accounts AS d ON (r.driver_id = d.id);
                     """,
                 )
 
                 returned_values = result.fetchall()
                 print('ride: ', returned_values)
-                return [self.get_ride_record(returned_value) ## THIS ONE
+                return [self.get_ride_record(returned_value)
                          for returned_value in returned_values]
 
     def update_ride_status(self, _id, status):
@@ -177,7 +179,7 @@ class RideQueries:
                     UPDATE rides
                     SET ride_status = %s
                     WHERE id = %s
-                    RETURNING *
+                    RETURNING *;
                     """,
                     [status,_id],
                 )
@@ -198,12 +200,10 @@ class RideQueries:
                         UPDATE rides
                         SET ride_status = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.ride_status,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.is_roundtrip != None:
                     result = db.execute(
@@ -211,12 +211,10 @@ class RideQueries:
                         UPDATE rides
                         SET is_roundtrip = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.is_roundtrip,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.start_location:
                     result = db.execute(
@@ -228,8 +226,6 @@ class RideQueries:
                         """,
                         [RideUpdate.start_location,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.end_location:
                     result = db.execute(
@@ -237,12 +233,10 @@ class RideQueries:
                         UPDATE rides
                         SET end_location = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.end_location,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.datetime:
                     result = db.execute(
@@ -250,12 +244,10 @@ class RideQueries:
                         UPDATE rides
                         SET datetime = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.datetime,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.vehicle_info:
                     result = db.execute(
@@ -263,12 +255,10 @@ class RideQueries:
                         UPDATE rides
                         SET vehicle_info = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.vehicle_info,_id],
                     )
-                    # print('updated')
-                    # returned_values = result.fetchone()
 
                 if RideUpdate.comments:
                     result = db.execute(
@@ -276,11 +266,10 @@ class RideQueries:
                         UPDATE rides
                         SET comments = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.comments,_id],
                     )
-                    # print('updated')
 
                 if RideUpdate.driver_id:
                     result = db.execute(
@@ -288,11 +277,10 @@ class RideQueries:
                         UPDATE rides
                         SET driver_id = %s
                         WHERE id = %s
-                        RETURNING *
+                        RETURNING *;
                         """,
                         [RideUpdate.driver_id,_id],
                     )
-                    # print('updated')
                 returned_values = result.fetchone()
                 print('ride: ', returned_values)
                 return self.record_to_ride(returned_values)
@@ -318,6 +306,7 @@ class RideQueries:
                             first_name=record[11],
                             last_name=record[12],
                             email=record[13],
+                            current_ride=record[14]
                             ),
                         is_roundtrip=record[2],
                         start_location=record[3],
@@ -327,9 +316,10 @@ class RideQueries:
                         vehicle_info=record[7],
                         comments=record[8],
                         driver=RideDriver(
-                            username=record[14],
-                            first_name=record[15],
-                            last_name=record[16],
-                            email=record[17],
+                            username=record[15],
+                            first_name=record[16],
+                            last_name=record[17],
+                            email=record[18],
+                            current_ride=record[19]
                         )
                     )

@@ -4,7 +4,6 @@ from queries.pool import pool
 import os
 from psycopg_pool import ConnectionPool
 
-# pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
 
 class AccountIn(BaseModel):
     username: str
@@ -12,7 +11,8 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    is_employee: bool
+    is_employee: bool = False
+    current_ride: bool = False
 
 class AccountOut(BaseModel):
     id: int
@@ -22,6 +22,7 @@ class AccountOut(BaseModel):
     last_name: str
     email: str
     is_employee: bool
+    current_ride: bool
 
 class DuplicateAccountError(ValueError):
     pass
@@ -43,9 +44,10 @@ class AccountQueries:
                             first_name,
                             last_name,
                             email,
-                            is_employee)
+                            is_employee,
+                            current_ride)
                         VALUES
-                            (%s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING
                         id,
                         username,
@@ -57,7 +59,8 @@ class AccountQueries:
                             account.first_name,
                             account.last_name,
                             account.email,
-                            account.is_employee
+                            account.is_employee,
+                            account.current_ride
                         ]
                     )
                     print("insert worked?")
@@ -70,7 +73,8 @@ class AccountQueries:
                         first_name=account.first_name,
                         last_name=account.last_name,
                         email=account.email,
-                        is_employee=account.is_employee
+                        is_employee=account.is_employee,
+                        current_ride=account.current_ride
                     )
         except Exception as e:
             return {"error": e}
@@ -85,7 +89,7 @@ class AccountQueries:
                     """
                     SELECT *
                     FROM accounts
-                    WHERE username = %s
+                    WHERE username = %s;
                     """,
                     [username],
                 )
@@ -98,13 +102,13 @@ class AccountQueries:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute("""SELECT *
-                                FROM accounts
+                                FROM accounts;
                                   """
                             )
                 record = cur.fetchall()
                 print('account row:', record)
                 return self.record_to_all_account(record)
- 
+
     def get_all_employees(self):
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -112,11 +116,27 @@ class AccountQueries:
                             """
                             SELECT *
                             FROM accounts
-                            WHERE is_employee = true
+                            WHERE is_employee = true;
                             """
                             )
                 record = cur.fetchall()
-                print('account row:', record)
+                print('employee row:', record)
+                return self.record_to_all_account(record)
+
+    def get_current_employees(self):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                            """
+                            SELECT *
+                            FROM accounts
+                            WHERE is_employee = true
+                                AND
+                                current_ride = true;
+                            """
+                            )
+                record = cur.fetchall()
+                print('employee row:', record)
                 return self.record_to_all_account(record)
 
 
@@ -129,6 +149,7 @@ class AccountQueries:
         last_name = record[4],
         email = record[5],
         is_employee = record[6],
+        current_ride = record[7]
         )
 
     def record_to_all_account (self, records):
@@ -142,6 +163,7 @@ class AccountQueries:
         last_name = record[4],
         email = record[5],
         is_employee = record[6],
+        current_ride = record[7]
         ))
         print(accounts)
         return accounts

@@ -42,6 +42,17 @@ def get_all_employees(
     else:
         return record
 
+@router.get("/api/employees/current", response_model=List[AccountOut])
+def get_current_employees(
+    response: Response,
+    queries: AccountQueries = Depends(),
+):
+    record = queries.get_current_employees()
+    if record is None:
+        response.status_code = 404
+    else:
+        return record
+
 
 class AccountForm(BaseModel):
     username: str
@@ -52,8 +63,6 @@ class AccountToken(Token):
 
 class HttpError(BaseModel):
     detail: str
-
-
 
 
 @router.get("/api/protected", response_model=bool)

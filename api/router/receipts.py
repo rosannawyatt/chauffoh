@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
 from typing import List, Optional, Union
-from pydantic import BaseModel
 from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries, ReceiptGet, ReceiptGetWithDriver
-
 
 
 router = APIRouter()

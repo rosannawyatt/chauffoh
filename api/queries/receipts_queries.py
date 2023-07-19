@@ -69,9 +69,7 @@ class ReceiptQueries:
                          receipt.account_id,
                          receipt.total]
                     )
-                    # print('inserted')
                     returned_value = result.fetchone()
-                    # print(returned_value)
                 return self.record_to_receipt(returned_value)
         except Exception as e:
             return {'error': e}
@@ -85,7 +83,7 @@ class ReceiptQueries:
                         """
                         UPDATE receipts
                         SET total = -total
-                        WHERE ride_id = %s
+                        WHERE ride_id = %s;
                         """,
                         [ride_id]
                     )
@@ -100,7 +98,7 @@ class ReceiptQueries:
                     result = db.execute(
                         """
                         DELETE FROM receipts
-                        WHERE ride_id = %s
+                        WHERE ride_id = %s;
                         """,
                         [ride_id]
                     )
@@ -113,21 +111,17 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
                     INNER JOIN accounts AS a
                         ON (a.id = re.account_id)
-                    WHERE a.id = %s
+                    WHERE a.id = %s;
                     """,
                     [account_id],
                 )
-                # print('values fetched \n\n\n')
                 returned_values = result.fetchall()
-                # print('receipts: ', returned_values)
-                # print('receipts: ', returned_values[0][8].isoformat())
-                # print('receipts: ', returned_values[1])
                 return [self.get_receipt_record(returned_value)
                         for returned_value in returned_values]
 
@@ -136,19 +130,18 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
                     INNER JOIN accounts AS a
                         ON (a.id = re.account_id)
-                    WHERE re.id = %s
+                    WHERE re.id = %s;
                     """,
                     [receipt_id],
                 )
 
                 returned_values = result.fetchone()
-                # print('receipt: ', returned_values)
                 return self.get_receipt_record(returned_values)
 
     def get_receipt_by_ride_id(self, ride_id: int):
@@ -156,7 +149,7 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
@@ -178,17 +171,16 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
                     INNER JOIN accounts AS a
-                        ON (a.id = re.account_id)
+                        ON (a.id = re.account_id);
                     """,
                 )
 
                 returned_values = result.fetchall()
-                # print('receipts: ', returned_values)
                 return [self.get_receipt_record(returned_value)
                         for returned_value in returned_values]
 
@@ -219,7 +211,8 @@ class ReceiptQueries:
                             username=record[12],
                             first_name=record[13],
                             last_name=record[14],
-                            email=record[15]
+                            email=record[15],
+                            current_ride=record[16],
                         ),
         )
 
@@ -238,16 +231,18 @@ class ReceiptQueries:
                             vehicle_info=record[9],
                             comments=record[10],
                             driver=RideDriver(
-                                username=record[16],
-                                first_name=record[17],
-                                last_name=record[18],
-                                email=record[19],
+                                username=record[17],
+                                first_name=record[18],
+                                last_name=record[19],
+                                email=record[20],
+                                current_ride=record[21],
                             ),
                         ),
                         account=RideAccount(
                             username=record[12],
                             first_name=record[13],
                             last_name=record[14],
-                            email=record[15]
+                            email=record[15],
+                            current_ride=record[16],
                         ),
         )

@@ -1,25 +1,8 @@
 from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
 from typing import List, Optional, Union
-from pydantic import BaseModel
 from queries.rides_queries import RideQueries, RideIn, RideOut, DuplicateRideError, RideUpdate, GetRide
-from jwtdown_fastapi.authentication import Token
-from authenticator import authenticator
 
 router = APIRouter()
-
-# class RideForm(BaseModel):
-#     account_id: int
-#     is_roundtrip: bool
-#     start_location: str
-#     end_location: str
-#     ride_status: str
-#     datetime: str
-#     vehicle_info: str
-#     comments: str
-
-# class HttpError(BaseModel):
-#     detail: str
-
 
 @router.post("/api/rides", response_model = RideOut)
 async def create_ride(
@@ -80,7 +63,6 @@ def get_rides_by_account(
     else:
         return record
 
-#MAKE STRETCH TO UPDATE ANYTHING
 @router.patch("/api/rides/set_status/{ride_id}/{status}", response_model=RideOut)
 def update_ride_status_by_account(
     ride_id: int,
