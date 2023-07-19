@@ -17,13 +17,13 @@ export default function Nav() {
           <NavLink to="/login">Login</NavLink>
         </li>
         <li>
-          <NavLink to="/request">Request a Ride</NavLink>
+          <NavLink to="/dashboard/request">Request a Ride</NavLink>
         </li>
         <li>
           <NavLink to="/about">About</NavLink>
         </li>
         <li>
-          <NavLink to="/receipt/preview">Receipt Preview</NavLink>
+          <NavLink to="dashboard/receipt/preview">Receipt Preview</NavLink>
         </li>
         <li>
           <NavLink to="/employee-portal">Employee Portal</NavLink>
@@ -32,10 +32,10 @@ export default function Nav() {
           <NavLink to="/employee-dashboard">Employee Dashboard</NavLink>
         </li>
         <li>
-          <NavLink to="/rides">Rides list</NavLink>
+          <NavLink to="/employee-dashboard/rides">Rides list</NavLink>
         </li>
         <li>
-          <NavLink to="/account/rides">Rides list by account</NavLink>
+          <NavLink to="/dashboard/account/rides">Rides list by account</NavLink>
         </li>
         <li>
           <button className="btn btn-danger" onClick={logout}>

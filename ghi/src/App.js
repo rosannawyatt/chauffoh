@@ -22,7 +22,7 @@ import ReceiptPreview from "./pages/ReceiptPreview.js";
 import useUser from "./hooks/useUser.js";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
-
+import EmployeeCheck from "./utils/EmployeeCheck";
 function App() {
   const [userData, setUserData] = useState(null);
   return (
@@ -36,23 +36,21 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="signup" element={<SignUp />}></Route>
                 <Route path="login" element={<Login />} />
-                <Route element={<PrivateRoutes />}>
+    <Route element={<PrivateRoutes />}>
+          <Route path='dashboard/'>
                   <Route
-                    path="dashboard"
+                    path=""
                     element={<UserDashboard userData={userData} />}
                     exact
                   />
                   <Route
-                    path="request"
+                    path="request/"
                     element={<RideForm userData={userData} />}
                     exact
                   />
+
                   <Route
-                    path="rides"
-                    element={<RideList userData={userData} />}
-                  />
-                  <Route
-                    path="account/rides"
+                    path="account/rides/"
                     element={<RideListbyAccount userData={userData} />}
                   />
                   <Route
@@ -60,15 +58,25 @@ function App() {
                     element={<RideView userData={userData} />}
                   />
                   <Route
-                    path="rides/edit"
+                    path="rides/edit/"
                     element={<RideUpdate userData={userData} />}
                     exact
                   />
+          </Route>
+
+  <Route element={<EmployeeCheck/>}>
+          <Route path='employee-dashboard/'>
                   <Route
-                    path="employee-dashboard"
+                    path=""
                     element={<EmployeeDashboard userData={userData} />}
                     exact
                   />
+                  <Route
+                    path="rides/"
+                    element={<RideList userData={userData} />}
+                  />
+          </Route>
+    </Route>
                 </Route>
                 <Route element={<EmployeeRoutes />}>
                   <Route path="employee-portal" element={<EmployeeRoutes />} />{" "}

@@ -19,7 +19,7 @@ const RideListbyAccount = ({ userData }) => {
   };
 
   const loadOneRide = (ride_id) => async () => {
-    navigate(`${ride_id}`);
+    navigate(`/dashboard/account/rides/${ride_id}`);
   };
 
   const updateStatus = (ride_id) => async () => {
@@ -78,7 +78,15 @@ const RideListbyAccount = ({ userData }) => {
                 <td>{ride.start_location}</td>
                 <td>{ride.end_location}</td>
                 <td>{ride.ride_status}</td>
-                <td>{ride.datetime}</td>
+                <td>{new Date(ride.datetime).toLocaleString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })
+              }</td>
                 <td>{ride.vehicle_info}</td>
                 <td>{ride.comments}</td>
                 <td>
