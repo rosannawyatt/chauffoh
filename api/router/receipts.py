@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
 from typing import List, Optional, Union
 from pydantic import BaseModel
-from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries, ReceiptGet
+from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries, ReceiptGet, ReceiptGetWithDriver
 
 
 
@@ -49,8 +49,8 @@ def get_receipt(
     else:
         return record
 
-@router.get("/api/receipts/rides/{ride_id}", response_model=ReceiptGet)
-def get_receipt_by_ride_id(
+@router.get("/api/receipts/rides/{ride_id}", response_model=ReceiptGetWithDriver)
+def get_receipt_by_ride_id_add_driver(
     ride_id: int,
     response: Response,
     queries: ReceiptQueries = Depends(),

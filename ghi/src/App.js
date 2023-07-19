@@ -19,6 +19,8 @@ import RideList from "./pages/RideList";
 import RideListbyAccount from "./pages/RideListbyAccount";
 import RideView from "./pages/RideView";
 import ReceiptPreview from "./pages/ReceiptPreview.js";
+import FinalReceipt from "./pages/FinalReceipt.js";
+
 import useUser from "./hooks/useUser.js";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
@@ -57,6 +59,10 @@ function App() {
                     path="account/rides/:id"
                     element={<RideView userData={userData} />}
                   />
+                <Route
+                  path="account/rides/:id/receipt"
+                  element={<FinalReceipt userData={userData} />}
+                />
                   <Route
                     path="rides/edit/"
                     element={<RideUpdate userData={userData} />}

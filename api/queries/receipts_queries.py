@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 from decimal import Decimal
 from queries.pool import pool
-from queries.rides_queries import RideAccount, RideOut
+from queries.rides_queries import RideAccount, RideOut, RideDriver
 import os
 from psycopg_pool import ConnectionPool
 
@@ -24,6 +24,23 @@ class ReceiptGet(BaseModel):
     ride: RideOut
     account: RideAccount
 
+class GetReceiptRide(BaseModel):
+    id: int
+    account_id: int
+    is_roundtrip: bool
+    start_location: str
+    end_location: str
+    ride_status: str
+    datetime: str
+    vehicle_info: str
+    comments: str | None
+    driver: RideDriver | None
+
+class ReceiptGetWithDriver(BaseModel):
+    receipt_id: int
+    total: float
+    ride: GetReceiptRide
+    account: RideAccount
 
 class DuplicateReceiptError(ValueError):
     pass
@@ -139,20 +156,21 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email
+                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, d.username, d.first_name, d.last_name, d.email
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
                     INNER JOIN accounts AS a
                         ON (a.id = re.account_id)
-                    WHERE r.id = %s
+                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
+                    WHERE r.id = %s;
                     """,
                     [ride_id],
                 )
 
                 returned_values = result.fetchone()
-                # print('receipt: ', returned_values)
-                return self.get_receipt_record(returned_values)
+                print('receipt: ', returned_values)
+                return self.get_receipt_record_with_driver(returned_values)
 
 
     def get_all_receipts(self):
@@ -196,6 +214,35 @@ class ReceiptQueries:
                             datetime=record[8].isoformat(),
                             vehicle_info=record[9],
                             comments=record[10],
+                        ),
+                        account=RideAccount(
+                            username=record[12],
+                            first_name=record[13],
+                            last_name=record[14],
+                            email=record[15]
+                        ),
+        )
+
+    def get_receipt_record_with_driver(self,record):
+        return ReceiptGetWithDriver(
+                        receipt_id=record[1],
+                        total=record[0],
+                        ride=GetReceiptRide(
+                            id=record[2],
+                            account_id=record[3],
+                            is_roundtrip=record[4],
+                            start_location=record[5],
+                            end_location=record[6],
+                            ride_status=record[7],
+                            datetime=record[8].isoformat(),
+                            vehicle_info=record[9],
+                            comments=record[10],
+                            driver=RideDriver(
+                                username=record[16],
+                                first_name=record[17],
+                                last_name=record[18],
+                                email=record[19],
+                            ),
                         ),
                         account=RideAccount(
                             username=record[12],

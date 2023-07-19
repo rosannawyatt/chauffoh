@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
 
 const RideView = () => {
   const [ride, setRide] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate();
 
   // console.log(id)
   const loadOneRide = async (ride_id) => {
@@ -22,7 +24,11 @@ const RideView = () => {
     }
   };
 
-  // console.log(ride);
+  const loadOneReceipt = () => async () => {
+    navigate(`receipt`);
+  };
+
+  console.log(ride);
   // console.log(ride.account.first_name)
 
   useEffect(() => {
@@ -31,7 +37,7 @@ const RideView = () => {
 
   return (
     <div className="container mt-4">
-      <h1>Ride Info specific ride </h1>
+      <h1>Ride Information</h1>
       {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
       <table className="table table-striped">
         <thead>
@@ -46,6 +52,7 @@ const RideView = () => {
             <th>Vehicle</th>
             <th>Comments</th>
             <th>Driver Name</th>
+            <th>Option</th>
           </tr>
         </thead>
         <tbody>
@@ -67,6 +74,14 @@ const RideView = () => {
                 ? ride.driver.first_name
                 : "Not Assigned"}{" "}
               {ride.driver && ride.driver.last_name}
+            </td>
+            <td>
+              <button
+                onClick={loadOneReceipt()}
+                className="btn btn-warning"
+              >
+                View Receipt
+              </button>
             </td>
           </tr>
         </tbody>
