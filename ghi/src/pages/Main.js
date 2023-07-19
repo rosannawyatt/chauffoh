@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import banner1 from "../images/chauffoh-banner1.png";
 
 export default function Home() {

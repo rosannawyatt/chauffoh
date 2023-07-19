@@ -1,17 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
+import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 function EmployeeSignUp() {
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [isEmployee, setIsEmployee] = useState(false);
   const { register, token } = useToken();
   const navigate = useNavigate();
 

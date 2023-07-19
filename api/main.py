@@ -34,3 +34,7 @@ def launch_details():
             "min": "00"
         }
     }
+
+@app.get("/")
+def read_root():
+  return {"Hello": "World"}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import GitHub_Logo from "../images/github-mark.png";
 import Linkedin_Logo from "../images/LI-In-Bug.png";
 

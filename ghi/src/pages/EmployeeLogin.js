@@ -9,7 +9,7 @@ const EmployeeLogin = () => {
   const [password, setPassword] = useState("");
   const { login, token } = useToken();
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

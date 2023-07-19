@@ -1,4 +1,3 @@
-import RideView from "./RideView";
 import RideListbyAccount from "./RideListbyAccount";
 import CurrentRides from "./CurrentRides";
 const UserDashboard = ({ userData }) => {

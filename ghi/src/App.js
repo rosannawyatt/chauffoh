@@ -14,22 +14,21 @@ import PrivateRoutes from "./utils/PrivateRoutes.js";
 import EmployeeRoutes from "./utils/EmployeeRoutes.js";
 import UserDashboard from "./pages/Dashboard.js";
 import RideForm from "./pages/RideRequest.js";
-import RideUpdate from "./pages/RideUpdate";
 import RideList from "./pages/RideList";
 import RideListbyAccount from "./pages/RideListbyAccount";
 import RideView from "./pages/RideView";
-import ReceiptPreview from "./pages/ReceiptPreview.js";
 import FinalReceipt from "./pages/FinalReceipt.js";
-
-import useUser from "./hooks/useUser.js";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
 import EmployeeCheck from "./utils/EmployeeCheck";
+
 function App() {
   const [userData, setUserData] = useState(null);
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AuthProvider baseUrl={process.env.REACT_APP_USER_SERVICE_API_HOST}>
           <Nav />
           <div className="container">
@@ -63,11 +62,6 @@ function App() {
                   path="account/rides/:id/receipt"
                   element={<FinalReceipt userData={userData} />}
                 />
-                  <Route
-                    path="rides/edit/"
-                    element={<RideUpdate userData={userData} />}
-                    exact
-                  />
           </Route>
 
   <Route element={<EmployeeCheck/>}>
@@ -91,7 +85,6 @@ function App() {
                 <Route path="employee-login" element={<EmployeeLogin />} />
                 <Route path="useralert" element={<UserAlert />} />
                 <Route path="about" element={<About />} />
-                {/* <Route path="/" element={<ReceiptPreview />} /> */}
               </Routes>
             </UserContext.Provider>
           </div>

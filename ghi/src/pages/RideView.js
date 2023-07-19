@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
+
 
 const RideView = () => {
   const [ride, setRide] = useState({});

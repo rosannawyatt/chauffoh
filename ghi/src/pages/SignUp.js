@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
+import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
