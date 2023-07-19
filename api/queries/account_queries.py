@@ -104,6 +104,20 @@ class AccountQueries:
                 record = cur.fetchall()
                 print('account row:', record)
                 return self.record_to_all_account(record)
+ 
+    def get_all_employees(self):
+        with pool.connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                            """
+                            SELECT *
+                            FROM accounts
+                            WHERE is_employee = true
+                            """
+                            )
+                record = cur.fetchall()
+                print('account row:', record)
+                return self.record_to_all_account(record)
 
 
     def record_to_account (self, record):
