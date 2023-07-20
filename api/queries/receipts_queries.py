@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from queries.rides_queries import RideAccount, RideOut, RideDriver
-
+from datetime import datetime
 
 class ReceiptIn(BaseModel):
     ride_id: int
@@ -27,6 +27,8 @@ class GetReceiptRide(BaseModel):
     id: int
     account_id: int
     is_roundtrip: bool
+    # roundtrip_date: str | None
+    roundtrip_date: datetime | None
     start_location: str
     end_location: str
     ride_status: str
@@ -111,86 +113,94 @@ class ReceiptQueries:
             return {'error': e}
 
     def get_receipts_by_account(self, account_id: int):
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name,
-                      a.last_name, a.email, a.current_ride
-                    FROM receipts re
-                    INNER JOIN rides AS r
-                        ON (r.id = re.ride_id)
-                    INNER JOIN accounts AS a
-                        ON (a.id = re.account_id)
-                    WHERE a.id = %s;
-                    """,
-                    [account_id],
-                )
-                returned_values = result.fetchall()
-                return [self.get_receipt_record(returned_value)
-                        for returned_value in returned_values]
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                        FROM receipts re
+                        INNER JOIN rides AS r
+                            ON (r.id = re.ride_id)
+                        INNER JOIN accounts AS a
+                            ON (a.id = re.account_id)
+                        WHERE a.id = %s;
+                        """,
+                        [account_id],
+                    )
+                    returned_values = result.fetchall()
+                    return [self.get_receipt_record(returned_value)
+                            for returned_value in returned_values]
+        except Exception as e:
+            return {"error": e}
 
     def get_receipt(self, receipt_id: int):
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name,
-                      a.last_name, a.email, a.current_ride
-                    FROM receipts re
-                    INNER JOIN rides AS r
-                        ON (r.id = re.ride_id)
-                    INNER JOIN accounts AS a
-                        ON (a.id = re.account_id)
-                    WHERE re.id = %s;
-                    """,
-                    [receipt_id],
-                )
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                        FROM receipts re
+                        INNER JOIN rides AS r
+                            ON (r.id = re.ride_id)
+                        INNER JOIN accounts AS a
+                            ON (a.id = re.account_id)
+                        WHERE re.id = %s;
+                        """,
+                        [receipt_id],
+                    )
 
-                returned_values = result.fetchone()
-                return self.get_receipt_record(returned_values)
+                    returned_values = result.fetchone()
+                    return self.get_receipt_record(returned_values)
+        except Exception as e:
+            return {"error": e}
 
     def get_receipt_by_ride_id(self, ride_id: int):
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name,
-                      a.last_name,a.email, a.current_ride, d.username,
-                      d.first_name, d.last_name, d.email, d.current_ride
-                    FROM receipts re
-                    INNER JOIN rides AS r
-                        ON (r.id = re.ride_id)
-                    INNER JOIN accounts AS a
-                        ON (a.id = re.account_id)
-                    LEFT JOIN accounts AS d ON (r.driver_id = d.id)
-                    WHERE r.id = %s;
-                    """,
-                    [ride_id],
-                )
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
+                        FROM receipts re
+                        INNER JOIN rides AS r
+                            ON (r.id = re.ride_id)
+                        INNER JOIN accounts AS a
+                            ON (a.id = re.account_id)
+                        LEFT JOIN accounts AS d ON (r.driver_id = d.id)
+                        WHERE r.id = %s;
+                        """,
+                        [ride_id],
+                    )
 
                 returned_values = result.fetchone()
                 print('receipt: ', returned_values)
                 return self.get_receipt_record_with_driver(returned_values)
+        except Exception as e:
+            return {"error": e}
+
 
     def get_all_receipts(self):
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name,
-                      a.last_name, a.email, a.current_ride
-                    FROM receipts re
-                    INNER JOIN rides AS r
-                        ON (r.id = re.ride_id)
-                    INNER JOIN accounts AS a
-                        ON (a.id = re.account_id);
-                    """,
-                )
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                        FROM receipts re
+                        INNER JOIN rides AS r
+                            ON (r.id = re.ride_id)
+                        INNER JOIN accounts AS a
+                            ON (a.id = re.account_id);
+                        """,
+                    )
 
-                returned_values = result.fetchall()
-                return [self.get_receipt_record(returned_value)
-                        for returned_value in returned_values]
+                    returned_values = result.fetchall()
+                    return [self.get_receipt_record(returned_value)
+                            for returned_value in returned_values]
+        except Exception as e:
+            return {"error": e}
 
     def record_to_receipt(self, record):
         return ReceiptOut(
@@ -208,19 +218,20 @@ class ReceiptQueries:
                             id=record[2],
                             account_id=record[3],
                             is_roundtrip=record[4],
-                            start_location=record[5],
-                            end_location=record[6],
-                            ride_status=record[7],
-                            datetime=record[8].isoformat(),
-                            vehicle_info=record[9],
-                            comments=record[10],
+                            roundtrip_date=record[5],
+                            start_location=record[6],
+                            end_location=record[7],
+                            ride_status=record[8],
+                            datetime=record[9].isoformat(),
+                            vehicle_info=record[10],
+                            comments=record[11],
                         ),
                         account=RideAccount(
-                            username=record[12],
-                            first_name=record[13],
-                            last_name=record[14],
-                            email=record[15],
-                            current_ride=record[16],
+                            username=record[13],
+                            first_name=record[14],
+                            last_name=record[15],
+                            email=record[16],
+                            current_ride=record[17],
                         ),
         )
 
@@ -232,25 +243,26 @@ class ReceiptQueries:
                             id=record[2],
                             account_id=record[3],
                             is_roundtrip=record[4],
-                            start_location=record[5],
-                            end_location=record[6],
-                            ride_status=record[7],
-                            datetime=record[8].isoformat(),
-                            vehicle_info=record[9],
-                            comments=record[10],
+                            roundtrip_date=record[5],
+                            start_location=record[6],
+                            end_location=record[7],
+                            ride_status=record[8],
+                            datetime=record[9].isoformat(),
+                            vehicle_info=record[10],
+                            comments=record[11],
                             driver=RideDriver(
-                                username=record[17],
-                                first_name=record[18],
-                                last_name=record[19],
-                                email=record[20],
-                                current_ride=record[21],
+                                username=record[18],
+                                first_name=record[19],
+                                last_name=record[20],
+                                email=record[21],
+                                current_ride=record[22],
                             ),
                         ),
                         account=RideAccount(
-                            username=record[12],
-                            first_name=record[13],
-                            last_name=record[14],
-                            email=record[15],
-                            current_ride=record[16],
+                            username=record[13],
+                            first_name=record[14],
+                            last_name=record[15],
+                            email=record[16],
+                            current_ride=record[17],
                         ),
         )

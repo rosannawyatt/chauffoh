@@ -6,7 +6,7 @@ from queries.receipts_queries import (ReceiptIn, ReceiptOut,
                                       ReceiptGet, ReceiptGetWithDriver)
 
 
-router = APIRouter()
+router = APIRouter(tags=["receipts"])
 
 
 @router.post("/api/receipts", response_model=ReceiptOut)

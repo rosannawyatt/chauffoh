@@ -4,7 +4,21 @@ from authenticator import authenticator
 
 import os
 from router import accounts, rides, receipts
-app = FastAPI()
+
+tags_metadata = [
+    {
+        "name": "users",
+    },
+    {
+        "name": "rides",
+    },
+        {
+        "name": "receipts",
+    },
+]
+
+
+app = FastAPI(openapi_tags=tags_metadata)
 
 app.include_router(accounts.router)
 app.include_router(rides.router)
@@ -13,7 +27,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         os.environ.get("CORS_HOST", "http://localhost:3000"),
-        # os.environ.get("CORS_HOST", "http://localhost:8000")
     ],
     allow_credentials=True,
     allow_methods=["*"],

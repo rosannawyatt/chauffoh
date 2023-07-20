@@ -9,7 +9,7 @@ from queries.account_queries import (AccountQueries,
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
-router = APIRouter()
+router = APIRouter(tags=["users"])
 
 
 @router.get("/api/accounts/{username}", response_model=AccountOut)
@@ -107,7 +107,7 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError)
+@router.post("/api/accounts", response_model=AccountToken | HttpError, tags=["users"])
 async def create_account(
     info: AccountIn,
     request: Request,

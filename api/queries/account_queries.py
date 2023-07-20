@@ -164,7 +164,7 @@ class AccountQueries:
                     print('user row:', record)
                     return self.record_to_all_account(record)
         except Exception as e:
-            return {"error": str(e)}
+            return {"error": e}
 
     def record_to_account(self, record):
         return AccountOut(
