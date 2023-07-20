@@ -27,6 +27,16 @@ class DuplicateAccountError(ValueError):
     pass
 
 
+class AccountUpdate(BaseModel):
+    username: str | None
+    password: str | None
+    first_name: str | None
+    last_name: str | None
+    email: str | None
+    is_employee: bool | None
+    current_ride: bool | None
+
+
 class AccountQueries:
     def create(self, account: AccountIn, hash_password: str) -> AccountOut:
         try:
@@ -111,6 +121,61 @@ class AccountQueries:
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
+    
+    def update_account(self, _id, AccountUpdate):
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                returned_values = None
+                if AccountUpdate.first_name:
+                    print("printing first name")
+                    result = db.execute(
+                        """
+                        UPDATE accounts
+                        SET first_name = %s
+                        WHERE id = %s
+                        RETURNING *
+                        """,
+                        [AccountUpdate.first_name,_id],
+                    )
+
+                if AccountUpdate.last_name:
+                    print("printing last name")
+                    result = db.execute(
+                        """
+                        UPDATE accounts
+                        SET last_name = %s
+                        WHERE id = %s
+                        RETURNING *
+                        """,
+                        [AccountUpdate.last_name,_id],
+                    )
+
+                if AccountUpdate.email:
+                    print("printing email")
+                    result = db.execute(
+                        """
+                        UPDATE accounts
+                        SET email = %s
+                        WHERE id = %s
+                        RETURNING *
+                        """,
+                        [AccountUpdate.email,_id],
+                    )
+
+                if AccountUpdate.current_ride:
+                    print("printing current ride")
+                    result = db.execute(
+                        """
+                        UPDATE accounts
+                        SET current_ride = %s
+                        WHERE id = %s
+                        RETURNING *
+                        """,
+                        [AccountUpdate.current_ride,_id],
+                    )
+                returned_values = result.fetchone()
+                print('updates: ', returned_values)
+                return self.record_to_account(returned_values)
 
     def get_all_employees(self):
         try:

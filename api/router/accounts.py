@@ -3,9 +3,7 @@ from fastapi import (APIRouter, Depends,
                      HTTPException)
 from typing import List
 from pydantic import BaseModel
-from queries.account_queries import (AccountQueries,
-                                     AccountOut, AccountIn,
-                                     DuplicateAccountError)
+from queries.account_queries import AccountQueries, AccountOut, AccountIn, DuplicateAccountError, AccountUpdate
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -48,6 +46,21 @@ def get_current_users(
     else:
         return record
 
+
+@router.patch("/api/accounts/{account_id}", response_model=AccountOut)
+def update(
+    account_id: int,
+    info: AccountUpdate,
+    response: Response,
+    queries: AccountQueries = Depends(),
+):
+    print(response)
+    record = queries.update_account(account_id, info)
+    print('record got: ', record)
+    if record is None:
+        response.status_code = 404
+    else:
+        return record
 
 @router.get("/api/employees", response_model=List[AccountOut])
 def get_all_employees(

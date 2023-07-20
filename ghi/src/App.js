@@ -18,6 +18,9 @@ import RideList from "./pages/RideList";
 import RideListbyAccount from "./pages/RideListbyAccount";
 import RideView from "./pages/RideView";
 import FinalReceipt from "./pages/FinalReceipt.js";
+import UserAccountDetails from "./pages/UserAccountDetails";
+import EditAccountDetails from "./pages/EditAccountDetails";
+
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
 import EmployeeCheck from "./utils/EmployeeCheck";
@@ -61,6 +64,16 @@ function App() {
                 <Route
                   path="account/rides/:id/receipt"
                   element={<FinalReceipt userData={userData} />}
+                />
+                <Route
+                  path="account/details"
+                  element={<UserAccountDetails userData={userData} />}
+                  exact
+                />
+                <Route
+                  path="edit/account"
+                  element={<EditAccountDetails userData={userData} />}
+                  exact
                 />
           </Route>
 

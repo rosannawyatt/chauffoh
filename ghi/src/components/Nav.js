@@ -35,6 +35,9 @@ export default function Nav() {
           <NavLink to="/dashboard/account/rides">Rides list by account</NavLink>
         </li>
         <li>
+          <NavLink to="/dashboard/account/details/">Account</NavLink>
+        </li>
+        <li>
           <button className="btn btn-danger" onClick={logout}>
             Logout <i className="bi bi-box-arrow-left"></i>
           </button>
