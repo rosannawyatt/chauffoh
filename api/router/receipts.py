@@ -1,6 +1,9 @@
-from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
-from typing import List, Optional, Union
-from queries.receipts_queries import ReceiptIn, ReceiptOut, DuplicateReceiptError, ReceiptQueries, ReceiptGet, ReceiptGetWithDriver
+from fastapi import (APIRouter, Depends, Response, status,
+                     HTTPException)
+from typing import List
+from queries.receipts_queries import (ReceiptIn, ReceiptOut,
+                                      DuplicateReceiptError, ReceiptQueries,
+                                      ReceiptGet, ReceiptGetWithDriver)
 
 
 router = APIRouter()
@@ -12,10 +15,10 @@ async def create_receipts(
     repo: ReceiptQueries = Depends(),
 ):
     try:
-        print('info: ',info)
+        print('info: ', info)
         print("trying")
         receipt = repo.create(info)
-        print("receipt from create method",receipt)
+        print("receipt from create method", receipt)
         print("done trying")
         return receipt
     except DuplicateReceiptError:
@@ -27,8 +30,8 @@ async def create_receipts(
 
 @router.delete('/api/receipts/rides/{ride_id}')
 async def delete_receipt(
-    ride_id : int,
-    repo : ReceiptQueries = Depends(),
+    ride_id: int,
+    repo: ReceiptQueries = Depends(),
 ):
     delete = repo.delete(ride_id)
     return delete
@@ -47,7 +50,9 @@ def get_receipt(
     else:
         return record
 
-@router.get("/api/receipts/rides/{ride_id}", response_model=ReceiptGetWithDriver)
+
+@router.get("/api/receipts/rides/{ride_id}",
+            response_model=ReceiptGetWithDriver)
 def get_receipt_by_ride_id_add_driver(
     ride_id: int,
     response: Response,
@@ -73,7 +78,9 @@ def get_all_receipts(
     else:
         return record
 
-@router.get("/api/receipts/history/{account_id}", response_model=List[ReceiptGet])
+
+@router.get("/api/receipts/history/{account_id}",
+            response_model=List[ReceiptGet])
 def get_receipts_by_account(
     account_id: int,
     response: Response,

@@ -1,8 +1,5 @@
-from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from queries.pool import pool
-import os
-from psycopg_pool import ConnectionPool
 
 
 class AccountIn(BaseModel):
@@ -14,6 +11,7 @@ class AccountIn(BaseModel):
     is_employee: bool = False
     current_ride: bool = False
 
+
 class AccountOut(BaseModel):
     id: int
     username: str
@@ -24,8 +22,10 @@ class AccountOut(BaseModel):
     is_employee: bool
     current_ride: bool
 
+
 class DuplicateAccountError(ValueError):
     pass
+
 
 class AccountQueries:
     def create(self, account: AccountIn, hash_password: str) -> AccountOut:
@@ -63,7 +63,7 @@ class AccountQueries:
                     )
                     print("insert worked?")
                     id = result.fetchone()[0]
-                    print("ID GOTTEN",id)
+                    print("ID GOTTEN", id)
                     return AccountOut(
                         id=id,
                         username=account.username,
@@ -77,7 +77,7 @@ class AccountQueries:
         except Exception as e:
             return {"error": e}
 
-    def get_account(self,username: str):
+    def get_account(self, username: str):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
@@ -166,30 +166,30 @@ class AccountQueries:
         except Exception as e:
             return {"error": str(e)}
 
-    def record_to_account (self, record):
+    def record_to_account(self, record):
         return AccountOut(
-        id = record[0],
-        username = record[1],
-        hash_password = record[2],
-        first_name = record[3],
-        last_name = record[4],
-        email = record[5],
-        is_employee = record[6],
-        current_ride = record[7]
-        )
+            id=record[0],
+            username=record[1],
+            hash_password=record[2],
+            first_name=record[3],
+            last_name=record[4],
+            email=record[5],
+            is_employee=record[6],
+            current_ride=record[7]
+            )
 
-    def record_to_all_account (self, records):
+    def record_to_all_account(self, records):
         accounts = []
         for record in records:
             accounts.append(AccountOut(
-                id = record[0],
-                username = record[1],
-                hash_password = record[2],
-                first_name = record[3],
-                last_name = record[4],
-                email = record[5],
-                is_employee = record[6],
-                current_ride = record[7]
+                id=record[0],
+                username=record[1],
+                hash_password=record[2],
+                first_name=record[3],
+                last_name=record[4],
+                email=record[5],
+                is_employee=record[6],
+                current_ride=record[7]
                 ))
         print(accounts)
         return accounts

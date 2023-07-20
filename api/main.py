@@ -35,6 +35,7 @@ def launch_details():
         }
     }
 
+
 @app.get("/")
 def read_root():
-  return {"Hello": "World"}
+    return {"Hello": "World"}

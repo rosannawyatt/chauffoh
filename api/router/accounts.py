@@ -1,7 +1,11 @@
-from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
-from typing import List, Optional, Union
+from fastapi import (APIRouter, Depends,
+                     Response, Request, status,
+                     HTTPException)
+from typing import List
 from pydantic import BaseModel
-from queries.account_queries import AccountQueries, AccountOut, AccountIn, DuplicateAccountError
+from queries.account_queries import (AccountQueries,
+                                     AccountOut, AccountIn,
+                                     DuplicateAccountError)
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -20,6 +24,7 @@ def get_account(
     else:
         return record
 
+
 @router.get("/api/accounts/", response_model=List[AccountOut])
 def get_all_account(
     response: Response,
@@ -30,6 +35,7 @@ def get_all_account(
         response.status_code = 404
     else:
         return record
+
 
 @router.get("/api/users/current", response_model=List[AccountOut])
 def get_current_users(
@@ -42,6 +48,7 @@ def get_current_users(
     else:
         return record
 
+
 @router.get("/api/employees", response_model=List[AccountOut])
 def get_all_employees(
     response: Response,
@@ -52,6 +59,7 @@ def get_all_employees(
         response.status_code = 404
     else:
         return record
+
 
 @router.get("/api/employees/current", response_model=List[AccountOut])
 def get_current_employees(
@@ -69,16 +77,22 @@ class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: AccountOut
+
 
 class HttpError(BaseModel):
     detail: str
 
 
 @router.get("/api/protected", response_model=bool)
-async def get_token(request: Request,account_data: dict = Depends(authenticator.get_current_account_data)):
+async def get_token_protected(request: Request,
+                              account_data:
+                              dict =
+                              Depends(authenticator.get_current_account_data)):
     return True
+
 
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
@@ -92,6 +106,7 @@ async def get_token(
             "account": account,
         }
 
+
 @router.post("/api/accounts", response_model=AccountToken | HttpError)
 async def create_account(
     info: AccountIn,
@@ -103,7 +118,7 @@ async def create_account(
     try:
         print("trying")
         account = repo.create(info, hash_password)
-        print("account from create method",account)
+        print("account from create method", account)
         print("done trying")
     except DuplicateAccountError:
         raise HTTPException(
@@ -114,5 +129,5 @@ async def create_account(
     form = AccountForm(username=info.username, password=info.password)
     print("Testing ")
     token = await authenticator.login(response, request, form, repo)
-    print("token",token)
+    print("token", token)
     return AccountToken(account=account, **token.dict())

@@ -1,10 +1,13 @@
-from fastapi import APIRouter, Depends, Response, Request, status, HTTPException
-from typing import List, Optional, Union
-from queries.rides_queries import RideQueries, RideIn, RideOut, DuplicateRideError, RideUpdate, GetRide
+from fastapi import (APIRouter, Depends, Response,
+                     Request, status, HTTPException)
+from typing import List
+from queries.rides_queries import (RideQueries, RideIn, RideOut,
+                                   DuplicateRideError, RideUpdate, GetRide)
 
 router = APIRouter()
 
-@router.post("/api/rides", response_model = RideOut)
+
+@router.post("/api/rides", response_model=RideOut)
 async def create_ride(
     info: RideIn,
     request: Request,
@@ -12,10 +15,10 @@ async def create_ride(
     repo: RideQueries = Depends(),
 ):
     try:
-        print('info: ',info)
+        print('info: ', info)
         print("trying")
         ride = repo.create(info)
-        print("ride from create method",ride)
+        print("ride from create method", ride)
         print("done trying")
         return ride
     except DuplicateRideError:
@@ -38,6 +41,7 @@ def get_ride(
     else:
         return record
 
+
 @router.get("/api/rides/", response_model=List[GetRide])
 def get_all_rides(
     response: Response,
@@ -49,6 +53,7 @@ def get_all_rides(
         response.status_code = 404
     else:
         return record
+
 
 @router.get("/api/rides/history/{account_id}", response_model=List[GetRide])
 def get_rides_by_account(
@@ -63,7 +68,9 @@ def get_rides_by_account(
     else:
         return record
 
-@router.patch("/api/rides/set_status/{ride_id}/{status}", response_model=RideOut)
+
+@router.patch("/api/rides/set_status/{ride_id}/{status}",
+              response_model=RideOut)
 def update_ride_status_by_account(
     ride_id: int,
     status: str,
@@ -71,12 +78,13 @@ def update_ride_status_by_account(
     queries: RideQueries = Depends(),
 ):
     print(response)
-    record = queries.update_ride_status(ride_id,status)
+    record = queries.update_ride_status(ride_id, status)
     print('record got: ', record)
     if record is None:
         response.status_code = 404
     else:
         return record
+
 
 @router.patch("/api/rides/set_status/{ride_id}", response_model=RideOut)
 def update(
@@ -86,7 +94,7 @@ def update(
     queries: RideQueries = Depends(),
 ):
     print(response)
-    record = queries.update(ride_id,info)
+    record = queries.update(ride_id, info)
     print('record got: ', record)
     if record is None:
         response.status_code = 404

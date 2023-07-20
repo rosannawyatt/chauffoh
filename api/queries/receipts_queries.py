@@ -1,21 +1,19 @@
-from fastapi import FastAPI, Request
-from pydantic import BaseModel, Field
-from decimal import Decimal
+from pydantic import BaseModel
 from queries.pool import pool
 from queries.rides_queries import RideAccount, RideOut, RideDriver
-import os
-from psycopg_pool import ConnectionPool
+
 
 class ReceiptIn(BaseModel):
     ride_id: int
-    account_id : int
+    account_id: int
     total: float
+
 
 class ReceiptOut(BaseModel):
     receipt_id: int
     total: float
     ride_id: int
-    account_id : int
+    account_id: int
 
 
 class ReceiptGet(BaseModel):
@@ -23,6 +21,7 @@ class ReceiptGet(BaseModel):
     total: float
     ride: RideOut
     account: RideAccount
+
 
 class GetReceiptRide(BaseModel):
     id: int
@@ -36,17 +35,20 @@ class GetReceiptRide(BaseModel):
     comments: str | None
     driver: RideDriver | None
 
+
 class ReceiptGetWithDriver(BaseModel):
     receipt_id: int
     total: float
     ride: GetReceiptRide
     account: RideAccount
 
+
 class DuplicateReceiptError(ValueError):
     pass
 
+
 class ReceiptQueries:
-    def create(self, receipt:ReceiptIn) -> ReceiptOut:
+    def create(self, receipt: ReceiptIn) -> ReceiptOut:
         try:
             print('receipt: ', receipt)
             with pool.connection() as conn:
@@ -87,8 +89,9 @@ class ReceiptQueries:
                         """,
                         [ride_id]
                     )
+                    print(result)
         except Exception as e:
-            return {'error' : e}
+            return {'error': e}
 
     def delete(self, ride_id):
         try:
@@ -102,16 +105,18 @@ class ReceiptQueries:
                         """,
                         [ride_id]
                     )
+                    print(result)
                     return {'message': 'Deleted'}
         except Exception as e:
-            return {'error' : e}
+            return {'error': e}
 
     def get_receipts_by_account(self, account_id: int):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                    SELECT re.total, re.id, r.*, a.username, a.first_name,
+                      a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
@@ -130,7 +135,8 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                    SELECT re.total, re.id, r.*, a.username, a.first_name,
+                      a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
@@ -149,7 +155,9 @@ class ReceiptQueries:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride, d.username, d.first_name, d.last_name, d.email, d.current_ride
+                    SELECT re.total, re.id, r.*, a.username, a.first_name,
+                      a.last_name,a.email, a.current_ride, d.username,
+                      d.first_name, d.last_name, d.email, d.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
@@ -165,13 +173,13 @@ class ReceiptQueries:
                 print('receipt: ', returned_values)
                 return self.get_receipt_record_with_driver(returned_values)
 
-
     def get_all_receipts(self):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    SELECT re.total, re.id, r.*, a.username, a.first_name, a.last_name, a.email, a.current_ride
+                    SELECT re.total, re.id, r.*, a.username, a.first_name,
+                      a.last_name, a.email, a.current_ride
                     FROM receipts re
                     INNER JOIN rides AS r
                         ON (r.id = re.ride_id)
@@ -184,7 +192,7 @@ class ReceiptQueries:
                 return [self.get_receipt_record(returned_value)
                         for returned_value in returned_values]
 
-    def record_to_receipt (self, record):
+    def record_to_receipt(self, record):
         return ReceiptOut(
                         receipt_id=record[0],
                         ride_id=record[1],
@@ -192,7 +200,7 @@ class ReceiptQueries:
                         total=record[3],
                 )
 
-    def get_receipt_record(self,record):
+    def get_receipt_record(self, record):
         return ReceiptGet(
                         receipt_id=record[1],
                         total=record[0],
@@ -216,7 +224,7 @@ class ReceiptQueries:
                         ),
         )
 
-    def get_receipt_record_with_driver(self,record):
+    def get_receipt_record_with_driver(self, record):
         return ReceiptGetWithDriver(
                         receipt_id=record[1],
                         total=record[0],
