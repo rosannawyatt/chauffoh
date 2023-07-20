@@ -179,8 +179,8 @@ class ReceiptQueries:
                         [ride_id],
                     )
 
-                returned_values = result.fetchone()
-                print("receipt: ", returned_values)
+                    returned_values = result.fetchone()
+                    print("receipt: ", returned_values)
                 return self.get_receipt_record_with_driver(returned_values)
         except Exception as e:
             return {"error": e}
