@@ -3,7 +3,8 @@ from fastapi import (APIRouter, Depends,
                      HTTPException)
 from typing import List
 from pydantic import BaseModel
-from queries.account_queries import AccountQueries, AccountOut, AccountIn, DuplicateAccountError, AccountUpdate
+from queries.account_queries import (AccountQueries, AccountOut, AccountIn,
+                                     DuplicateAccountError, AccountUpdate)
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -61,6 +62,7 @@ def update(
         response.status_code = 404
     else:
         return record
+
 
 @router.get("/api/employees", response_model=List[AccountOut])
 def get_all_employees(
@@ -120,7 +122,8 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError, tags=["users"])
+@router.post("/api/accounts",
+             response_model=AccountToken | HttpError, tags=["users"])
 async def create_account(
     info: AccountIn,
     request: Request,

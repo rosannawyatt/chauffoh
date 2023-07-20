@@ -1,17 +1,29 @@
+import { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
-import useToken from "@galvanize-inc/jwtdown-for-react";
 import { UserContext } from "../components/UserContext";
 import { useContext } from "react";
+
 const PrivateRoutes = () => {
-    const {userData, setUserData} = useContext(UserContext
-    )
-      if (userData === null) {
-        return <Navigate to="/"/>
-      } else {
-        return < Outlet/>
-      }
-  // let auth = useToken();
-  // return auth.token ? <Outlet /> : <Navigate to="/" />;
+  const { userData, setUserData } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const savedUserData = localStorage.getItem("userData");
+    if (!userData && savedUserData) {
+      setUserData(JSON.parse(savedUserData));
+    }
+    setIsLoading(false);
+  }, [userData, setUserData]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (userData === null) {
+    return <Navigate to="/" />;
+  } else {
+    return <Outlet />;
+  }
 };
 
 export default PrivateRoutes;

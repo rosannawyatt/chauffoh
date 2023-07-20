@@ -1,6 +1,5 @@
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
 import { FormInputRequired, FormInputOptional } from "../components/Forms";
 
 const EmployeeRoutes = () => {
@@ -11,7 +10,7 @@ const EmployeeRoutes = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (employeeCode == code) {
+      if (employeeCode === code) {
         navigate("/employee-signup");
       }
       e.target.reset();

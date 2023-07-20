@@ -10,6 +10,7 @@ const EmployeeLogin = () => {
   const { login, token } = useToken();
   const navigate = useNavigate();
   const { setUserData } = useContext(UserContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -30,21 +31,21 @@ const EmployeeLogin = () => {
         const data = await response.json();
         const { id, username, first_name, last_name, email, is_employee } =
           data.account;
-        setUserData({
+        const userData = {
           id,
           username,
           first_name,
           last_name,
           email,
           is_employee,
-        });
+        };
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setUserData(userData);
         navigate("/employee-dashboard");
       } else {
-        // Handle error
         console.error("Failed to fetch user data");
       }
     } catch (error) {
-      // Handle error
       console.error(error);
     }
   };
@@ -52,6 +53,11 @@ const EmployeeLogin = () => {
   useEffect(() => {
     if (token) {
       handleUserData();
+    } else {
+      const savedUserData = localStorage.getItem("userData");
+      if (savedUserData) {
+        setUserData(JSON.parse(savedUserData));
+      }
     }
   }, [token]);
 

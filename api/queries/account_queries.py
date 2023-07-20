@@ -68,8 +68,8 @@ class AccountQueries:
                             account.last_name,
                             account.email,
                             account.is_employee,
-                            account.current_ride
-                        ]
+                            account.current_ride,
+                        ],
                     )
                     print("insert worked?")
                     id = result.fetchone()[0]
@@ -82,7 +82,7 @@ class AccountQueries:
                         last_name=account.last_name,
                         email=account.email,
                         is_employee=account.is_employee,
-                        current_ride=account.current_ride
+                        current_ride=account.current_ride,
                     )
         except Exception as e:
             return {"error": e}
@@ -101,7 +101,7 @@ class AccountQueries:
                     )
 
                     record = cur.fetchone()
-                    print('account row:', record)
+                    print("account row:", record)
                     return self.record_to_account(record)
         except Exception as e:
             return {"error": e}
@@ -111,17 +111,17 @@ class AccountQueries:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
-                                """
+                        """
                                 SELECT *
                                 FROM accounts;
                                 """
-                                )
+                    )
                     record = cur.fetchall()
-                    print('account row:', record)
+                    print("account row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
-    
+
     def update_account(self, _id, AccountUpdate):
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -135,7 +135,7 @@ class AccountQueries:
                         WHERE id = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.first_name,_id],
+                        [AccountUpdate.first_name, _id],
                     )
 
                 if AccountUpdate.last_name:
@@ -147,7 +147,7 @@ class AccountQueries:
                         WHERE id = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.last_name,_id],
+                        [AccountUpdate.last_name, _id],
                     )
 
                 if AccountUpdate.email:
@@ -159,7 +159,7 @@ class AccountQueries:
                         WHERE id = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.email,_id],
+                        [AccountUpdate.email, _id],
                     )
 
                 if AccountUpdate.current_ride:
@@ -171,10 +171,10 @@ class AccountQueries:
                         WHERE id = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.current_ride,_id],
+                        [AccountUpdate.current_ride, _id],
                     )
                 returned_values = result.fetchone()
-                print('updates: ', returned_values)
+                print("updates: ", returned_values)
                 return self.record_to_account(returned_values)
 
     def get_all_employees(self):
@@ -182,14 +182,14 @@ class AccountQueries:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
-                                """
+                        """
                                 SELECT *
                                 FROM accounts
                                 WHERE is_employee = true;
                                 """
-                                )
+                    )
                     record = cur.fetchall()
-                    print('employee row:', record)
+                    print("employee row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
@@ -199,16 +199,16 @@ class AccountQueries:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
-                                """
+                        """
                                 SELECT *
                                 FROM accounts
                                 WHERE is_employee = true
                                     AND
                                     current_ride = true;
                                 """
-                                )
+                    )
                     records = cur.fetchall()
-                    print('employee row:', records)
+                    print("employee row:", records)
                     return self.record_to_all_account(records)
         except Exception as e:
             return {"error": e}
@@ -218,15 +218,15 @@ class AccountQueries:
             with pool.connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
-                                """
+                        """
                                 SELECT *
                                 FROM accounts
                                 WHERE is_employee = false
                                     AND current_ride = true
                                 """
-                                )
+                    )
                     record = cur.fetchall()
-                    print('user row:', record)
+                    print("user row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
@@ -240,21 +240,23 @@ class AccountQueries:
             last_name=record[4],
             email=record[5],
             is_employee=record[6],
-            current_ride=record[7]
-            )
+            current_ride=record[7],
+        )
 
     def record_to_all_account(self, records):
         accounts = []
         for record in records:
-            accounts.append(AccountOut(
-                id=record[0],
-                username=record[1],
-                hash_password=record[2],
-                first_name=record[3],
-                last_name=record[4],
-                email=record[5],
-                is_employee=record[6],
-                current_ride=record[7]
-                ))
+            accounts.append(
+                AccountOut(
+                    id=record[0],
+                    username=record[1],
+                    hash_password=record[2],
+                    first_name=record[3],
+                    last_name=record[4],
+                    email=record[5],
+                    is_employee=record[6],
+                    current_ride=record[7],
+                )
+            )
         print(accounts)
         return accounts

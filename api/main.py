@@ -12,7 +12,7 @@ tags_metadata = [
     {
         "name": "rides",
     },
-        {
+    {
         "name": "receipts",
     },
 ]

@@ -114,7 +114,7 @@ const RideList = ({ userData }) => {
                   ) ? (
                     <button
                       onClick={ClaimRide(ride.id)}
-                      className="btn btn-danger"
+                      className="btn btn-success"
                     >
                       Claim
                     </button>
@@ -125,7 +125,7 @@ const RideList = ({ userData }) => {
                 <td>
                   <button
                     onClick={UpdateRide(ride.id)}
-                    className="btn btn-danger"
+                    className="btn btn-warning"
                   >
                     Update
                   </button>

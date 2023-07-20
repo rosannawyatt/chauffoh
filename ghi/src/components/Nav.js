@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import { UserContext } from "./UserContext";
+import { useContext } from "react";
 
-export default function Nav() {
-  const { logout } = useToken();
-
+export default function Nav({ userData }) {
   return (
     <nav>
       <ul>
@@ -38,9 +38,7 @@ export default function Nav() {
           <NavLink to="/dashboard/account/details/">Account</NavLink>
         </li>
         <li>
-          <button className="btn btn-danger" onClick={logout}>
-            Logout <i className="bi bi-box-arrow-left"></i>
-          </button>
+          <NavLink to="/logout">Logout</NavLink>
         </li>
       </ul>
     </nav>
