@@ -1,11 +1,9 @@
 import { NavLink } from "react-router-dom";
-import useToken from "@galvanize-inc/jwtdown-for-react";
-import { UserContext } from "./UserContext";
-import { useContext } from "react";
 
 export default function Nav({ userData }) {
+  if (userData === null){
   return (
-    <nav>
+    <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{backgroundColor: "#08797E"}}>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>
@@ -17,30 +15,35 @@ export default function Nav({ userData }) {
           <NavLink to="/login">Login</NavLink>
         </li>
         <li>
-          <NavLink to="/dashboard/request">Request a Ride</NavLink>
-        </li>
-        <li>
           <NavLink to="/about">About</NavLink>
         </li>
         <li>
           <NavLink to="/employee-portal">Employee Portal</NavLink>
         </li>
+      </ul>
+    </nav>
+  );
+  } else {
+    return (
+      <>
+      <div className="navbar navbar-expand-lg bg-body-tertiary" style={{backgroundColor: "#08797E"}}>
+          <nav>
+      <ul>
         <li>
-          <NavLink to="/employee-dashboard">Employee Dashboard</NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
+
         <li>
-          <NavLink to="/employee-dashboard/rides">Rides list</NavLink>
+          <NavLink to="/about">About</NavLink>
         </li>
-        <li>
-          <NavLink to="/dashboard/account/rides">Rides list by account</NavLink>
-        </li>
-        <li>
-          <NavLink to="/dashboard/account/details/">Account</NavLink>
-        </li>
+
         <li>
           <NavLink to="/logout">Logout</NavLink>
         </li>
       </ul>
     </nav>
-  );
+    </div>
+    </>
+    )
+  }
 }

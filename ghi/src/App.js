@@ -21,7 +21,7 @@ import RideView from "./pages/RideView";
 import FinalReceipt from "./pages/FinalReceipt.js";
 import UserAccountDetails from "./pages/UserAccountDetails";
 import EditAccountDetails from "./pages/EditAccountDetails";
-
+import SideBarNav from "./components/SideBarNav";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
 import EmployeeCheck from "./utils/EmployeeCheck";
@@ -34,9 +34,12 @@ function App() {
     <>
       <BrowserRouter basename={basename}>
         <AuthProvider baseUrl={process.env.REACT_APP_USER_SERVICE_API_HOST}>
-          <div className="container">
             <UserContext.Provider value={{ userData, setUserData }}>
               <Nav userData={userData} />
+              <div className='container'>
+              <div className='row'>
+              <SideBarNav userData={userData}/>
+              <div className="col-9">
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="signup" element={<SignUp />}></Route>
@@ -100,8 +103,10 @@ function App() {
                 <Route path="useralert" element={<UserAlert />} />
                 <Route path="about" element={<About />} />
               </Routes>
+              </div>
+              </div>
+              </div>
             </UserContext.Provider>
-          </div>
         </AuthProvider>
       </BrowserRouter>
     </>
