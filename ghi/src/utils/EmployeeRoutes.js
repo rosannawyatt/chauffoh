@@ -1,6 +1,6 @@
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { FormInputRequired, FormInputOptional } from "../components/Forms";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FormInputRequired } from "../components/Forms";
 
 const EmployeeRoutes = () => {
   const [employeeCode, setEmployeeCode] = useState("");

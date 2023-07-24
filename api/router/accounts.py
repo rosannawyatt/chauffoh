@@ -122,8 +122,8 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts",
-             response_model=AccountToken | HttpError, tags=["users"])
+@router.post("/api/accounts", response_model=AccountToken | HttpError,
+             tags=["users"])
 async def create_account(
     info: AccountIn,
     request: Request,

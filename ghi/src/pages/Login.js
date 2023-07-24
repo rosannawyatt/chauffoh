@@ -21,44 +21,44 @@ const Login = () => {
     }
   };
 
-  const handleUserData = async () => {
-    try {
-      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-      const response = await fetch(url, {
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        const {
-          id,
-          username,
-          first_name,
-          last_name,
-          email,
-          is_employee,
-          current_ride,
-        } = data.account;
-        const userData = {
-          id,
-          username,
-          first_name,
-          last_name,
-          email,
-          is_employee,
-          current_ride,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUserData(userData);
-        navigate("/dashboard");
-      } else {
-        console.error("Failed to fetch user data");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const handleUserData = async () => {
+      try {
+        const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const {
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+            current_ride,
+          } = data.account;
+          const userData = {
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+            current_ride,
+          };
+          localStorage.setItem("userData", JSON.stringify(userData));
+          setUserData(userData);
+          navigate("/dashboard");
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     if (token) {
       handleUserData();
     } else {
@@ -67,7 +67,7 @@ const Login = () => {
         setUserData(JSON.parse(savedUserData));
       }
     }
-  }, [token]);
+  }, [token, setUserData, navigate]);
 
   return (
     <div className="row">

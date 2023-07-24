@@ -118,7 +118,7 @@ class ReceiptQueries:
                     result = db.execute(
                         """
                         SELECT re.total, re.id, r.*, a.username, a.first_name,
-                        a.last_name, a.email, a.current_ride
+                            a.last_name, a.email, a.current_ride
                         FROM receipts re
                         INNER JOIN rides AS r
                             ON (r.id = re.ride_id)
@@ -143,7 +143,7 @@ class ReceiptQueries:
                     result = db.execute(
                         """
                         SELECT re.total, re.id, r.*, a.username, a.first_name,
-                        a.last_name, a.email, a.current_ride
+                            a.last_name, a.email, a.current_ride
                         FROM receipts re
                         INNER JOIN rides AS r
                             ON (r.id = re.ride_id)
@@ -166,8 +166,8 @@ class ReceiptQueries:
                     result = db.execute(
                         """
                         SELECT re.total, re.id, r.*, a.username, a.first_name,
-                        a.last_name, a.email, a.current_ride, d.username,
-                        d.first_name, d.last_name, d.email, d.current_ride
+                            a.last_name, a.email, a.current_ride, d.username,
+                            d.first_name, d.last_name, d.email, d.current_ride
                         FROM receipts re
                         INNER JOIN rides AS r
                             ON (r.id = re.ride_id)
@@ -180,7 +180,7 @@ class ReceiptQueries:
                     )
 
                     returned_values = result.fetchone()
-                    print("receipt: ", returned_values)
+                print('receipt: ', returned_values)
                 return self.get_receipt_record_with_driver(returned_values)
         except Exception as e:
             return {"error": e}
@@ -192,7 +192,7 @@ class ReceiptQueries:
                     result = db.execute(
                         """
                         SELECT re.total, re.id, r.*, a.username, a.first_name,
-                        a.last_name, a.email, a.current_ride
+                            a.last_name, a.email, a.current_ride
                         FROM receipts re
                         INNER JOIN rides AS r
                             ON (r.id = re.ride_id)

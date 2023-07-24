@@ -1,14 +1,14 @@
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { Outlet, Navigate } from "react-router-dom";
+import { useContext } from "react";
 
-import { FormInputRequired, FormInputOptional } from "../components/Forms";
+// import { FormInputRequired, FormInputOptional } from "../components/Forms";
 import { UserContext } from "../components/UserContext";
 
 
 
 
   const EmployeeCheck = () => {
-      const {userData, setUserData} = useContext(UserContext
+      const {userData} = useContext(UserContext
     )
       if (userData.is_employee === false) {
         return <Navigate to="useralert"/>

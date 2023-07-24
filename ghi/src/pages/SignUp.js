@@ -10,64 +10,62 @@ function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [isEmployee, setIsEmployee] = useState(false);
   const { register, token } = useToken();
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const accountData = {};
-    accountData.username = username;
-    accountData.password = password;
-    accountData.first_name = firstName;
-    accountData.last_name = lastName;
-    accountData.email = email;
-    accountData.is_employee = false;
-    // console.log(accountData);
+    const accountData = {
+      username,
+      password,
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      is_employee: false,
+    };
 
     register(
       accountData,
       `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
     );
-
-    // navigate("/login");
-    // e.target.reset();
   };
 
-  const handleUserData = async () => {
-    try {
-      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-      const response = await fetch(url, {
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        const { id, username, first_name, last_name, email, is_employee } =
-          data.account;
-        setUserData({
-          id,
-          username,
-          first_name,
-          last_name,
-          email,
-          is_employee,
-        });
-        navigate("/dashboard");
-      } else {
-        // Handle error
-        console.error("Failed to fetch user data");
-      }
-    } catch (error) {
-      // Handle error
-      console.error(error);
-    }
-  };
   useEffect(() => {
+    const handleUserData = async () => {
+      try {
+        const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const { id, username, first_name, last_name, email, is_employee } =
+            data.account;
+          setUserData({
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+          });
+          navigate("/dashboard");
+        } else {
+          // Handle error
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    };
+
     if (token) {
       handleUserData();
     }
-  }, [token]);
+  }, [token, navigate, setUserData]);
+
   return (
     <>
       <div className="row">

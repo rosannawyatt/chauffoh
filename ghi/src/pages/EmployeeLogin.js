@@ -21,36 +21,36 @@ const EmployeeLogin = () => {
     }
   };
 
-  const handleUserData = async () => {
-    try {
-      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
-      const response = await fetch(url, {
-        credentials: "include",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        const { id, username, first_name, last_name, email, is_employee } =
-          data.account;
-        const userData = {
-          id,
-          username,
-          first_name,
-          last_name,
-          email,
-          is_employee,
-        };
-        localStorage.setItem("userData", JSON.stringify(userData));
-        setUserData(userData);
-        navigate("/employee-dashboard");
-      } else {
-        console.error("Failed to fetch user data");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const handleUserData = async () => {
+      try {
+        const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/token`;
+        const response = await fetch(url, {
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const { id, username, first_name, last_name, email, is_employee } =
+            data.account;
+          setUserData({
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+          });
+          navigate("/employee-dashboard");
+        } else {
+          // Handle error
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        // Handle error
+        console.error(error);
+      }
+    };
+
     if (token) {
       handleUserData();
     } else {
@@ -59,7 +59,7 @@ const EmployeeLogin = () => {
         setUserData(JSON.parse(savedUserData));
       }
     }
-  }, [token]);
+  }, [token, navigate, setUserData]);
 
   return (
     <div className="row">

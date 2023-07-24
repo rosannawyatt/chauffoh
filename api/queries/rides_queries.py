@@ -140,9 +140,8 @@ class RideQueries:
                     result = db.execute(
                         """
                         SELECT r.*, a.username, a.first_name, a.last_name,
-                        a.email, a.current_ride,
-                        d.username, d.first_name, d.last_name,
-                        d.email, d.current_ride
+                            a.email, a.current_ride, d.username, d.first_name,
+                            d.last_name, d.email, d.current_ride
                         FROM rides r
                         INNER JOIN accounts AS a ON (r.account_id = a.id)
                         LEFT JOIN accounts AS d ON (r.driver_id = d.id)
@@ -164,9 +163,8 @@ class RideQueries:
                     result = db.execute(
                         """
                         SELECT r.*, a.username, a.first_name, a.last_name,
-                        a.email, a.current_ride,
-                        d.username, d.first_name, d.last_name,
-                        d.email, d.current_ride
+                            a.email, a.current_ride, d.username, d.first_name,
+                            d.last_name, d.email, d.current_ride
                         FROM rides r
                         INNER JOIN accounts AS a ON (r.account_id = a.id)
                         LEFT JOIN accounts AS d ON (r.driver_id = d.id)
@@ -191,9 +189,8 @@ class RideQueries:
                     result = db.execute(
                         """
                         SELECT r.*, a.username, a.first_name, a.last_name,
-                        a.email, a.current_ride,
-                        d.username, d.first_name, d.last_name,
-                        d.email, d.current_ride
+                            a.email, a.current_ride, d.username, d.first_name,
+                            d.last_name, d.email, d.current_ride
                         FROM rides r
                         INNER JOIN accounts AS a ON (r.account_id = a.id)
                         LEFT JOIN accounts AS d ON (r.driver_id = d.id);
@@ -215,14 +212,13 @@ class RideQueries:
                     result = db.execute(
                         """
                         SELECT r.*, a.username, a.first_name, a.last_name,
-                        a.email, a.current_ride,
-                        d.username, d.first_name, d.last_name,
-                        d.email, d.current_ride
+                            a.email, a.current_ride, d.username, d.first_name,
+                            d.last_name, d.email, d.current_ride
                         FROM rides r
                         INNER JOIN accounts AS a ON (r.account_id = a.id)
                         LEFT JOIN accounts AS d ON (r.driver_id = d.id)
-                        WHERE r.is_roundtrip = true AND r.roundtrip_date
-                        IS NOT NULL;
+                        WHERE r.is_roundtrip = true,
+                            AND r.roundtrip_date IS NOT NULL;
                         """,
                     )
 
@@ -260,7 +256,7 @@ class RideQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    print("start update")
+                    print('start update')
                     returned_values = None
                     if RideUpdate.ride_status:
                         result = db.execute(

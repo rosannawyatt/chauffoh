@@ -6,15 +6,15 @@ import EmployeeList from "../components/EmployeeList";
 const EmployeeDashboard = ({ userData }) => {
   const navigate = useNavigate();
 
-  const employeeCheck = () => {
-    if (userData.is_employee === false) {
-      navigate("/useralert");
-    }
-  };
-
   useEffect(() => {
+    const employeeCheck = () => {
+      if (userData.is_employee === false) {
+        navigate("/useralert");
+      }
+    };
+
     employeeCheck();
-  }, []);
+  }, [userData, navigate]);
   return (
     <>
       <h1>EMPLOYEE ONLY</h1>

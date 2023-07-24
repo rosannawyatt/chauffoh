@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CurrentRides = ({ userData }) => {
@@ -42,9 +42,9 @@ const CurrentRides = ({ userData }) => {
     }
   };
 
-  useEffect(() => {
-    loadRides();
-  }, []);
+  // useEffect(() => {
+  //   loadRides();
+  // }, []);
 
   return (
     <div className="container mt-4">
@@ -103,9 +103,9 @@ const CurrentRides = ({ userData }) => {
                 </td>
                 <td>
                   {!(
-                    ride.ride_status == "In Progress" ||
-                    ride.ride_status == "Completed" ||
-                    ride.ride_status == "Cancelled"
+                    ride.ride_status === "In Progress" ||
+                    ride.ride_status === "Completed" ||
+                    ride.ride_status === "Cancelled"
                   ) ? (
                     <button
                       onClick={updateStatus(ride.id)}
@@ -119,7 +119,11 @@ const CurrentRides = ({ userData }) => {
                 </td>
               </tr>
             );
-          }})}
+          } else {
+            return null;
+          }
+
+          })}
         </tbody>
       </table>
     </div>

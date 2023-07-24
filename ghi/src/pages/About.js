@@ -6,7 +6,7 @@ export default function About() {
     <>
       <div className="row justify-content-center align-items-center">
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card image cap" />
+          <img className="card-img-top" src="..." alt="Card cap" />
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -15,13 +15,13 @@ export default function About() {
             </p>
             <div className="d-flex justify-content-center">
               <a
-                href="#"
+                href="https://github.com/"
                 className="btn btn-primary"
                 style={{ marginRight: "10px" }}
               >
                 GitHub
               </a>
-              <a href="#" className="btn btn-primary">
+              <a href="https://github.com/" className="btn btn-primary">
                 LinkedIn
               </a>
             </div>
@@ -29,7 +29,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card image cap" />
+          <img className="card-img-top" src="..." alt="Card cap" />
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -38,13 +38,13 @@ export default function About() {
             </p>
             <div className="d-flex justify-content-center">
               <a
-                href="#"
+                href="https://github.com/"
                 className="btn btn-info"
                 style={{ marginRight: "10px" }}
               >
                 GitHub
               </a>
-              <a href="#" className="btn btn-info">
+              <a href="https://github.com/" className="btn btn-info">
                 LinkedIn
               </a>
             </div>
@@ -52,7 +52,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card image cap" />
+          <img className="card-img-top" src="..." alt="Card cap" />
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -61,13 +61,13 @@ export default function About() {
             </p>
             <div className="d-flex justify-content-center">
               <a
-                href="#"
+                href="https://github.com/"
                 className="btn btn-danger"
                 style={{ marginRight: "10px" }}
               >
                 GitHub
               </a>
-              <a href="#" className="btn btn-danger">
+              <a href="https://github.com/" className="btn btn-danger">
                 LinkedIn
               </a>
             </div>
@@ -77,7 +77,7 @@ export default function About() {
 
       <div className="row justify-content-center align-items-center">
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card image cap" />
+          <img className="card-img-top" src="..." alt="Card cap" />
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -86,13 +86,13 @@ export default function About() {
             </p>
             <div className="d-flex justify-content-center">
               <a
-                href="#"
+                href="https://github.com/"
                 className="btn btn-success"
                 style={{ marginRight: "10px" }}
               >
                 GitHub
               </a>
-              <a href="#" className="btn btn-success">
+              <a href="https://github.com/" className="btn btn-success">
                 LinkedIn
               </a>
             </div>
@@ -100,7 +100,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card image cap" />
+          <img className="card-img-top" src="..." alt="Card cap" />
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -108,7 +108,7 @@ export default function About() {
               bulk of the card's content.
             </p>
             <div className="d-flex justify-content-center">
-              <a href="#" style={{ marginRight: "0px" }}>
+              <a href="https://github.com/" style={{ marginRight: "0px" }}>
                 <img
                   className="img-thumbnail"
                   style={{ width: "50%" }}
@@ -116,7 +116,7 @@ export default function About() {
                   alt="linkedin logo"
                 />
               </a>
-              <a href="#">
+              <a href="https://github.com/">
                 <img
                   className="img-thumbnail"
                   style={{ width: "100%" }}

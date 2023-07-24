@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <h1>CHAUFFOH</h1>
-      <img src={banner1} />
+      <img src={banner1} alt="Chauffoh Banner" />
     </div>
   );
 }

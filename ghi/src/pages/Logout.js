@@ -1,18 +1,16 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { FormInputRequired } from "../components/Forms.js";
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext, useCallback } from "react";
 import { UserContext } from "../components/UserContext.js";
 
 const Logout = () => {
-  const navigate = useNavigate();
   const { logout } = useToken();
   const { setUserData } = useContext(UserContext);
-  const handleLogout = () => {
+
+  const handleLogout = useCallback(() => {
     localStorage.clear();
     setUserData(null);
     logout();
-  };
+  }, [logout, setUserData]);
 
   const logoutRedirect = () => {
     setTimeout(() => {
@@ -22,7 +20,7 @@ const Logout = () => {
 
   useEffect(() => {
     handleLogout();
-  }, []);
+  }, [handleLogout]);
 
   return (
     <>
