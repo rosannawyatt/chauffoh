@@ -30,44 +30,64 @@ const FinalReceipt = ({ userData }) => {
   if (!receipt && !driver) {
     return null;
   } else {
-    
     return (
       <div className="container mt-4">
-        <h1>Final Receipt </h1>
-        {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
+        <h1>Final Receipt</h1>
         <table className="table table-striped">
-          <div className="list-item">
-            <p>ID:{receipt.receipt_id}</p>
-            <p>Customer Name: {userData.username}</p>
-            <p>
-              Round Trip:{" "}
-              {receipt.ride && receipt.ride.is_roundtrip ? "Yes" : "No"}
-            </p>
-            <p>Start Location: {receipt.ride && receipt.ride.start_location}</p>
-            <p>End Location: {receipt.ride && receipt.ride.end_location}</p>
-            <p>
-              Date:{" "}
-              {new Date(receipt.ride && receipt.ride.datetime).toLocaleString(
-                "en-US",
-                {
-                  month: "numeric",
-                  day: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                }
-              )}
-            </p>
-            <p>Vehicle: {receipt.ride && receipt.ride.vehicle_info}</p>
-            <p>Comments: {receipt.ride && receipt.ride.comments}</p>
-            <p>
-              Driver Name:
-              {driver.first_name ? driver.first_name : "Not Assigned"}
-              {driver.last_name}
-            </p>
-            <p>Total: {receipt && receipt.total}</p>
-          </div>
+          <tbody>
+            <tr>
+              <td>Receipt ID#:{receipt.receipt_id}</td>
+            </tr>
+            <tr>
+              <td>Customer Name: {userData.username}</td>
+            </tr>
+            <tr>
+              <td>
+                Round Trip:{" "}
+                {receipt.ride && receipt.ride.is_roundtrip ? "Yes" : "No"}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Start Location: {receipt.ride && receipt.ride.start_location}
+              </td>
+            </tr>
+            <tr>
+              <td>End Location: {receipt.ride && receipt.ride.end_location}</td>
+            </tr>
+            <tr>
+              <td>
+                Date:{" "}
+                {new Date(receipt.ride && receipt.ride.datetime).toLocaleString(
+                  "en-US",
+                  {
+                    month: "numeric",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  }
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>Vehicle: {receipt.ride && receipt.ride.vehicle_info}</td>
+            </tr>
+            <tr>
+              <td>Comments: {receipt.ride && receipt.ride.comments}</td>
+            </tr>
+            <tr>
+              <td>
+                Driver Name:{" "}
+                {driver.first_name ? driver.first_name : "Not Assigned"}{" "}
+                {driver.last_name}
+              </td>
+            </tr>
+            <tr>
+              <td>Total: ${receipt && receipt.total}.00</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
