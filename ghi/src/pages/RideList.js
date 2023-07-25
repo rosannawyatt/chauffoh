@@ -97,11 +97,16 @@ const RideList = ({ userData }) => {
     loadRides();
   }, []);
 
+  const ShowRide = (ride) => {
+    return (
+      !(ride.ride_status === "Completed" || ride.ride_status === "Cancelled")
+    );
+  };
   return (
     <div className="container mt-4">
-      <h1>All Rides</h1>
+      <h1>Open Rides</h1>
       <table className="table table-striped">
-        <thead>
+        <thead className="thead-dark">
           <tr>
             <th>ID</th>
             <th>Customer Name</th>
@@ -119,11 +124,14 @@ const RideList = ({ userData }) => {
         </thead>
         <tbody>
           {rides.map((ride) => {
+             if (!ShowRide(ride)) {
+              return null;
+             }
             return (
-              <tr key={ride.id}>
+              <tr key ={ride.id} class="table-active">
                 <td>{ride.id}</td>
                 <td>
-                  {ride.account.first_name} {ride.account.last_name}
+                  {ride.account.last_name}, {ride.account.first_name}
                 </td>
                 <td>{ride.is_roundtrip}</td>
                 <td>{ride.start_location}</td>
@@ -139,11 +147,10 @@ const RideList = ({ userData }) => {
                     hour12: true,
                   })}
                 </td>
-
                 <td>{ride.vehicle_info}</td>
                 <td>{ride.comments}</td>
                 <td>
-                  {ride.driver.first_name} {ride.driver.last_name}
+                  {ride.account.last_name}, {ride.account.first_name}
                 </td>
                 <td>
                   {!(
@@ -159,7 +166,7 @@ const RideList = ({ userData }) => {
                       Claim
                     </button>
                   ) : (
-                    <div></div>
+                    <div>Claimed</div>
                   )}
                 </td>
                 <td>
@@ -169,6 +176,48 @@ const RideList = ({ userData }) => {
                   >
                     Complete
                   </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <h1>Completed Rides</h1>
+      <table className="table table-striped">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Date</th>
+            <th>Vehicle</th>
+            <th>Driver Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rides.map((ride) => {
+             if (ShowRide(ride)) {
+              return null;
+             }
+            return (
+              <tr key={ride.id}>
+                <td >{ride.id}</td>
+                <td>
+                  {ride.account.last_name}, {ride.account.first_name} 
+                </td>
+                <td>
+                  {new Date(ride.datetime).toLocaleString("en-US", {
+                    month: "numeric",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                </td>
+
+                <td>{ride.vehicle_info}</td>
+                <td>
+                  {ride.driver.last_name}, {ride.driver.first_name}
                 </td>
               </tr>
             );

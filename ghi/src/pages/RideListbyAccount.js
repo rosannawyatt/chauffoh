@@ -7,14 +7,11 @@ const RideListbyAccount = ({ userData }) => {
 
   const loadRides = useCallback(async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/history/${userData.id}`;
-    // console.log(url);
     const response = await fetch(url);
-    // console.log(response);
     if (!response.ok) {
       console.log("error with fetch");
     } else {
       const data = await response.json();
-      // console.log(data);
       setRides(data);
     }
   }, [userData.id]);
@@ -50,7 +47,6 @@ const RideListbyAccount = ({ userData }) => {
   return (
     <div className="container mt-4">
       <h1>All rides for {userData.username}</h1>
-      {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -73,7 +69,7 @@ const RideListbyAccount = ({ userData }) => {
               <tr key={ride.id}>
                 <td>{ride.id}</td>
                 <td>
-                  {ride.account.first_name} {ride.account.last_name}
+                  {ride.account.last_name}, {ride.account.first_name} 
                 </td>
                 <td>{ride.is_roundtrip}</td>
                 <td>{ride.start_location}</td>

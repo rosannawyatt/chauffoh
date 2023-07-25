@@ -23,8 +23,8 @@ const EmployeeList = () => {
                 <h2>
                     Current Employees
                 </h2>
-                <table>
-                    <thead>
+                <table className="table table-striped">
+                    <thead className="thead-dark">
                         <tr>
                             <th>Name</th>
                         </tr>
