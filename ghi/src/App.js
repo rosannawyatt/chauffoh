@@ -18,6 +18,7 @@ import RideForm from "./pages/RideRequest.js";
 import RideList from "./pages/RideList";
 import RideListbyAccount from "./pages/RideListbyAccount";
 import RideView from "./pages/RideView";
+import RideCounter from "./components/RideCounter";
 import FinalReceipt from "./pages/FinalReceipt.js";
 import UserAccountDetails from "./pages/UserAccountDetails";
 import EditAccountDetails from "./pages/EditAccountDetails";
@@ -45,7 +46,7 @@ function App() {
                 <Route path="signup" element={<SignUp />}></Route>
                 <Route path="login" element={<Login />} />
                 <Route path="logout" element={<Logout userData={userData} />} />
-
+                <Route path="ride-counter" element={<RideCounter/>}/>
                 <Route element={<PrivateRoutes />}>
                   <Route path="dashboard/">
                     <Route
