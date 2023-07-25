@@ -17,7 +17,7 @@ tags_metadata = [
     },
 ]
 
-
+cors_host = os.environ['CORS_HOST']
 app = FastAPI(openapi_tags=tags_metadata)
 
 app.include_router(accounts.router)
@@ -26,7 +26,7 @@ app.include_router(receipts.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        os.environ.get("CORS_HOST", "http://localhost:3000"),
+        cors_host,
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -38,6 +38,7 @@ app.include_router(authenticator.router)
 
 @app.get("/api/launch-details")
 def launch_details():
+    print(os.environ['CORS_HOST'])
     return {
         "launch_details": {
             "module": 3,
