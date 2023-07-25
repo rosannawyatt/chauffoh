@@ -54,6 +54,8 @@ build-front-end-job:
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://rent-a-driver1.gitlab.io/module3-project-gamma/
     REACT_APP_API_HOST: https://mar-9-pt-chauffohapi.mod3projects.com
+    REACT_APP_USER_SERVICE_API_HOST: https://mar-9-pt-chauffohapi.mod3projects.com
+
   script:
     - cd ghi
     - npm install
