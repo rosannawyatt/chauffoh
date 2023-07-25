@@ -36,12 +36,12 @@ const RideList = ({ userData }) => {
       const response2 = await fetch(url2, {
         method: "PATCH",
         body: JSON.stringify({
-        current_ride: true,
+          current_ride: true,
         }),
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      });
       if (!response.ok && !response2.ok) {
         console.log("Can not update ride status");
       } else {
@@ -65,7 +65,7 @@ const RideList = ({ userData }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      });
       const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.driver.username}/`;
       const response2 = await fetch(url2, {
         method: "PATCH",
@@ -75,7 +75,7 @@ const RideList = ({ userData }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      });
       const url3 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.account.username}/`;
       const response3 = await fetch(url3, {
         method: "PATCH",
@@ -85,9 +85,9 @@ const RideList = ({ userData }) => {
         headers: {
           "Content-Type": "application/json",
         },
-      })
+      });
       if (response1.ok && response2.ok && response3.ok) {
-          loadRides()
+        loadRides();
       }
     } catch (e) {
       console.log("Error on update", e);
@@ -98,8 +98,8 @@ const RideList = ({ userData }) => {
   }, []);
 
   const ShowRide = (ride) => {
-    return (
-      !(ride.ride_status === "Completed" || ride.ride_status === "Cancelled")
+    return !(
+      ride.ride_status === "Completed" || ride.ride_status === "Cancelled"
     );
   };
   return (
@@ -124,16 +124,16 @@ const RideList = ({ userData }) => {
         </thead>
         <tbody>
           {rides.map((ride) => {
-             if (!ShowRide(ride)) {
+            if (!ShowRide(ride)) {
               return null;
-             }
+            }
             return (
-              <tr key ={ride.id} class="table-active">
+              <tr key={ride.id} className="table-active">
                 <td>{ride.id}</td>
                 <td>
                   {ride.account.last_name}, {ride.account.first_name}
                 </td>
-                <td>{ride.is_roundtrip}</td>
+                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
                 <td>{ride.start_location}</td>
                 <td>{ride.end_location}</td>
                 <td>{ride.ride_status}</td>
@@ -195,14 +195,14 @@ const RideList = ({ userData }) => {
         </thead>
         <tbody>
           {rides.map((ride) => {
-             if (ShowRide(ride)) {
+            if (ShowRide(ride)) {
               return null;
-             }
+            }
             return (
               <tr key={ride.id}>
-                <td >{ride.id}</td>
+                <td>{ride.id}</td>
                 <td>
-                  {ride.account.last_name}, {ride.account.first_name} 
+                  {ride.account.last_name}, {ride.account.first_name}
                 </td>
                 <td>
                   {new Date(ride.datetime).toLocaleString("en-US", {

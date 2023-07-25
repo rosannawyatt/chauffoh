@@ -1,6 +1,7 @@
 import RideListbyAccount from "./RideListbyAccount";
 import CurrentRides from "./CurrentRides";
 const UserDashboard = ({ userData }) => {
+  console.log("userData", userData);
   return (
     <>
       <h1>

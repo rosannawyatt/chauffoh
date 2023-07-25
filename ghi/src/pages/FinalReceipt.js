@@ -9,15 +9,11 @@ const FinalReceipt = ({ userData }) => {
   useEffect(() => {
     const loadOneReceipt = async (ride_id) => {
       const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/receipts/rides/${ride_id}`;
-      console.log(url);
-      console.log(userData);
       const response = await fetch(url);
-      console.log(response);
       if (!response.ok) {
         console.log("error with fetch");
       } else {
         const data = await response.json();
-        console.log(data);
         const data_driver = data.ride.driver;
         setReceipt(data);
         setDriver(data_driver);

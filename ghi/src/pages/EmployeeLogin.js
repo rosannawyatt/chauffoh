@@ -42,11 +42,9 @@ const EmployeeLogin = () => {
           });
           navigate("/employee-dashboard");
         } else {
-          // Handle error
           console.error("Failed to fetch user data");
         }
       } catch (error) {
-        // Handle error
         console.error(error);
       }
     };

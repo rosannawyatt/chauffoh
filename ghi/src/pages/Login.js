@@ -61,7 +61,6 @@ const Login = () => {
 
     if (token) {
       handleUserData();
-    } else {
       const savedUserData = localStorage.getItem("userData");
       if (savedUserData) {
         setUserData(JSON.parse(savedUserData));

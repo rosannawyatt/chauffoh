@@ -31,83 +31,93 @@ function App() {
   const [userData, setUserData] = useState(null);
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
+
   return (
     <>
       <BrowserRouter basename={basename}>
         <AuthProvider baseUrl={process.env.REACT_APP_USER_SERVICE_API_HOST}>
-            <UserContext.Provider value={{ userData, setUserData }}>
-              <Nav userData={userData} />
-              <div className='container'>
-              <div className='row'>
-              <SideBarNav userData={userData}/>
-              <div className="col-9">
-              <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="signup" element={<SignUp />}></Route>
-                <Route path="login" element={<Login />} />
-                <Route path="logout" element={<Logout userData={userData} />} />
-                <Route path="ride-counter" element={<RideCounter/>}/>
-                <Route element={<PrivateRoutes />}>
-                  <Route path="dashboard/">
+          <UserContext.Provider value={{ userData, setUserData }}>
+            <Nav userData={userData} />
+            <div className="container">
+              <div className="row">
+                <SideBarNav userData={userData} />
+                <div className="col-9">
+                  <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="signup" element={<SignUp />}></Route>
+                    <Route path="login" element={<Login />} />
                     <Route
-                      path=""
-                      element={<UserDashboard userData={userData} />}
-                      exact
+                      path="logout"
+                      element={<Logout userData={userData} />}
                     />
-                    <Route
-                      path="request/"
-                      element={<RideForm userData={userData} />}
-                      exact
-                    />
-                    <Route
-                      path="account/details"
-                      element={<UserAccountDetails userData={userData} />}
-                      exact
-                    />
-                    <Route
-                      path="edit/account"
-                      element={<EditAccountDetails userData={userData} />}
-                      exact
-                    />
-                    <Route
-                      path="account/rides/"
-                      element={<RideListbyAccount userData={userData} />}
-                    />
-                    <Route
-                      path="account/rides/:id"
-                      element={<RideView userData={userData} />}
-                    />
-                    <Route
-                      path="account/rides/:id/receipt"
-                      element={<FinalReceipt userData={userData} />}
-                    />
-                  </Route>
-                  <Route element={<EmployeeCheck />}>
-                    <Route path="employee-dashboard/">
-                      <Route
-                        path=""
-                        element={<EmployeeDashboard userData={userData} />}
-                        exact
-                      />
-                      <Route
-                        path="rides/"
-                        element={<RideList userData={userData} />}
-                      />
+                    <Route path="ride-counter" element={<RideCounter />} />
+                    <Route element={<PrivateRoutes />}>
+                      <Route path="dashboard/">
+                        <Route
+                          path=""
+                          element={<UserDashboard userData={userData} />}
+                          exact
+                        />
+                        <Route
+                          path="request/"
+                          element={<RideForm userData={userData} />}
+                          exact
+                        />
+                        <Route
+                          path="account/details"
+                          element={<UserAccountDetails userData={userData} />}
+                          exact
+                        />
+                        <Route
+                          path="edit/account"
+                          element={<EditAccountDetails userData={userData} />}
+                          exact
+                        />
+                        <Route
+                          path="account/rides/"
+                          element={<RideListbyAccount userData={userData} />}
+                        />
+                        <Route
+                          path="account/rides/:id"
+                          element={<RideView userData={userData} />}
+                        />
+                        <Route
+                          path="account/rides/:id/receipt"
+                          element={<FinalReceipt userData={userData} />}
+                        />
+                      </Route>
+                      <Route element={<EmployeeCheck />}>
+                        <Route path="employee-dashboard/">
+                          <Route
+                            path=""
+                            element={<EmployeeDashboard userData={userData} />}
+                            exact
+                          />
+                          <Route
+                            path="rides/"
+                            element={<RideList userData={userData} />}
+                          />
+                        </Route>
+                      </Route>
                     </Route>
-                  </Route>
-                </Route>
-                <Route element={<EmployeeRoutes />}>
-                  <Route path="employee-portal" element={<EmployeeRoutes />} />{" "}
-                </Route>
-                <Route path="employee-signup" element={<EmployeeSignUp />} />
-                <Route path="employee-login" element={<EmployeeLogin />} />
-                <Route path="useralert" element={<UserAlert />} />
-                <Route path="about" element={<About />} />
-              </Routes>
+                    <Route element={<EmployeeRoutes />}>
+                      <Route
+                        path="employee-portal"
+                        element={<EmployeeRoutes />}
+                      />{" "}
+                    </Route>
+                    <Route
+                      path="employee-signup"
+                      element={<EmployeeSignUp />}
+                    />
+                    <Route path="employee-login" element={<EmployeeLogin />} />
+                    <Route path="useralert" element={<UserAlert />} />
+                    <Route path="about" element={<About />} />
+                  </Routes>
+                </div>
               </div>
-              </div>
-              </div>
-            </UserContext.Provider>
+            </div>
+          </UserContext.Provider>
         </AuthProvider>
       </BrowserRouter>
     </>

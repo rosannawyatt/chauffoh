@@ -15,7 +15,6 @@ function EmployeeSignUp() {
   const { register, token } = useToken();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const handleUserData = async () => {
       try {
@@ -37,11 +36,9 @@ function EmployeeSignUp() {
           });
           navigate("/employee-dashboard");
         } else {
-          // Handle error
           console.error("Failed to fetch user data");
         }
       } catch (error) {
-        // Handle error
         console.error(error);
       }
     };
@@ -66,8 +63,6 @@ function EmployeeSignUp() {
       accountData,
       `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts`
     );
-
-    
   };
   return (
     <>

@@ -2,24 +2,19 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 const RideView = () => {
   const [ride, setRide] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // console.log(id)
   const loadOneRide = async (ride_id) => {
-    // console.log('load start')
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/${ride_id}`;
     const response = await fetch(url);
 
-    // console.log(response)
     if (!response.ok) {
       console.log("error with fetch");
     } else {
       const data = await response.json();
-      // console.log(data)
       setRide(data);
     }
   };
@@ -28,9 +23,6 @@ const RideView = () => {
     navigate(`receipt`);
   };
 
-  console.log(ride);
-  // console.log(ride.account.first_name)
-
   useEffect(() => {
     loadOneRide(id);
   }, [id]);
@@ -38,7 +30,6 @@ const RideView = () => {
   return (
     <div className="container mt-4">
       <h1>Ride Information</h1>
-      {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -76,10 +67,7 @@ const RideView = () => {
               {ride.driver && ride.driver.last_name}
             </td>
             <td>
-              <button
-                onClick={loadOneReceipt()}
-                className="btn btn-warning"
-              >
+              <button onClick={loadOneReceipt()} className="btn btn-warning">
                 View Receipt
               </button>
             </td>
