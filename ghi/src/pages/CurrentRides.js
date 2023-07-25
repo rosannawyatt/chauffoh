@@ -1,22 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CurrentRides = ({ userData }) => {
   const [rides, setRides] = useState([]);
   const navigate = useNavigate();
-  const loadRides = async () => {
+  const loadRides = useCallback(async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/history/${userData.id}`;
-    // console.log(url);
     const response = await fetch(url);
-    // console.log(response);
     if (!response.ok) {
       console.log("error with fetch");
     } else {
       const data = await response.json();
-      // console.log(data);
       setRides(data);
     }
-  };
+  }, [userData.id]);
 
   const loadOneRide = (ride_id) => async () => {
     navigate(`/dashboard/account/rides/${ride_id}`);
@@ -42,9 +39,9 @@ const CurrentRides = ({ userData }) => {
     }
   };
 
-  // useEffect(() => {
-  //   loadRides();
-  // }, []);
+  useEffect(() => {
+    loadRides();
+  }, [loadRides]);
 
   return (
     <div className="container mt-4">

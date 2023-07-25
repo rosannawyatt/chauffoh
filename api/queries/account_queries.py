@@ -122,7 +122,7 @@ class AccountQueries:
         except Exception as e:
             return {"error": e}
 
-    def update_account(self, _id, AccountUpdate):
+    def update_account(self, _username, AccountUpdate):
         with pool.connection() as conn:
             with conn.cursor() as db:
                 returned_values = None
@@ -132,10 +132,10 @@ class AccountQueries:
                         """
                         UPDATE accounts
                         SET first_name = %s
-                        WHERE id = %s
+                        WHERE username = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.first_name, _id],
+                        [AccountUpdate.first_name, _username],
                     )
 
                 if AccountUpdate.last_name:
@@ -144,10 +144,10 @@ class AccountQueries:
                         """
                         UPDATE accounts
                         SET last_name = %s
-                        WHERE id = %s
+                        WHERE username = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.last_name, _id],
+                        [AccountUpdate.last_name, _username],
                     )
 
                 if AccountUpdate.email:
@@ -156,22 +156,22 @@ class AccountQueries:
                         """
                         UPDATE accounts
                         SET email = %s
-                        WHERE id = %s
+                        WHERE username = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.email, _id],
+                        [AccountUpdate.email, _username],
                     )
 
-                if AccountUpdate.current_ride:
+                if AccountUpdate.current_ride is not None:
                     print("printing current ride")
                     result = db.execute(
                         """
                         UPDATE accounts
                         SET current_ride = %s
-                        WHERE id = %s
+                        WHERE username = %s
                         RETURNING *
                         """,
-                        [AccountUpdate.current_ride, _id],
+                        [AccountUpdate.current_ride, _username],
                     )
                 returned_values = result.fetchone()
                 print("updates: ", returned_values)

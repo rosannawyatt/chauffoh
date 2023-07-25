@@ -1,30 +1,21 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 const RideList = ({ userData }) => {
   const [rides, setRides] = useState([]);
   const [hasClaimedRide, setHasClaimedRide] = useState(false);
-  const navigate = useNavigate();
 
   const loadRides = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/`;
-    // console.log(url)
     const response = await fetch(url);
-    // console.log(response)
     if (!response.ok) {
       console.log("error with fetch");
     } else {
       const data = await response.json();
-      // console.log(data)
       setRides(data);
     }
   };
 
-  const UpdateRide = (id) => async () => {
-    navigate("/rides/edit");
-  };
-
-  const ClaimRide = (id) => async () => {
+  const ClaimRide = (id, userData) => async () => {
     try {
       if (hasClaimedRide) {
         console.log("Driver has already claimed a ride.");
@@ -41,7 +32,17 @@ const RideList = ({ userData }) => {
           "Content-Type": "application/json",
         },
       });
-      if (!response.ok) {
+      const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userData.username}/`;
+      const response2 = await fetch(url2, {
+        method: "PATCH",
+        body: JSON.stringify({
+        current_ride: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      if (!response.ok && !response2.ok) {
         console.log("Can not update ride status");
       } else {
         setHasClaimedRide(true);
@@ -52,6 +53,46 @@ const RideList = ({ userData }) => {
     }
   };
 
+  const CompleteRide = (rideId, ride) => async () => {
+    try {
+      const url1 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${rideId}/`;
+      const response1 = await fetch(url1, {
+        method: "PATCH",
+        body: JSON.stringify({
+          ride_status: "Completed",
+          driver_id: userData.id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.driver.username}/`;
+      const response2 = await fetch(url2, {
+        method: "PATCH",
+        body: JSON.stringify({
+          current_ride: false,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const url3 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.account.username}/`;
+      const response3 = await fetch(url3, {
+        method: "PATCH",
+        body: JSON.stringify({
+          current_ride: false,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      if (response1.ok && response2.ok && response3.ok) {
+          loadRides()
+      }
+    } catch (e) {
+      console.log("Error on update", e);
+    }
+  };
   useEffect(() => {
     loadRides();
   }, []);
@@ -59,7 +100,6 @@ const RideList = ({ userData }) => {
   return (
     <div className="container mt-4">
       <h1>All Rides</h1>
-      {/* <div className='alert alert-warning d-none' id='err-not'>{err}</div> */}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -73,8 +113,8 @@ const RideList = ({ userData }) => {
             <th>Vehicle</th>
             <th>Comments</th>
             <th>Driver Name</th>
-            <th>Claim</th>
-            <th>Edit</th>
+            <th>Claim Ride</th>
+            <th>Complete Ride</th>
           </tr>
         </thead>
         <tbody>
@@ -113,8 +153,8 @@ const RideList = ({ userData }) => {
                     hasClaimedRide
                   ) ? (
                     <button
-                      onClick={ClaimRide(ride.id)}
-                      className="btn btn-success"
+                      onClick={ClaimRide(ride.id, userData)}
+                      className="btn btn-info"
                     >
                       Claim
                     </button>
@@ -124,10 +164,10 @@ const RideList = ({ userData }) => {
                 </td>
                 <td>
                   <button
-                    onClick={UpdateRide(ride.id)}
-                    className="btn btn-warning"
+                    onClick={CompleteRide(ride.id, ride)}
+                    className="btn btn-success"
                   >
-                    Update
+                    Complete
                   </button>
                 </td>
               </tr>

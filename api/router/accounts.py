@@ -1,10 +1,20 @@
-from fastapi import (APIRouter, Depends,
-                     Response, Request, status,
-                     HTTPException)
+from fastapi import (
+    APIRouter,
+    Depends,
+    Response,
+    Request,
+    status,
+    HTTPException,
+)
 from typing import List
 from pydantic import BaseModel
-from queries.account_queries import (AccountQueries, AccountOut, AccountIn,
-                                     DuplicateAccountError, AccountUpdate)
+from queries.account_queries import (
+    AccountQueries,
+    AccountOut,
+    AccountIn,
+    DuplicateAccountError,
+    AccountUpdate,
+)
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 
@@ -48,16 +58,16 @@ def get_current_users(
         return record
 
 
-@router.patch("/api/accounts/{account_id}", response_model=AccountOut)
+@router.patch("/api/accounts/{username}", response_model=AccountOut)
 def update(
-    account_id: int,
+    username: str,
     info: AccountUpdate,
     response: Response,
     queries: AccountQueries = Depends(),
 ):
     print(response)
-    record = queries.update_account(account_id, info)
-    print('record got: ', record)
+    record = queries.update_account(username, info)
+    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -102,17 +112,17 @@ class HttpError(BaseModel):
 
 
 @router.get("/api/protected", response_model=bool)
-async def get_token_protected(request: Request,
-                              account_data:
-                              dict =
-                              Depends(authenticator.get_current_account_data)):
+async def get_token_protected(
+    request: Request,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+):
     return True
 
 
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ):
     if account and authenticator.cookie_name in request.cookies:
         return {
