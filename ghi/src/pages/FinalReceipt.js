@@ -28,14 +28,14 @@ const FinalReceipt = ({ userData }) => {
   } else {
     return (
       <div className="container mt-4">
-        <h1>Final Receipt</h1>
+        <h1>Ride Receipt</h1>
         <table className="table table-striped">
           <tbody>
             <tr>
               <td>Receipt ID#:{receipt.receipt_id}</td>
             </tr>
             <tr>
-              <td>Customer Name: {userData.username}</td>
+              <td>Customer Name: {userData.first_name} {userData.last_name}</td>
             </tr>
             <tr>
               <td>

@@ -1,4 +1,4 @@
-import banner1 from "../images/banner-new.webp";
+import banner1 from "../images/banner-new-thin.webp";
 import driver from "../images/driver-smile.webp";
 import relax from "../images/man-relaxing.webp";
 import feet from "../images/feet-out-window.jpg";

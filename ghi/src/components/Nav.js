@@ -9,9 +9,9 @@ export default function Nav({ userData }) {
         style={{ backgroundColor: "#08797E" }}
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <NavLink to="/">
              <img src={wheelLogo} alt="steering wheel logo" width={80} />
-          </a>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -82,9 +82,9 @@ export default function Nav({ userData }) {
           style={{ backgroundColor: "#08797E" }}
         >
           <div className="container-fluid">
-            {/* <a className="navbar-brand" href="/">
-              <img src={wheelLogo} width={150} />
-            </a> */}
+            <NavLink to="dashboard/account/details/">
+              <img src={wheelLogo} alt="steering wheel logo" width={80} />
+            </NavLink>
             <button
               className="navbar-toggler"
               type="button"
