@@ -35,7 +35,7 @@ const FinalReceipt = ({ userData }) => {
               <td>Receipt ID#:{receipt.receipt_id}</td>
             </tr>
             <tr>
-              <td>Customer Name: {userData.first_name} {userData.last_name}</td>
+              <td>Customer Name: {userData.last_name}, {userData.first_name}</td>
             </tr>
             <tr>
               <td>
