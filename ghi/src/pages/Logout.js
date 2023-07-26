@@ -1,6 +1,7 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useEffect, useContext, useCallback } from "react";
 import { UserContext } from "../components/UserContext.js";
+import { NavLink } from "react-router-dom";
 
 const Logout = () => {
   const { logout } = useToken();
@@ -12,12 +13,6 @@ const Logout = () => {
     logout();
   }, [logout, setUserData]);
 
-  const logoutRedirect = () => {
-    setTimeout(() => {
-      window.location.href = "/login";
-    }, 2000);
-  };
-
   useEffect(() => {
     handleLogout();
   }, [handleLogout]);
@@ -26,11 +21,10 @@ const Logout = () => {
     <>
       <div className="row">
         <p className="text-danger">
-          You have been successfully logged out. You will be redirected to login
-          shortly. If you are not redirected, click here:
+          You have been successfully logged out. You will be redirected to the homepage
+          shortly. If you are not redirected, click here: 
         </p>
-        <a href="/login"> Login </a>
-        {logoutRedirect()}
+        <NavLink to="/"> Home Page</NavLink>
       </div>
     </>
   );

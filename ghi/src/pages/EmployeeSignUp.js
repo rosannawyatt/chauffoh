@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 
 function EmployeeSignUp() {
@@ -70,7 +70,7 @@ function EmployeeSignUp() {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h5>Already Have An Account?</h5>
-            <a href="/employee-login">Login</a>
+            <NavLink to="/employee-login">Login</NavLink>
             <h1 className="text-info">Employee Sign Up</h1>
             <form onSubmit={handleSubmit} id="create-account-form">
               <FormInputRequired
