@@ -1,6 +1,6 @@
 import GitHub_Logo from "../images/github-mark.png";
 import Linkedin_Logo from "../images/LI-In-Bug.png";
-
+import Footer from "../components/Footer";
 export default function About() {
   return (
     <>
@@ -128,7 +128,9 @@ export default function About() {
           </div>
         </div>
       </div>
+      <div className="row">
+        <Footer />
+      </div>
     </>
   );
 }
-

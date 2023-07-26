@@ -3,6 +3,7 @@ import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import Footer from "../components/Footer";
 
 function EmployeeSignUp() {
   const { setUserData } = useContext(UserContext);
@@ -67,58 +68,67 @@ function EmployeeSignUp() {
   return (
     <>
       <div className="row">
-        <div className="offset-3 col-6">
+        <div className="offset-3 col-6 p-4">
           <div className="shadow p-4 mt-4">
-            <h5>Already Have An Account?</h5>
-            <NavLink to="/employee-login">Login</NavLink>
-            <h1 className="text-info">Employee Sign Up</h1>
-            <form onSubmit={handleSubmit} id="create-account-form">
-              <FormInputRequired
-                id="first_name"
-                placeholder="First"
-                labelText="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                type="text"
-              />
-              <FormInputRequired
-                id="last_name"
-                placeholder="Last"
-                labelText="Last name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                type="text"
-              />
-              <FormInputRequired
-                id="email"
-                placeholder="you@example.com"
-                labelText="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-              />
-              <FormInputRequired
-                id="username"
-                placeholder="Username"
-                labelText="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-              />
-              <FormInputRequired
-                id="password"
-                placeholder="********"
-                labelText="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-              />
-              <button className="btn btn-info" type="submit" value="Register">
-                Create
-              </button>
-            </form>
+            <div className="float-right">
+              <h6>Already Have An Account?</h6>
+              <NavLink to="/employee-login" className="float-right text-info">
+                Login
+              </NavLink>
+            </div>
+            <div>
+              <h2 className="text-info">Employee Sign Up</h2>
+              <form onSubmit={handleSubmit} id="create-account-form">
+                <FormInputRequired
+                  id="first_name"
+                  placeholder="First"
+                  labelText="First name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  type="text"
+                />
+                <FormInputRequired
+                  id="last_name"
+                  placeholder="Last"
+                  labelText="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  type="text"
+                />
+                <FormInputRequired
+                  id="email"
+                  placeholder="you@example.com"
+                  labelText="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
+                />
+                <FormInputRequired
+                  id="username"
+                  placeholder="Username"
+                  labelText="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                />
+                <FormInputRequired
+                  id="password"
+                  placeholder="********"
+                  labelText="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                />
+                <button className="btn btn-info" type="submit" value="Register">
+                  Create
+                </button>
+              </form>
+            </div>
           </div>
         </div>
+      </div>
+      <div className="row">
+        <Footer />
       </div>
     </>
   );

@@ -3,6 +3,7 @@ import driver from "../images/driver-smile.webp";
 import relax from "../images/man-relaxing.webp";
 import feet from "../images/feet-out-window.jpg";
 import { NavLink } from "react-router-dom";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
             margin: 0,
           }}
         >
-          <img style={{ width: "100%"}} src={banner1} alt="banner with logo" />
+          <img style={{ width: "100%" }} src={banner1} alt="banner with logo" />
         </div>
         <div>
           <div>
@@ -62,7 +63,11 @@ export default function Home() {
       <div>
         <div className="row" style={{ backgroundColor: "#C4B691" }}>
           <div className="col-sm-5 col-md-6" style={{ padding: 30 }}>
-            <img src={driver} alt="smiling driver" style={{width: "100%", borderRadius:15}} />
+            <img
+              src={driver}
+              alt="smiling driver"
+              style={{ width: "100%", borderRadius: 15 }}
+            />
           </div>
           <div
             className="col-sm-5 offset-sm-2 col-md-6 offset-md-0"
@@ -89,7 +94,11 @@ export default function Home() {
             </article>
           </div>
           <div className="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
-            <img src={relax} alt="man relaxin in back of car" style={{width: "100%", borderRadius:15}} />
+            <img
+              src={relax}
+              alt="man relaxin in back of car"
+              style={{ width: "100%", borderRadius: 15 }}
+            />
           </div>
         </div>
       </div>
@@ -97,7 +106,11 @@ export default function Home() {
       <div>
         <div className="row" style={{ backgroundColor: "#C4B691" }}>
           <div className="col-sm-5 col-md-6" style={{ padding: 30 }}>
-            <img src={feet} alt="feet out window of car" style={{width: "100%", borderRadius:15}} />
+            <img
+              src={feet}
+              alt="feet out window of car"
+              style={{ width: "100%", borderRadius: 15 }}
+            />
           </div>
           <div
             className="col-sm-5 offset-sm-2 col-md-6 offset-md-0"
@@ -114,7 +127,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div style={{ padding: 50 }}></div>
+      <div className="row">
+        <Footer />
+      </div>
     </>
   );
 }

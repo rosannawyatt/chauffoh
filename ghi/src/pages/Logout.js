@@ -1,6 +1,7 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useEffect, useContext, useCallback } from "react";
 import { UserContext } from "../components/UserContext.js";
+import Footer from "../components/Footer";
 
 const Logout = () => {
   const { logout } = useToken();
@@ -17,11 +18,14 @@ const Logout = () => {
   }, [handleLogout]);
 
   return (
+    <>
       <div className="row">
-        <p className="text-danger">
-          You have been successfully logged out.
-        </p>
+        <p className="text-danger">You have been successfully logged out.</p>
       </div>
+      <div className="row">
+        <Footer />
+      </div>
+    </>
   );
 };
 

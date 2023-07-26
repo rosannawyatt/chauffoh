@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import tesla from "../images/tesla.jpeg";
+import Footer from "../components/Footer";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -68,12 +70,23 @@ function SignUp() {
 
   return (
     <>
-      <div className="row">
-        <div className="offset-3 col-6">
-          <div className="shadow p-4 mt-4">
-            <h5>Already Have An Account?</h5>
-            <NavLink to="/login">Login</NavLink>
-            <h1>Sign Up</h1>
+      <div className="container-fluid">
+        <div className="row align-items-stretch">
+          <div className="col-lg-7 p-0 d-flex align-items-center">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={tesla}
+              alt="car-signup"
+            />
+          </div>
+          <div className="col-lg-5 p-5">
+            <div className="float-right">
+              <h6>Already Have An Account?</h6>
+              <Link to="/login" className="float-right">
+                Login
+              </Link>
+            </div>
+            <h2>Sign Up</h2>
             <form onSubmit={handleSubmit} id="create-account-form">
               <FormInputRequired
                 id="first_name"
@@ -115,16 +128,15 @@ function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
               />
-              <button
-                className="btn btn-primary"
-                type="submit"
-                value="Register"
-              >
+              <button className="button-primary" type="submit" value="Register">
                 Create
               </button>
             </form>
           </div>
         </div>
+      </div>
+      <div className="row">
+        <Footer />
       </div>
     </>
   );

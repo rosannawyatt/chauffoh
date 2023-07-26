@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { SideBarNav } from "../components/SideBarNav";
+import Footer from "../components/Footer";
 
 const FinalReceipt = ({ userData }) => {
   const [receipt, setReceipt] = useState({});
@@ -27,65 +29,73 @@ const FinalReceipt = ({ userData }) => {
     return null;
   } else {
     return (
-      <div className="container mt-4">
-        <h1>Ride Receipt</h1>
-        <table className="table table-striped">
-          <tbody>
-            <tr>
-              <td>Receipt ID#:{receipt.receipt_id}</td>
-            </tr>
-            <tr>
-              <td>Customer Name: {userData.last_name}, {userData.first_name}</td>
-            </tr>
-            <tr>
-              <td>
-                Round Trip:{" "}
-                {receipt.ride && receipt.ride.is_roundtrip ? "Yes" : "No"}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Start Location: {receipt.ride && receipt.ride.start_location}
-              </td>
-            </tr>
-            <tr>
-              <td>End Location: {receipt.ride && receipt.ride.end_location}</td>
-            </tr>
-            <tr>
-              <td>
-                Date:{" "}
-                {new Date(receipt.ride && receipt.ride.datetime).toLocaleString(
-                  "en-US",
-                  {
+      <>
+        <div className="d-flex flex-row">
+          <SideBarNav userData={userData} />
+          <div className="container data-table p-3">
+            <h1>Chauffoh </h1>
+            <h3>Thanks for riding with us</h3>{" "}
+            <div>Receipt ID#{receipt.receipt_id}</div>
+            <div>
+              <span>
+                Customer Name: {userData.first_name} {userData.last_name}
+              </span>
+              <div>
+                <span>
+                  Round Trip:{" "}
+                  {receipt.ride && receipt.ride.is_roundtrip ? "Yes" : "No"}
+                </span>
+              </div>
+              <div>
+                <span>
+                  Start Location: {receipt.ride && receipt.ride.start_location}
+                </span>
+              </div>
+              <div>
+                <span>
+                  End Location: {receipt.ride && receipt.ride.end_location}
+                </span>
+              </div>
+              <div>
+                <span>
+                  Date:{" "}
+                  {new Date(
+                    receipt.ride && receipt.ride.datetime
+                  ).toLocaleString("en-US", {
                     month: "numeric",
                     day: "numeric",
                     year: "numeric",
                     hour: "numeric",
                     minute: "numeric",
                     hour12: true,
-                  }
-                )}
-              </td>
-            </tr>
-            <tr>
-              <td>Vehicle: {receipt.ride && receipt.ride.vehicle_info}</td>
-            </tr>
-            <tr>
-              <td>Comments: {receipt.ride && receipt.ride.comments}</td>
-            </tr>
-            <tr>
-              <td>
-                Driver Name:{" "}
-                {driver.first_name ? driver.first_name : "Not Assigned"}{" "}
-                {driver.last_name}
-              </td>
-            </tr>
-            <tr>
-              <td>Total: ${receipt && receipt.total}.00</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                  })}
+                </span>
+              </div>
+              <div>
+                <span>
+                  Vehicle: {receipt.ride && receipt.ride.vehicle_info}
+                </span>
+              </div>
+              <div>
+                <span>Comments: {receipt.ride && receipt.ride.comments}</span>
+              </div>
+              <div>
+                <span>
+                  Driver Name:{" "}
+                  {driver.first_name ? driver.first_name : "Not Assigned"}{" "}
+                  {driver.last_name}
+                </span>
+              </div>
+              <div>
+                <span>Total: ${receipt && receipt.total}.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <Footer />
+        </div>
+      </>
     );
   }
 };

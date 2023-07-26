@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { SideBarNav } from "../components/SideBarNav";
+import Footer from "../components/Footer";
 
 const RideListbyAccount = ({ userData }) => {
   const [rides, setRides] = useState([]);
@@ -32,12 +34,13 @@ const RideListbyAccount = ({ userData }) => {
 
   return (
     <>
-      <div className="table-back">
+      <div className="d-flex flex-row">
+        <SideBarNav userData={userData} />
         {rides.length > 0 ? (
           <>
-            <div className="data-table">
-              <h1>Ride History for {userData.first_name}</h1>
-              <table className="table table-striped">
+            <div className="container-fluid ubody p-3">
+              <h3>Ride History </h3>
+              <table className="table table-sm table-responsive ">
                 <thead>
                   <tr>
                     <th>Ride Status</th>
@@ -79,7 +82,7 @@ const RideListbyAccount = ({ userData }) => {
                         <td>
                           <button
                             onClick={loadOneRide(ride.id)}
-                            className="btn btn-info"
+                            className="button-primary"
                           >
                             View
                           </button>
@@ -92,8 +95,11 @@ const RideListbyAccount = ({ userData }) => {
             </div>
           </>
         ) : (
-            <h1>No ride history, you have not requested any rides.</h1>
+          <h1>No ride history, you have not requested any rides.</h1>
         )}
+      </div>
+      <div className="row">
+        <Footer />
       </div>
     </>
   );

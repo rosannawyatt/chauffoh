@@ -1,8 +1,10 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { FormInputRequired } from "../components/Forms.js";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import drivingImg from "../images/driving.jpeg";
+import Footer from "../components/Footer";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -69,34 +71,52 @@ const Login = () => {
   }, [token, setUserData, navigate]);
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Login</h1>
-          <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
-            <FormInputRequired
-              id="username"
-              placeholder="username"
-              labelText="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
+    <>
+      <div className="container-fluid">
+        <div className="row align-items-stretch">
+          <div className="col-lg-7 p-0 d-flex align-items-center">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={drivingImg}
+              alt="drive-login"
             />
-            <FormInputRequired
-              id="password"
-              placeholder="********"
-              labelText="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-            />
-            <button className="btn btn-primary" type="submit" value="Login">
-              Login
-            </button>
-          </form>
+          </div>
+          <div className="col-lg-5 p-5 d-flex flex-column justify-content-center">
+            <div className="text-right">
+              <h6>Create an Account</h6>
+              <Link to="/signup" className="float-right">
+                Sign Up
+              </Link>
+            </div>
+            <h2>Login</h2>
+            <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+              <FormInputRequired
+                id="username"
+                placeholder="username"
+                labelText="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+              />
+              <FormInputRequired
+                id="password"
+                placeholder="********"
+                labelText="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+              />
+              <button className="button-primary" type="submit" value="Login">
+                Login
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="row">
+        <Footer />
+      </div>
+    </>
   );
 };
 

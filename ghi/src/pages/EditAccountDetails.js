@@ -50,37 +50,43 @@ const EditAccountDetails = () => {
 
   return (
     <>
-      <div>
-        <h1>Edit Account Information</h1>
-        <form onSubmit={handleSubmit} id="edit-account-form">
-          <FormInputOptional
-            id="email"
-            placeholder={`${userData && userData.email}`}
-            labelText="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
-          />
-          <FormInputOptional
-            id="firstName"
-            placeholder={`${userData && userData.first_name}`}
-            labelText="First Name"
-            value={first_name}
-            onChange={(e) => setFirstName(e.target.value)}
-            type="text"
-          />
-          <FormInputOptional
-            id="lastName"
-            placeholder={`${userData && userData.last_name}`}
-            labelText="Last Name"
-            value={last_name}
-            onChange={(e) => setLastName(e.target.value)}
-            type="text"
-          />
-          <button className="btn btn-primary" type="submit">
-            Update
-          </button>
-        </form>
+      <div className="container-fluid">
+        <div className="row p-4">
+          <div className="offset-4 col-4">
+            <div className="shadow p-5 mt5">
+              <h2>Edit Account Information</h2>
+              <form onSubmit={handleSubmit} id="edit-account-form">
+                <FormInputOptional
+                  id="email"
+                  placeholder={`${userData && userData.email}`}
+                  labelText="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                />
+                <FormInputOptional
+                  id="firstName"
+                  placeholder={`${userData && userData.first_name}`}
+                  labelText="First Name"
+                  value={first_name}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  type="text"
+                />
+                <FormInputOptional
+                  id="lastName"
+                  placeholder={`${userData && userData.last_name}`}
+                  labelText="Last Name"
+                  value={last_name}
+                  onChange={(e) => setLastName(e.target.value)}
+                  type="text"
+                />
+                <button className="button-primary" type="submit">
+                  Update
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -3,6 +3,7 @@ import { FormInputRequired } from "../components/Forms.js";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import Footer from "../components/Footer";
 
 const EmployeeLogin = () => {
   const [username, setUsername] = useState("");
@@ -69,34 +70,45 @@ const EmployeeLogin = () => {
   }, [token, navigate, setUserData]);
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1 className="text-info">Employee Login</h1>
-          <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
-            <FormInputRequired
-              id="username"
-              placeholder="username"
-              labelText="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
-            />
-            <FormInputRequired
-              id="password"
-              placeholder="********"
-              labelText="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-            />
-            <button className="btn btn-info" type="submit" value="Login">
-              Login
-            </button>
-          </form>
+    <>
+      <div className="row">
+        <div className="offset-3 col-6 p-4">
+          <div className="shadow p-4 mt-4">
+            <div className="float-right">
+              <h6>Create an Account</h6>
+              <a href="/employee-signup" className="float-right text-info">
+                Sign Up
+              </a>
+            </div>
+            <h2 className="text-info">Employee Login</h2>
+            <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+              <FormInputRequired
+                id="username"
+                placeholder="username"
+                labelText="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+              />
+              <FormInputRequired
+                id="password"
+                placeholder="********"
+                labelText="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+              />
+              <button className="btn btn-info" type="submit" value="Login">
+                Login
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <div className="row">
+        <Footer />
+      </div>
+    </>
   );
 };
 

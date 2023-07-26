@@ -1,11 +1,23 @@
 import { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import { Steps } from "antd";
 
 const CurrentRides = ({ userData }) => {
   const [rides, setRides] = useState([]);
   const { setUserData } = useContext(UserContext);
   const navigate = useNavigate();
+  const items = [
+    {
+      title: "Requested",
+    },
+    {
+      title: "In Progress",
+    },
+    {
+      title: "Complete",
+    },
+  ];
   const loadRides = useCallback(async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/history/${userData.id}`;
     const response = await fetch(url);
@@ -74,85 +86,126 @@ const CurrentRides = ({ userData }) => {
   }, [loadRides]);
 
   return (
-    <div className="container mt-4 data-table">
+    <div className="container data-table">
       {rides.length > 0 ? (
         <>
-          <h1>Current rides</h1>
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Ride Status</th>
-                <th>Ride ID</th>
-                <th>Roundtrip</th>
-                <th>Start Location</th>
-                <th>End location</th>
-                <th>Request Date</th>
-                <th>Vehicle</th>
-                <th>Comments</th>
-                <th>Driver Name</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rides.map((ride) => {
-                if (
-                  ride.ride_status === "Requested" ||
-                  ride.ride_status === "requested"
-                ) {
-                  return (
-                    <tr key={ride.id}>
-                      <td>{ride.ride_status}</td>
-                      <td>{ride.id}</td>
-                      <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
-                      <td>{ride.start_location}</td>
-                      <td>{ride.end_location}</td>
-                      <td>
-                        {new Date(ride.datetime).toLocaleString("en-US", {
-                          month: "numeric",
-                          day: "numeric",
-                          year: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                          hour12: true,
-                        })}
-                      </td>
-                      <td>{ride.vehicle_info}</td>
-                      <td>{ride.comments}</td>
-                      <td>
-                        {ride.driver.first_name} {ride.driver.last_name}
-                      </td>
-                      <td>
+          {rides.map((ride) => {
+            if (
+              ride.ride_status === "Requested" ||
+              ride.ride_status === "requested" ||
+              ride.ride_status === "In Progress"
+            ) {
+              const step = ride.ride_status === "Requested" ? 0 : 1;
+              return (
+                <div key={ride.id} className="">
+                  <div className="d-flex flex-row">
+                    <h1>Current ride</h1>
+                    <div className="col">
+                      {" "}
+                      <div className="float-right">Ride ID#{ride.id}</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <>
+                        <Steps
+                          current={step}
+                          labelPlacement="vertical"
+                          items={items}
+                        />
+                      </>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="grid-label">
+                        Start Location:{" "}
+                        <span className="grid-value">
+                          {ride.start_location}
+                        </span>
+                        <div className="grid-label">
+                          End location:{" "}
+                          <span className="grid-value">
+                            {ride.end_location}
+                          </span>
+                        </div>
+                        <div className="grid-label">
+                          Vehicle:{" "}
+                          <span className="grid-value">
+                            {ride.vehicle_info}
+                          </span>
+                        </div>
+                        <div className="grid-label">
+                          Notes:{" "}
+                          <span className="grid-value">{ride.comments}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col">
+                      <div className="grid-label">
+                        Requested on {""}
+                        <span>
+                          {new Date(ride.datetime).toLocaleString("en-US", {
+                            month: "numeric",
+                            day: "numeric",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            hour12: true,
+                          })}
+                        </span>
+                      </div>
+                      <div className="grid-label">
+                        Driver:{" "}
+                        <span className="grid-value">
+                          {ride.driver.first_name} {ride.driver.last_name}
+                        </span>
+                      </div>
+                      <div className="grid-label">
+                        Roundtrip:{" "}
+                        <span className="grid-value">
+                          {ride.is_roundtrip ? "Yes" : "No"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    {!(
+                      ride.ride_status === "In Progress" ||
+                      ride.ride_status === "Completed" ||
+                      ride.ride_status === "Cancelled"
+                    ) ? (
+                      <>
                         <button
-                          onClick={loadOneRide(ride.id)}
-                          className="btn btn-info"
+                          type="button"
+                          onClick={updateStatus(ride.id, ride)}
+                          className="btn btn-outline-danger"
                         >
-                          View
+                          Cancel
                         </button>
-                      </td>
-                      <td>
-                        {!(
-                          ride.ride_status === "In Progress" ||
-                          ride.ride_status === "Completed" ||
-                          ride.ride_status === "Cancelled"
-                        ) ? (
-                          <button
-                            onClick={updateStatus(ride.id, ride)}
-                            className="btn btn-danger"
-                          >
-                            Cancel
-                          </button>
-                        ) : (
-                          <div></div>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </tbody>
-          </table>
+                      </>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={loadOneRide(ride.id)}
+                        className="button-primary"
+                      >
+                        View
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            } else {
+              return (
+                <>
+                  <h1>
+                    No current ride, clck Request a Ride from the sidebar.
+                  </h1>
+                </>
+              );
+            }
+          })}
         </>
       ) : (
         <>

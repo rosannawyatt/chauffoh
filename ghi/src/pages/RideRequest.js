@@ -1,7 +1,13 @@
 import { useState, useContext } from "react";
-import { FormInputRequired, FormInputOptional } from "../components/Forms.js";
+import {
+  FormInputRequired,
+  FormInputOptional,
+  FormInputCheckbox,
+} from "../components/Forms.js";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
+import { SideBarNav } from "../components/SideBarNav";
+import Footer from "../components/Footer";
 
 const RideForm = ({ userData }) => {
   const [isRoundtrip, setIsRoundtrip] = useState(false);
@@ -107,7 +113,15 @@ const RideForm = ({ userData }) => {
   };
   const ActiveRide = () => (
     <>
-      <h1> You already have an active ride, go to your dashboard to view it. </h1>
+      <div className="d-flex flex-row">
+        <SideBarNav userData={userData} />
+        <div className="container-fluid ubody p-3">
+          <h3>
+            {" "}
+            You already have an active ride, go to your dashboard to view it.{" "}
+          </h3>
+        </div>
+      </div>
     </>
   );
 
@@ -117,12 +131,12 @@ const RideForm = ({ userData }) => {
         <ActiveRide />
       ) : (
         <div className="row">
-          <div className="offset-3 col-6">
+          <div className="offset-3 col-6 p-4">
             <div className="shadow p-4 mt-4">
               <h1>Request a Ride </h1>
               {!showEstimate && (
                 <form id="create-ride-form" onSubmit={handleSubmit}>
-                  <FormInputOptional
+                  <FormInputCheckbox
                     id="isRoundtrip"
                     placeholder="Roundtrip"
                     labelText="Is this a roundtrip?"
@@ -130,6 +144,7 @@ const RideForm = ({ userData }) => {
                     onChange={handleRoundtripChange}
                     type="checkbox"
                   />
+
                   {isRoundtrip && (
                     <FormInputRequired
                       id="roundtripDate"
@@ -197,6 +212,9 @@ const RideForm = ({ userData }) => {
           </div>
         </div>
       )}
+      <div className="row">
+        <Footer />
+      </div>
     </>
   );
 };
