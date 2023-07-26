@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const RideList = ({ userData }) => {
   const [rides, setRides] = useState([]);
-  const [hasClaimedRide, setHasClaimedRide] = useState(false);
+  // const [hasClaimedRide, setHasClaimedRide] = useState(false);
 
   const loadRides = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/`;
@@ -17,7 +17,7 @@ const RideList = ({ userData }) => {
 
   const ClaimRide = (id, userData) => async () => {
     try {
-      if (hasClaimedRide) {
+      if (rides.some((ride) => ride.driver_id === userData.id)) {
         console.log("Driver has already claimed a ride.");
         return;
       }
@@ -32,20 +32,13 @@ const RideList = ({ userData }) => {
           "Content-Type": "application/json",
         },
       });
-      const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userData.username}/`;
-      const response2 = await fetch(url2, {
-        method: "PATCH",
-        body: JSON.stringify({
-          current_ride: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok && !response2.ok) {
+      if (!response.ok) {
         console.log("Can not update ride status");
       } else {
-        setHasClaimedRide(true);
+        const updatedRides = rides.map((ride) =>
+          ride.id === id ? { ...ride, driver_id: userData.id } : ride
+        );
+        setRides(updatedRides);
         loadRides();
       }
     } catch (e) {
@@ -97,14 +90,21 @@ const RideList = ({ userData }) => {
     loadRides();
   }, []);
 
-  const ShowRide = (ride) => {
-    return !(
-      ride.ride_status === "Completed" || ride.ride_status === "Cancelled"
-    );
-  };
+  const activeRidesClaimed = rides.filter(
+    (ride) => ride.ride_status === "In Progress"
+  );
+
+  const activeRidesWaiting = rides.filter(
+    (ride) => ride.ride_status === "Requested"
+  );
+
+  const completedRides = rides.filter(
+    (ride) => ride.ride_status === "Completed"
+  );
+
   return (
     <div className="container mt-4">
-      <h1>Open Rides</h1>
+      <h1>In Progress Rides </h1>
       <table className="table table-striped">
         <thead className="thead-dark">
           <tr>
@@ -113,20 +113,15 @@ const RideList = ({ userData }) => {
             <th>Roundtrip</th>
             <th>Start Location</th>
             <th>End location</th>
-            <th>Ride Status</th>
             <th>Date</th>
             <th>Vehicle</th>
             <th>Comments</th>
             <th>Driver Name</th>
-            <th>Claim Ride</th>
             <th>Complete Ride</th>
           </tr>
         </thead>
         <tbody>
-          {rides.map((ride) => {
-            if (!ShowRide(ride)) {
-              return null;
-            }
+          {activeRidesClaimed.map((ride) => {
             return (
               <tr key={ride.id} className="table-active">
                 <td>{ride.id}</td>
@@ -136,7 +131,6 @@ const RideList = ({ userData }) => {
                 <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
                 <td>{ride.start_location}</td>
                 <td>{ride.end_location}</td>
-                <td>{ride.ride_status}</td>
                 <td>
                   {new Date(ride.datetime).toLocaleString("en-US", {
                     month: "numeric",
@@ -150,24 +144,7 @@ const RideList = ({ userData }) => {
                 <td>{ride.vehicle_info}</td>
                 <td>{ride.comments}</td>
                 <td>
-                  {ride.account.last_name}, {ride.account.first_name}
-                </td>
-                <td>
-                  {!(
-                    ride.ride_status === "In Progress" ||
-                    ride.ride_status === "Completed" ||
-                    ride.ride_status === "Cancelled" ||
-                    hasClaimedRide
-                  ) ? (
-                    <button
-                      onClick={ClaimRide(ride.id, userData)}
-                      className="btn btn-info"
-                    >
-                      Claim
-                    </button>
-                  ) : (
-                    <div>Claimed</div>
-                  )}
+                  {ride.driver.first_name} {ride.driver.last_name}
                 </td>
                 <td>
                   <button
@@ -175,6 +152,61 @@ const RideList = ({ userData }) => {
                     className="btn btn-success"
                   >
                     Complete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <h1>Open Rides</h1>
+      <table className="table table-striped">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Roundtrip</th>
+            <th>Start Location</th>
+            <th>End location</th>
+            <th>Date</th>
+            <th>Vehicle</th>
+            <th>Comments</th>
+            <th>Driver Name</th>
+            <th>Claim Ride</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activeRidesWaiting.map((ride) => {
+            return (
+              <tr key={ride.id} className="table-active">
+                <td>{ride.id}</td>
+                <td>
+                  {ride.account.last_name}, {ride.account.first_name}
+                </td>
+                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
+                <td>{ride.start_location}</td>
+                <td>{ride.end_location}</td>
+                <td>
+                  {new Date(ride.datetime).toLocaleString("en-US", {
+                    month: "numeric",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                </td>
+                <td>{ride.vehicle_info}</td>
+                <td>{ride.comments}</td>
+                <td>
+                  {ride.driver.first_name} {ride.driver.last_name}
+                </td>
+                <td>
+                  <button
+                    onClick={ClaimRide(ride.id, userData)}
+                    className="btn btn-info"
+                  >
+                    Claim
                   </button>
                 </td>
               </tr>
@@ -194,10 +226,7 @@ const RideList = ({ userData }) => {
           </tr>
         </thead>
         <tbody>
-          {rides.map((ride) => {
-            if (ShowRide(ride)) {
-              return null;
-            }
+          {completedRides.map((ride) => {
             return (
               <tr key={ride.id}>
                 <td>{ride.id}</td>
@@ -217,7 +246,7 @@ const RideList = ({ userData }) => {
 
                 <td>{ride.vehicle_info}</td>
                 <td>
-                  {ride.driver.last_name}, {ride.driver.first_name}
+                  {ride.driver.first_name} {ride.driver.last_name}
                 </td>
               </tr>
             );

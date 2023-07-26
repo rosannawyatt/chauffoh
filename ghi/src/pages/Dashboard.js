@@ -1,16 +1,18 @@
-import RideListbyAccount from "./RideListbyAccount";
 import CurrentRides from "./CurrentRides";
 const UserDashboard = ({ userData }) => {
   console.log("userData", userData);
   return (
     <>
-      <h1>
-        Hi, {userData.first_name} {userData.last_name}
-      </h1>
-      <p>username: {userData && userData.username}</p>
-      <p>id: {userData && userData.id}</p>
-      <CurrentRides userData={userData} />
-      <RideListbyAccount userData={userData} />
+      <div style={{ padding: 20 }}>
+        <div>
+          <p className="greeting">
+            Hi, {userData.first_name} {userData.last_name}
+          </p>
+        </div>
+        <div className="table-back">
+          <CurrentRides userData={userData} />
+        </div>
+      </div>
     </>
   );
 };

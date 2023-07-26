@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext";
-import { useContext } from "react";
 
 const PrivateRoutes = () => {
   const { userData, setUserData } = useContext(UserContext);

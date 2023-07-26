@@ -74,7 +74,7 @@ const CurrentRides = ({ userData }) => {
   }, [loadRides]);
 
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 data-table">
       {rides.length > 0 ? (
         <>
           <h1>Current rides for {userData.first_name}</h1>

@@ -38,12 +38,14 @@ function App() {
         <AuthProvider baseUrl={process.env.REACT_APP_USER_SERVICE_API_HOST}>
           <UserContext.Provider value={{ userData, setUserData }}>
             <Nav userData={userData} />
+            <Routes>
+              <Route path="/" element={<Main />} />
+            </Routes>
             <div className="container">
               <div className="row">
                 <SideBarNav userData={userData} />
                 <div className="col-9">
                   <Routes>
-                    <Route path="/" element={<Main />} />
                     <Route path="signup" element={<SignUp />}></Route>
                     <Route path="login" element={<Login />} />
                     <Route
@@ -86,6 +88,20 @@ function App() {
                           element={<FinalReceipt userData={userData} />}
                         />
                       </Route>
+                    </Route>
+                    <Route>
+                      <Route
+                        path="employee-portal"
+                        element={<EmployeeRoutes />}
+                      />
+                      <Route
+                        path="employee-signup"
+                        element={<EmployeeSignUp />}
+                      />
+                      <Route
+                        path="employee-login"
+                        element={<EmployeeLogin />}
+                      />
                       <Route element={<EmployeeCheck />}>
                         <Route path="employee-dashboard/">
                           <Route
@@ -100,17 +116,6 @@ function App() {
                         </Route>
                       </Route>
                     </Route>
-                    <Route element={<EmployeeRoutes />}>
-                      <Route
-                        path="employee-portal"
-                        element={<EmployeeRoutes />}
-                      />{" "}
-                    </Route>
-                    <Route
-                      path="employee-signup"
-                      element={<EmployeeSignUp />}
-                    />
-                    <Route path="employee-login" element={<EmployeeLogin />} />
                     <Route path="useralert" element={<UserAlert />} />
                     <Route path="about" element={<About />} />
                   </Routes>

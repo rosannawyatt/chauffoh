@@ -30,16 +30,26 @@ const EmployeeLogin = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          const { id, username, first_name, last_name, email, is_employee } =
-            data.account;
-          setUserData({
+          const {
             id,
             username,
             first_name,
             last_name,
             email,
             is_employee,
-          });
+            current_ride,
+          } = data.account;
+          const userData = {
+            id,
+            username,
+            first_name,
+            last_name,
+            email,
+            is_employee,
+            current_ride,
+          };
+          localStorage.setItem("userData", JSON.stringify(userData));
+          setUserData(userData);
           navigate("/employee-dashboard");
         } else {
           console.error("Failed to fetch user data");
@@ -51,7 +61,6 @@ const EmployeeLogin = () => {
 
     if (token) {
       handleUserData();
-    } else {
       const savedUserData = localStorage.getItem("userData");
       if (savedUserData) {
         setUserData(JSON.parse(savedUserData));
