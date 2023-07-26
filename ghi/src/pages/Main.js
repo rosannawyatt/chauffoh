@@ -2,6 +2,7 @@ import banner1 from "../images/banner-new.webp";
 import driver from "../images/driver-smile.webp";
 import relax from "../images/man-relaxing.webp";
 import feet from "../images/feet-out-window.jpg";
+import { NavLink } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -21,7 +22,7 @@ export default function Home() {
         </div>
         <div>
           <div>
-            <a href="/login">
+            <NavLink to="/login">
               <button
                 className="login-button"
                 style={{
@@ -37,8 +38,8 @@ export default function Home() {
               >
                 Log In
               </button>
-            </a>
-            <a href="/signup">
+            </NavLink>
+            <NavLink to="/signup">
               <button
                 className="signup-button"
                 style={{
@@ -54,7 +55,7 @@ export default function Home() {
               >
                 Sign Up
               </button>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
