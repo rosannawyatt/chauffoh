@@ -20,7 +20,6 @@ const EditAccountDetails = () => {
     accountEdits.email = email;
     accountEdits.first_name = first_name;
     accountEdits.last_name = last_name;
-    console.log(accountEdits);
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userData.username}`;
     const fetchConfig = {
       method: "PATCH",

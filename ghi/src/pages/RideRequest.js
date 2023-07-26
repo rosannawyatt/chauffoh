@@ -107,8 +107,7 @@ const RideForm = ({ userData }) => {
   };
   const ActiveRide = () => (
     <>
-      <h1> You already have an active ride </h1>
-      <a href="/dashboard"> View dashboard </a>
+      <h1> You already have an active ride, go to your dashboard to view it. </h1>
     </>
   );
 

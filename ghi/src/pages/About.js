@@ -6,7 +6,7 @@ export default function About() {
     <>
       <div className="row justify-content-center align-items-center">
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card cap" />
+          {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -29,7 +29,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card cap" />
+          {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -52,7 +52,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card cap" />
+          {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -77,7 +77,7 @@ export default function About() {
 
       <div className="row justify-content-center align-items-center">
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card cap" />
+          {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">
@@ -100,7 +100,7 @@ export default function About() {
         </div>
 
         <div className="card" style={{ width: "15rem" }}>
-          <img className="card-img-top" src="..." alt="Card cap" />
+          {/* <img className="card-img-top" src="..." alt="Card cap" /> */}
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
             <p className="card-text">

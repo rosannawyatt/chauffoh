@@ -57,7 +57,7 @@ export default function SideBarNav({ userData }) {
               >
                 <NavLink
                   style={{ color: "#08797E", fontSize: 20, fontWeight: "bold" }}
-                  to="/dashboard/account/details/"
+                  to="/dashboard/account/details"
                 >
                   Account details
                 </NavLink>
@@ -121,7 +121,7 @@ export default function SideBarNav({ userData }) {
             <NavLink to="/employee-dashboard">Dashboard</NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/account/details/">Account details</NavLink>
+            <NavLink to="/dashboard/account/details">Account details</NavLink>
           </li>
           <li>
             <NavLink to="/employee-dashboard/rides">Rides list</NavLink>

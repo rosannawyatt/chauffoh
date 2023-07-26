@@ -156,8 +156,7 @@ const CurrentRides = ({ userData }) => {
         </>
       ) : (
         <>
-          <h1>No current ride</h1>
-          <a href="/dashboard/request"> Request a Ride </a>{" "}
+          <h1>No current ride, clck Request a Ride from the sidebar.</h1>
         </>
       )}
     </div>

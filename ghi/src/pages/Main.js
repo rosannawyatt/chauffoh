@@ -21,7 +21,7 @@ export default function Home() {
         </div>
         <div>
           <div>
-            <a href="login">
+            <a href="/login">
               <button
                 className="login-button"
                 style={{
@@ -38,7 +38,7 @@ export default function Home() {
                 Log In
               </button>
             </a>
-            <a href="signup">
+            <a href="/signup">
               <button
                 className="signup-button"
                 style={{

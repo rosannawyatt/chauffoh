@@ -92,10 +92,7 @@ const RideListbyAccount = ({ userData }) => {
             </div>
           </>
         ) : (
-          <>
-            <h1>No ride history</h1>
-            <a href="/dashboard"> View dashboard </a>{" "}
-          </>
+            <h1>No ride history, you have not requested any rides.</h1>
         )}
       </div>
     </>

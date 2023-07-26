@@ -1,6 +1,5 @@
 import CurrentRides from "./CurrentRides";
 const UserDashboard = ({ userData }) => {
-  console.log("userData", userData);
   return (
     <>
       <div style={{ padding: 20 }}>
