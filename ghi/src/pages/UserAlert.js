@@ -18,8 +18,7 @@ const UserAlert = () => {
 
   return (
     <>
-      <h1>Not an employee</h1>
-      <a href="/login">Click here to Log in</a>
+      <h1>You are not an employee and have been logged out.</h1>
     </>
   );
 };

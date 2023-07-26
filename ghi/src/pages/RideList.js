@@ -5,7 +5,7 @@ const RideList = ({ userData }) => {
   // const [hasClaimedRide, setHasClaimedRide] = useState(false);
 
   const loadRides = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/`;
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides`;
     const response = await fetch(url);
     if (!response.ok) {
       console.log("error with fetch");
@@ -21,7 +21,7 @@ const RideList = ({ userData }) => {
         console.log("Driver has already claimed a ride.");
         return;
       }
-      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${id}/`;
+      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${id}`;
       const response = await fetch(url, {
         method: "PATCH",
         body: JSON.stringify({
@@ -48,7 +48,7 @@ const RideList = ({ userData }) => {
 
   const CompleteRide = (rideId, ride) => async () => {
     try {
-      const url1 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${rideId}/`;
+      const url1 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${rideId}`;
       const response1 = await fetch(url1, {
         method: "PATCH",
         body: JSON.stringify({
@@ -59,7 +59,7 @@ const RideList = ({ userData }) => {
           "Content-Type": "application/json",
         },
       });
-      const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.driver.username}/`;
+      const url2 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.driver.username}`;
       const response2 = await fetch(url2, {
         method: "PATCH",
         body: JSON.stringify({
@@ -69,7 +69,7 @@ const RideList = ({ userData }) => {
           "Content-Type": "application/json",
         },
       });
-      const url3 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.account.username}/`;
+      const url3 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${ride.account.username}`;
       const response3 = await fetch(url3, {
         method: "PATCH",
         body: JSON.stringify({

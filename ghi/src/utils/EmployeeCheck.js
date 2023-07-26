@@ -19,7 +19,7 @@ const EmployeeCheck = () => {
   }
 
   if (userData === null || userData.is_employee === false) {
-    return <Navigate to="useralert" />;
+    return <Navigate to="/useralert" />;
   } else {
     return <Outlet />;
   }

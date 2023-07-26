@@ -34,7 +34,7 @@ def get_account(
         return record
 
 
-@router.get("/api/accounts/", response_model=List[AccountOut])
+@router.get("/api/accounts", response_model=List[AccountOut])
 def get_all_account(
     response: Response,
     queries: AccountQueries = Depends(),
@@ -132,8 +132,9 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError,
-             tags=["users"])
+@router.post(
+    "/api/accounts", response_model=AccountToken | HttpError, tags=["users"]
+)
 async def create_account(
     info: AccountIn,
     request: Request,

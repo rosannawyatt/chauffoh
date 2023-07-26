@@ -54,14 +54,14 @@ function App() {
                     />
                     <Route path="ride-counter" element={<RideCounter />} />
                     <Route element={<PrivateRoutes />}>
-                      <Route path="dashboard/">
+                      <Route path="dashboard">
                         <Route
                           path=""
                           element={<UserDashboard userData={userData} />}
                           exact
                         />
                         <Route
-                          path="request/"
+                          path="request"
                           element={<RideForm userData={userData} />}
                           exact
                         />
@@ -76,7 +76,7 @@ function App() {
                           exact
                         />
                         <Route
-                          path="account/rides/"
+                          path="account/rides"
                           element={<RideListbyAccount userData={userData} />}
                         />
                         <Route
@@ -103,14 +103,14 @@ function App() {
                         element={<EmployeeLogin />}
                       />
                       <Route element={<EmployeeCheck />}>
-                        <Route path="employee-dashboard/">
+                        <Route path="employee-dashboard">
                           <Route
                             path=""
                             element={<EmployeeDashboard userData={userData} />}
                             exact
                           />
                           <Route
-                            path="rides/"
+                            path="rides"
                             element={<RideList userData={userData} />}
                           />
                         </Route>

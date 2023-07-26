@@ -27,7 +27,7 @@ const CurrentRides = ({ userData }) => {
 
   const updateStatus = (ride_id, ride) => async () => {
     try {
-      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${ride_id}/`;
+      const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/set_status/${ride_id}`;
       const response = await fetch(url, {
         method: "PATCH",
         body: JSON.stringify({ ride_status: "Cancelled" }),

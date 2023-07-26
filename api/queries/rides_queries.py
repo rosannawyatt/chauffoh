@@ -231,32 +231,11 @@ class RideQueries:
         except Exception as e:
             return {"error": e}
 
-    def update_ride_status(self, _id, status):
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    print("start update")
-                    result = db.execute(
-                        """
-                        UPDATE rides
-                        SET ride_status = %s
-                        WHERE id = %s
-                        RETURNING *;
-                        """,
-                        [status, _id],
-                    )
-                    print("updated")
-                    returned_values = result.fetchone()
-                    print("ride: ", returned_values)
-                    return self.record_to_ride(returned_values)
-        except Exception as e:
-            return {"error": e}
-
     def update(self, _id, RideUpdate):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    print('start update')
+                    print("start update")
                     returned_values = None
                     if RideUpdate.ride_status:
                         result = db.execute(

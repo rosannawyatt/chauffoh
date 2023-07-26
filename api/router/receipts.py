@@ -1,9 +1,13 @@
-from fastapi import (APIRouter, Depends, Response, status,
-                     HTTPException)
+from fastapi import APIRouter, Depends, Response, status, HTTPException
 from typing import List
-from queries.receipts_queries import (ReceiptIn, ReceiptOut,
-                                      DuplicateReceiptError, ReceiptQueries,
-                                      ReceiptGet, ReceiptGetWithDriver)
+from queries.receipts_queries import (
+    ReceiptIn,
+    ReceiptOut,
+    DuplicateReceiptError,
+    ReceiptQueries,
+    ReceiptGet,
+    ReceiptGetWithDriver,
+)
 
 
 router = APIRouter(tags=["receipts"])
@@ -15,7 +19,7 @@ async def create_receipts(
     repo: ReceiptQueries = Depends(),
 ):
     try:
-        print('info: ', info)
+        print("info: ", info)
         print("trying")
         receipt = repo.create(info)
         print("receipt from create method", receipt)
@@ -28,7 +32,7 @@ async def create_receipts(
         )
 
 
-@router.delete('/api/receipts/rides/{ride_id}')
+@router.delete("/api/receipts/rides/{ride_id}")
 async def delete_receipt(
     ride_id: int,
     repo: ReceiptQueries = Depends(),
@@ -44,50 +48,52 @@ def get_receipt(
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipt(receipt_id)
-    print('record got: ', record)
+    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
         return record
 
 
-@router.get("/api/receipts/rides/{ride_id}",
-            response_model=ReceiptGetWithDriver)
+@router.get(
+    "/api/receipts/rides/{ride_id}", response_model=ReceiptGetWithDriver
+)
 def get_receipt_by_ride_id_add_driver(
     ride_id: int,
     response: Response,
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipt_by_ride_id(ride_id)
-    print('record got: ', record)
+    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
         return record
 
 
-@router.get("/api/receipts/", response_model=List[ReceiptGet])
+@router.get("/api/receipts", response_model=List[ReceiptGet])
 def get_all_receipts(
     response: Response,
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_all_receipts()
-    print('record got: ', record)
+    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
         return record
 
 
-@router.get("/api/receipts/history/{account_id}",
-            response_model=List[ReceiptGet])
+@router.get(
+    "/api/receipts/history/{account_id}", response_model=List[ReceiptGet]
+)
 def get_receipts_by_account(
     account_id: int,
     response: Response,
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipts_by_account(account_id)
-    print('record got: ', record)
+    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
