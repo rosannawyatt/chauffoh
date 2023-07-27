@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Collapse } from "antd";
 
 const RideList = ({ userData }) => {
   const [rides, setRides] = useState([]);
@@ -102,120 +103,9 @@ const RideList = ({ userData }) => {
     (ride) => ride.ride_status === "Completed"
   );
 
-  return (
-    <div className="container mt-4">
-      <h1>In Progress Rides </h1>
-      <table className="table table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Customer Name</th>
-            <th>Roundtrip</th>
-            <th>Start Location</th>
-            <th>End location</th>
-            <th>Date</th>
-            <th>Vehicle</th>
-            <th>Comments</th>
-            <th>Driver Name</th>
-            <th>Complete Ride</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activeRidesClaimed.map((ride) => {
-            return (
-              <tr key={ride.id} className="table-active">
-                <td>{ride.id}</td>
-                <td>
-                  {ride.account.last_name}, {ride.account.first_name}
-                </td>
-                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
-                <td>{ride.start_location}</td>
-                <td>{ride.end_location}</td>
-                <td>
-                  {new Date(ride.datetime).toLocaleString("en-US", {
-                    month: "numeric",
-                    day: "numeric",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                </td>
-                <td>{ride.vehicle_info}</td>
-                <td>{ride.comments}</td>
-                <td>
-                  {ride.driver.first_name} {ride.driver.last_name}
-                </td>
-                <td>
-                  <button
-                    onClick={CompleteRide(ride.id, ride)}
-                    className="btn btn-success"
-                  >
-                    Complete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <h1>Open Rides</h1>
-      <table className="table table-striped">
-        <thead className="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Customer Name</th>
-            <th>Roundtrip</th>
-            <th>Start Location</th>
-            <th>End location</th>
-            <th>Date</th>
-            <th>Vehicle</th>
-            <th>Comments</th>
-            <th>Driver Name</th>
-            <th>Claim Ride</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activeRidesWaiting.map((ride) => {
-            return (
-              <tr key={ride.id} className="table-active">
-                <td>{ride.id}</td>
-                <td>
-                  {ride.account.last_name}, {ride.account.first_name}
-                </td>
-                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
-                <td>{ride.start_location}</td>
-                <td>{ride.end_location}</td>
-                <td>
-                  {new Date(ride.datetime).toLocaleString("en-US", {
-                    month: "numeric",
-                    day: "numeric",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                </td>
-                <td>{ride.vehicle_info}</td>
-                <td>{ride.comments}</td>
-                <td>
-                  {ride.driver.first_name} {ride.driver.last_name}
-                </td>
-                <td>
-                  <button
-                    onClick={ClaimRide(ride.id, userData)}
-                    className="btn btn-info"
-                  >
-                    Claim
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <h1>Completed Rides</h1>
-      <table className="table table-striped">
+  const ListCompletedRides = () => (
+    <>
+      <table className="table table-sm table-hover">
         <thead className="thead-dark">
           <tr>
             <th>ID</th>
@@ -253,6 +143,136 @@ const RideList = ({ userData }) => {
           })}
         </tbody>
       </table>
+    </>
+  );
+
+  const items = [
+    {
+      key: "1",
+      label: "Completed Rides",
+      children: <ListCompletedRides />,
+    },
+  ];
+
+  return (
+    <div className="container-fluid p-3 table-responsive">
+      <h2 className="text-color-primary">In Progress Rides </h2>
+      <table className="table table-sm table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Roundtrip</th>
+            <th>Start Location</th>
+            <th>End location</th>
+            <th>Date</th>
+            <th>Vehicle</th>
+            <th>Comments</th>
+            <th>Driver Name</th>
+            <th>Complete Ride</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activeRidesClaimed.map((ride) => {
+            return (
+              <tr key={ride.id}>
+                <td>{ride.id}</td>
+                <td>
+                  {ride.account.last_name}, {ride.account.first_name}
+                </td>
+                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
+                <td>{ride.start_location}</td>
+                <td>{ride.end_location}</td>
+                <td>
+                  {new Date(ride.datetime).toLocaleString("en-US", {
+                    month: "numeric",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                </td>
+                <td>{ride.vehicle_info}</td>
+                <td>{ride.comments}</td>
+                <td>
+                  {ride.driver.first_name} {ride.driver.last_name}
+                </td>
+                <td>
+                  <button
+                    onClick={CompleteRide(ride.id, ride)}
+                    className="btn btn-success"
+                  >
+                    Complete
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <h2 className="text-color-primary">Open Rides</h2>
+      <table className="table table-sm table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Customer Name</th>
+            <th>Roundtrip</th>
+            <th>Start Location</th>
+            <th>End location</th>
+            <th>Date</th>
+            <th>Vehicle</th>
+            <th>Comments</th>
+            <th>Driver Name</th>
+            <th>Claim Ride</th>
+          </tr>
+        </thead>
+        <tbody>
+          {activeRidesWaiting.map((ride) => {
+            return (
+              <tr key={ride.id}>
+                <td>{ride.id}</td>
+                <td>
+                  {ride.account.last_name}, {ride.account.first_name}
+                </td>
+                <td>{ride.is_roundtrip ? "Yes" : "No"}</td>
+                <td>{ride.start_location}</td>
+                <td>{ride.end_location}</td>
+                <td>
+                  {new Date(ride.datetime).toLocaleString("en-US", {
+                    month: "numeric",
+                    day: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+                </td>
+                <td>{ride.vehicle_info}</td>
+                <td>{ride.comments}</td>
+                <td>
+                  {ride.driver.first_name} {ride.driver.last_name}
+                </td>
+                <td>
+                  <button
+                    onClick={ClaimRide(ride.id, userData)}
+                    className="btn btn-info"
+                  >
+                    Claim
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <Collapse
+        ghost
+        items={items}
+        defaultActiveKey={["1"]}
+        bordered={false}
+        size="large"
+      />
     </div>
   );
 };

@@ -2,14 +2,13 @@ import RideList from "./RideList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import EmployeeList from "../components/EmployeeList";
+import UserList from "../components/UserList";
 import { Tabs } from "antd";
 import Footer from "../components/Footer";
 
 const EmployeeDashboard = ({ userData }) => {
   const navigate = useNavigate();
-  const onChange = (key) => {
-    console.log(key);
-  };
+  const onChange = (key) => {};
   const items = [
     {
       key: "1",
@@ -21,6 +20,11 @@ const EmployeeDashboard = ({ userData }) => {
       key: "2",
       label: `Employee list`,
       children: <EmployeeList />,
+    },
+    {
+      key: "3",
+      label: `User list`,
+      children: <UserList />,
     },
   ];
 
@@ -35,11 +39,13 @@ const EmployeeDashboard = ({ userData }) => {
   }, [userData, navigate]);
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container-fluid ">
+        <div className="row p-3 mt-3">
           <h1>EMPLOYEE ONLY</h1>
+          <div className="row p-3 mt-3">
+            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+          </div>
         </div>
-        <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
       </div>
       <div className="row">
         <Footer />

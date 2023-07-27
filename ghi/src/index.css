@@ -31,3 +31,38 @@ code {
 .ant-steps .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
   color: #46b3cb !important;
 }
+
+.ant-tabs .ant-tabs-tab {
+  font-size: 20px !important;
+}
+
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #08797e !important;
+}
+
+/* .ant-tabs .ant-tabs-ink-bar .ant-tabs-ink-bar-animated {
+  color: #08797e !important;
+} */
+
+.ant-tabs-ink-bar {
+  border-bottom: 2px solid #d4ea4a;
+}
+
+.ant-collapse-large
+  > .ant-collapse-item
+  > .ant-collapse-content
+  > .ant-collapse-content-box {
+  padding: 0;
+}
+
+/* .ant-tabs:hover {
+  color: #08797e !important;
+} */
+
+.ant-tabs-tab-btn:hover {
+  color: #c4b691 !important;
+}
+
+.ant-collapse-header-text {
+  font-size: larger;
+}
