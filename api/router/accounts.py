@@ -64,6 +64,7 @@ def update(
     info: AccountUpdate,
     response: Response,
     queries: AccountQueries = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
     print(response)
     record = queries.update_account(username, info)
