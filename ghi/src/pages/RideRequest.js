@@ -8,8 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import { SideBarNav } from "../components/SideBarNav";
 import Footer from "../components/Footer";
+import useToken from "@galvanize-inc/jwtdown-for-react";
+
 
 const RideForm = ({ userData }) => {
+  const { token } = useToken()
   const [isRoundtrip, setIsRoundtrip] = useState(false);
   const [roundtripDate, setRoundtripDate] = useState("");
   const [startLocation, setStartLocation] = useState("");
@@ -22,10 +25,10 @@ const RideForm = ({ userData }) => {
   const isRideActive = userData.current_ride;
   const navigate = useNavigate();
 
+
   const handleRoundtripChange = (e) => {
     setIsRoundtrip(e.target.checked);
   };
-
   const handleNextButtonClick = () => {
     setShowEstimate(true);
     if (isRoundtrip) {
@@ -53,6 +56,7 @@ const RideForm = ({ userData }) => {
       method: "POST",
       body: JSON.stringify(rideData),
       headers: {
+         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };
@@ -101,6 +105,7 @@ const RideForm = ({ userData }) => {
         method: "POST",
         body: JSON.stringify(receiptData),
         headers: {
+           Authorization: `Bearer ${token}` ,
           "Content-Type": "application/json",
         },
       };

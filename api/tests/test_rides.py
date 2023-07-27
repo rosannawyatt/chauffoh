@@ -1,6 +1,7 @@
 from main import app
 from fastapi.testclient import TestClient
 from queries.rides_queries import RideQueries
+from authenticator import authenticator
 
 
 fake_rides_db = [
@@ -107,6 +108,20 @@ fake_rides_db = [
 ]
 
 
+def account_data():
+    data = {
+      "id": 1,
+      "username": "123",
+      "hash_password": "$2b$12$Bov1Aw6PZFYkRgaIlBWAVe1LVHWRRnqKni3g",
+      "first_name": "123",
+      "last_name": "123",
+      "email": "123@123",
+      "is_employee": False,
+      "current_ride": False
+    }
+    return data
+
+
 class TestRideQueries:
     def create(self, ride_info):
         result = {"id": 5,
@@ -136,7 +151,6 @@ class TestCreateRide:
 
 
 client = TestClient(app)
-# app.dependency_overrides[RideQueries] = TestRideQueries
 
 
 def test_init():
@@ -157,6 +171,9 @@ def test_get_all_rides():
 
 def test_create_ride():
 
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+        ] = account_data
     app.dependency_overrides[RideQueries] = TestRideQueries
 
     ride = {
