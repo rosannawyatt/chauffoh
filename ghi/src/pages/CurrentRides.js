@@ -2,10 +2,15 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import { Steps } from "antd";
+import Map from "../components/Map.js";
 
 const CurrentRides = ({ userData }) => {
   const [rides, setRides] = useState([]);
   const { setUserData } = useContext(UserContext);
+
+  const [startloc, setStartloc] = useState([]);
+  const [endloc, setEndloc] = useState([]);
+
   const navigate = useNavigate();
   const items = [
     {
@@ -85,6 +90,49 @@ const CurrentRides = ({ userData }) => {
     loadRides();
   }, [loadRides]);
 
+
+  const getStartlocation = async(start) => {
+    if (start) {
+    const start_url = start.replace(/ /g, '+')
+    const url=`https://geocode.maps.co/search?q=${start_url}`
+    const response = await fetch(url)
+
+    if (!response.ok){
+        console.log('error with fetch')
+    } else {
+        const data = await response.json()
+        const location = [parseFloat(data[0].lat),parseFloat(data[0].lon)]
+        setStartloc(location)
+    }
+    }
+  }
+  const getEndlocation = async(end) => {
+    if (end){
+    const end_url = end.replace(/ /g, '+')
+    const url=`https://geocode.maps.co/search?q=${end_url}`
+    const response = await fetch(url)
+
+    if (!response.ok){
+        console.log('error with fetch')
+    } else {
+        const data = await response.json()
+
+        const location = [parseFloat(data[0].lat),parseFloat(data[0].lon)]
+
+        setEndloc(location)
+    }
+    }
+  }
+  useEffect(() => {
+    if (rides[0]){
+    getStartlocation(rides[0].start_location);
+    getEndlocation(rides[0].end_location);
+    }
+  }, [rides]);
+
+  if (!rides && !startloc && !endloc){
+    return null;
+  } else {
   return (
     <div className="container data-table">
       {rides.length > 0 ? (
@@ -190,6 +238,7 @@ const CurrentRides = ({ userData }) => {
                       </button>
                     )}
                   </div>
+        <Map start={startloc} end={endloc} />
                 </div>
               );
             } else {
@@ -215,5 +264,5 @@ const CurrentRides = ({ userData }) => {
     </div>
   );
 };
-
+}
 export default CurrentRides;
