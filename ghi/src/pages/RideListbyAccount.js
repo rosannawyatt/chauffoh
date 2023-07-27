@@ -41,7 +41,7 @@ const RideListbyAccount = ({ userData }) => {
             <div className="container-fluid ubody p-3">
               <div className="user-table shadow p-3">
                 <h3>Ride History </h3>
-                <table className="table table-sm table-responsive ">
+                <table className="table table-sm table-responsive table-hover">
                   <thead>
                     <tr>
                       <th>Ride Status</th>

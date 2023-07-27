@@ -30,23 +30,29 @@ const FinalReceipt = ({ userData }) => {
   } else {
     return (
       <>
-        <div className="d-flex flex-row">
-          <SideBarNav userData={userData} />
-          <div className="container data-table p-3">
-            <h1>Chauffoh </h1>
-            <h3>Thanks for riding with us</h3>{" "}
-            <div>Receipt ID#{receipt.receipt_id}</div>
-            <div>
-              <span>
-                Customer Name: {userData.first_name} {userData.last_name}
-              </span>
-              <div>
+      <div className="d-flex flex-row">
+      <SideBarNav userData={userData} />
+       <div className="container-fluid p-0">
+          <div className="row p-4 ubody">
+            <div className="offset-3 col-6">
+              <div className="shadow p-5 mt5 bg-light">
+                <h2 className="text-color-primary text-center">Chauffoh</h2>
+                <div style={{
+                    borderBottom: '1px solid',
+                  }}></div>
+                  <br></br>
+                 <h4 className="text-center">Thanks For Riding With Us</h4>{" "}
+                 <div>Receipt ID#{receipt.receipt_id}</div>
+                 <span>
+                Customer Name: {userData.last_name}, {userData.first_name}
+                </span>
+                <div>
                 <span>
                   Round Trip:{" "}
                   {receipt.ride && receipt.ride.is_roundtrip ? "Yes" : "No"}
                 </span>
-              </div>
-              <div>
+                </div>
+                 <div>
                 <span>
                   Start Location: {receipt.ride && receipt.ride.start_location}
                 </span>
@@ -71,7 +77,7 @@ const FinalReceipt = ({ userData }) => {
                   })}
                 </span>
               </div>
-              <div>
+               <div>
                 <span>
                   Vehicle: {receipt.ride && receipt.ride.vehicle_info}
                 </span>
@@ -86,15 +92,22 @@ const FinalReceipt = ({ userData }) => {
                   {driver.last_name}
                 </span>
               </div>
-              <div>
-                <span>Total: ${receipt && receipt.total}.00</span>
+              <br></br>
+               <div className="text-center">
+                <span style={{fontWeight: "bold",}}>Total: ${receipt && receipt.total}.00</span>
               </div>
+              <div style={{
+                padding: 10,
+                borderBottom: '3px dotted',
+                }}></div>
+             </div>
             </div>
+           </div>
           </div>
-        </div>
+         </div>
         <div className="row">
-          <Footer />
-        </div>
+        <Footer />
+      </div>
       </>
     );
   }

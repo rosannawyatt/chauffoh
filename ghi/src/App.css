@@ -112,7 +112,7 @@
 }
 
 .ubody {
-  background-color: #e9eef1;
+  background-color: #F7F3E8;
 }
 
 .nbody {
@@ -121,7 +121,6 @@
 }
 
 .fbody {
-  background-color: #f6f6f6;
   padding: 5px;
   color: #08797e;
 }
@@ -227,6 +226,10 @@
   color: #f6f6f6;
   border-color: #c4b691;
   background-color: #c4b691;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: rgba(8, 121, 126, 0.2);
 }
 
 /* table tr td,

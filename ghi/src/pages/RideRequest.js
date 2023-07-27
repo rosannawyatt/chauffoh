@@ -131,11 +131,15 @@ const RideForm = ({ userData }) => {
         {isRideActive ? (
           <ActiveRide />
         ) : (
-          <div className="container-fluid p-3">
+          <div className="container-fluid p-3 ubody">
             <div className="row">
               <div className="offset-3 col-6 p-4">
-                <div className="shadow p-4">
-                  <h1>Request a Ride </h1>
+                <div className="shadow p-4 bg-light">
+                  <h2 className="text-color-primary">Request a Ride </h2>
+                  <div style={{
+                    borderBottom: '1px solid',
+                  }}></div>
+                  <br></br>
                   {!showEstimate && (
                     <form id="create-ride-form" onSubmit={handleSubmit}>
                       <FormInputCheckbox

@@ -134,7 +134,7 @@ const CurrentRides = ({ userData }) => {
     return null;
   } else {
   return (
-    <div className="container data-table">
+    <div className="container-fluid data-table">
       {rides.length > 0 ? (
         <>
           {rides.map((ride) => {
@@ -257,7 +257,13 @@ const CurrentRides = ({ userData }) => {
       ) : (
         <>
           <div>
-            <h7>No current ride, click 'Request a Ride' from the sidebar.</h7>
+            <h6>
+              You do not have any current rides. 
+              <br></br>
+              To create a ride, click the 'Request a Ride' button on the sidebar. 
+              <br></br>
+              This section will then display your requested ride information.
+            </h6>
           </div>
         </>
       )}

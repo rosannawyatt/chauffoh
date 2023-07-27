@@ -54,11 +54,15 @@ const EditAccountDetails = () => {
     <>
       <div className="d-flex flex-row">
         <SideBarNav userData={userData} />
-        <div className="container-fluid p-3">
-          <div className="row p-4">
+        <div className="container-fluid p-0">
+          <div className="row p-4 ubody">
             <div className="offset-3 col-6">
-              <div className="shadow p-5 mt5">
-                <h3 className="text-color-primary">Edit Account Information</h3>
+              <div className="shadow p-5 mt5 bg-light">
+                <h2 className="text-color-primary">Edit Account Information</h2>
+                  <div style={{
+                    borderBottom: '1px solid',
+                  }}></div>
+                  <br></br>
                 <form onSubmit={handleSubmit} id="edit-account-form">
                   <FormInputOptional
                     id="email"
