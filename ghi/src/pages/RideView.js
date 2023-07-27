@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Map from '../components/Map'
+
 import { SideBarNav } from "../components/SideBarNav";
 import Footer from "../components/Footer";
 
 const RideView = ({ userData }) => {
   const [ride, setRide] = useState({});
+  const [startloc, setStartloc] = useState([]);
+  const [endloc, setEndloc] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -29,6 +33,47 @@ const RideView = ({ userData }) => {
     loadOneRide(id);
   }, [id]);
 
+  const getStartlocation = async(start) => {
+    if (start) {
+    const start_url = start.replace(/ /g, '+')
+    const url=`https://geocode.maps.co/search?q=${start_url}`
+    const response = await fetch(url)
+
+    if (!response.ok){
+        console.log('error with fetch')
+    } else {
+        const data = await response.json()
+        const location = [parseFloat(data[0].lat),parseFloat(data[0].lon)]
+        setStartloc(location)
+    }
+    }
+  }
+  const getEndlocation = async(end) => {
+    if (end){
+    const end_url = end.replace(/ /g, '+')
+    const url=`https://geocode.maps.co/search?q=${end_url}`
+    const response = await fetch(url)
+
+    if (!response.ok){
+        console.log('error with fetch')
+    } else {
+        const data = await response.json()
+
+        const location = [parseFloat(data[0].lat),parseFloat(data[0].lon)]
+
+        setEndloc(location)
+    }
+    }
+  }
+  useEffect(() => {
+    getStartlocation(ride.start_location);
+    getEndlocation(ride.end_location);
+  }, [ride]);
+
+
+  if (!ride && !startloc && !endloc){
+    return null;
+  } else {
   return (
     <>
       <div className="d-flex flex-row">
@@ -89,6 +134,7 @@ const RideView = ({ userData }) => {
                 </tr>
               </tbody>
             </table>
+        <Map start={startloc} end={endloc} />
           </div>
         </div>
       </div>
@@ -97,6 +143,7 @@ const RideView = ({ userData }) => {
       </div>
     </>
   );
+              }
 };
 
 export default RideView;

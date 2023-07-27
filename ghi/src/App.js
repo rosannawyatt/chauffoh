@@ -25,7 +25,6 @@ import EditAccountDetails from "./pages/EditAccountDetails";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
 import EmployeeCheck from "./utils/EmployeeCheck";
-
 function App() {
   const [userData, setUserData] = useState(null);
   const domain = /https:\/\/[^/]+/;
