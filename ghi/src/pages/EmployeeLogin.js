@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import Footer from "../components/Footer";
+import tesla from "../images/tesla.jpeg";
 
 const EmployeeLogin = () => {
   const [username, setUsername] = useState("");
@@ -71,37 +72,53 @@ const EmployeeLogin = () => {
 
   return (
     <>
-      <div className="row">
-        <div className="offset-3 col-6 p-4">
-          <div className="shadow p-4 mt-4">
-            <div className="float-right">
-              <h6>Create an Account</h6>
-              <a href="/employee-signup" className="float-right text-info">
-                Sign Up
-              </a>
+      <div className="container-fluid">
+        <div className="row align-items-stretch">
+          <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
+            <div className="p-4">
+              <div className="float-right">
+                <h6>Create an Account</h6>
+                <a
+                  href="/employee-signup"
+                  className="float-right text-color-primary"
+                >
+                  Sign Up
+                </a>
+              </div>
+              <h2 className="text-second-color">Employee Login</h2>
+              <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+                <FormInputRequired
+                  id="username"
+                  placeholder="username"
+                  labelText="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                />
+                <FormInputRequired
+                  id="password"
+                  placeholder="********"
+                  labelText="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                />
+                <button
+                  className=" ghost-button-second"
+                  type="submit"
+                  value="Login"
+                >
+                  Login
+                </button>
+              </form>
             </div>
-            <h2 className="text-info">Employee Login</h2>
-            <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
-              <FormInputRequired
-                id="username"
-                placeholder="username"
-                labelText="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-              />
-              <FormInputRequired
-                id="password"
-                placeholder="********"
-                labelText="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-              />
-              <button className="btn btn-info" type="submit" value="Login">
-                Login
-              </button>
-            </form>
+          </div>
+          <div className="col-lg-7 p-0 d-flex align-items-center">
+            <img
+              style={{ width: "100%", height: "100%" }}
+              src={tesla}
+              alt="car-signup"
+            />
           </div>
         </div>
       </div>

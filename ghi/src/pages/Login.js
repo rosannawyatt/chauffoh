@@ -84,16 +84,16 @@ const Login = () => {
           <div className="col-lg-5 p-5 d-flex flex-column justify-content-center">
             <div className="text-right">
               <h6>Create an Account</h6>
-              <Link to="/signup" className="float-right">
+              <Link to="/signup" className="float-righ text-second-color">
                 Sign Up
               </Link>
             </div>
-            <h2>Login</h2>
+            <h2 className="text-color-primary">Login</h2>
             <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
               <FormInputRequired
                 id="username"
                 placeholder="username"
-                labelText="username"
+                labelText="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -101,7 +101,7 @@ const Login = () => {
               <FormInputRequired
                 id="password"
                 placeholder="********"
-                labelText="password"
+                labelText="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"

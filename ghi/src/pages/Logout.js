@@ -20,7 +20,9 @@ const Logout = () => {
   return (
     <>
       <div className="row">
-        <p className="text-danger">You have been successfully logged out.</p>
+        <p className="text-danger text-center mt-3">
+          You have been successfully logged out.
+        </p>
       </div>
       <div className="row">
         <Footer />

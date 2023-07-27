@@ -82,11 +82,11 @@ function SignUp() {
           <div className="col-lg-5 p-5">
             <div className="float-right">
               <h6>Already Have An Account?</h6>
-              <Link to="/login" className="float-right">
+              <Link to="/login" className="float-right text-second-color">
                 Login
               </Link>
             </div>
-            <h2>Sign Up</h2>
+            <h2 className="text-color-primary">Sign Up</h2>
             <form onSubmit={handleSubmit} id="create-account-form">
               <FormInputRequired
                 id="first_name"

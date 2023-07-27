@@ -7,23 +7,27 @@ const UserAccountDetails = ({ userData }) => {
       <div className="d-flex flex-row">
         <SideBarNav userData={userData} />
         <div className="container-fluid ubody p-3">
-          <h3>Account Details</h3>
-          <div>
-            <p>Username: {userData && userData.username}</p>
-            <p>Email: {userData && userData.email}</p>
-            <p>First Name: {userData && userData.first_name}</p>
-            <p>Last Name: {userData && userData.last_name}</p>
-            <p>
-              Current Ride:
-              {userData && userData.current_ride ? "Actve" : "No current rides"}
-            </p>
-          </div>
-          <div>
-            <Link to="/dashboard/edit/account">
-              <button className="button button-primary">
-                Edit Account Information
-              </button>
-            </Link>
+          <div className="user-table shadow p-3">
+            <h3>Account Details</h3>
+            <div>
+              <p>Username: {userData && userData.username}</p>
+              <p>Email: {userData && userData.email}</p>
+              <p>First Name: {userData && userData.first_name}</p>
+              <p>Last Name: {userData && userData.last_name}</p>
+              <p>
+                Current Ride:
+                {userData && userData.current_ride
+                  ? "Actve"
+                  : "No current rides"}
+              </p>
+            </div>
+            <div>
+              <Link to="/dashboard/edit/account">
+                <button className="ghost-button-inverse">
+                  Edit Account Information
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

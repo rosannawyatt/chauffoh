@@ -113,13 +113,12 @@ const RideForm = ({ userData }) => {
   };
   const ActiveRide = () => (
     <>
-      <div className="d-flex flex-row">
-        <SideBarNav userData={userData} />
-        <div className="container-fluid ubody p-3">
-          <h3>
+      <div className="container-fluid ubody p-3">
+        <div className="user-table shadow p-3">
+          <h7>
             {" "}
             You already have an active ride, go to your dashboard to view it.{" "}
-          </h3>
+          </h7>
         </div>
       </div>
     </>
@@ -127,91 +126,96 @@ const RideForm = ({ userData }) => {
 
   return (
     <>
-      {isRideActive ? (
-        <ActiveRide />
-      ) : (
-        <div className="row">
-          <div className="offset-3 col-6 p-4">
-            <div className="shadow p-4 mt-4">
-              <h1>Request a Ride </h1>
-              {!showEstimate && (
-                <form id="create-ride-form" onSubmit={handleSubmit}>
-                  <FormInputCheckbox
-                    id="isRoundtrip"
-                    placeholder="Roundtrip"
-                    labelText="Is this a roundtrip?"
-                    value={isRoundtrip}
-                    onChange={handleRoundtripChange}
-                    type="checkbox"
-                  />
+      <div className="d-flex flex-row">
+        <SideBarNav userData={userData} />
+        {isRideActive ? (
+          <ActiveRide />
+        ) : (
+          <div className="container-fluid p-3">
+            <div className="row">
+              <div className="offset-3 col-6 p-4">
+                <div className="shadow p-4">
+                  <h1>Request a Ride </h1>
+                  {!showEstimate && (
+                    <form id="create-ride-form" onSubmit={handleSubmit}>
+                      <FormInputCheckbox
+                        id="isRoundtrip"
+                        placeholder="Roundtrip"
+                        labelText="Is this a roundtrip?"
+                        value={isRoundtrip}
+                        onChange={handleRoundtripChange}
+                        type="checkbox"
+                      />
 
-                  {isRoundtrip && (
-                    <FormInputRequired
-                      id="roundtripDate"
-                      placeholder="Select a date and time"
-                      labelText="Return date"
-                      value={roundtripDate}
-                      onChange={(e) => setRoundtripDate(e.target.value)}
-                      type="datetime-local"
-                    />
+                      {isRoundtrip && (
+                        <FormInputRequired
+                          id="roundtripDate"
+                          placeholder="Select a date and time"
+                          labelText="Return date"
+                          value={roundtripDate}
+                          onChange={(e) => setRoundtripDate(e.target.value)}
+                          type="datetime-local"
+                        />
+                      )}
+                      <FormInputRequired
+                        id="startLocation"
+                        placeholder="100 ABC Street, Brooklyn NY 11220"
+                        labelText="Start Location"
+                        value={startLocation}
+                        onChange={(e) => setStartLocation(e.target.value)}
+                        type="text"
+                      />
+                      <FormInputRequired
+                        id="endlocation"
+                        placeholder="500 DEF Street, Queens NY 11220"
+                        labelText="End Location"
+                        value={endLocation}
+                        onChange={(e) => setEndLocation(e.target.value)}
+                        type="text"
+                      />
+                      <FormInputRequired
+                        id="vehicle"
+                        placeholder="White Subaru CrossTek #ABC123"
+                        labelText="Vehicle"
+                        value={vehicle}
+                        onChange={(e) => setVehicle(e.target.value)}
+                        type="text"
+                      />
+                      <FormInputOptional
+                        id="comments"
+                        placeholder="Additional Pickup Info: ex. Pickup in front of Mario Pizzaria"
+                        labelText="Comments"
+                        value={comments}
+                        onChange={(e) => setComments(e.target.value)}
+                        type="text"
+                      />
+                      <button
+                        className="ghost-button-inverse"
+                        type="button"
+                        onClick={handleNextButtonClick}
+                      >
+                        Next
+                      </button>
+                    </form>
                   )}
-                  <FormInputRequired
-                    id="startLocation"
-                    placeholder="100 ABC Street, Brooklyn NY 11220"
-                    labelText="Start Location"
-                    value={startLocation}
-                    onChange={(e) => setStartLocation(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputRequired
-                    id="endlocation"
-                    placeholder="500 DEF Street, Queens NY 11220"
-                    labelText="End Location"
-                    value={endLocation}
-                    onChange={(e) => setEndLocation(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputRequired
-                    id="vehicle"
-                    placeholder="White Subaru CrossTek #ABC123"
-                    labelText="vehicle"
-                    value={vehicle}
-                    onChange={(e) => setVehicle(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputOptional
-                    id="comments"
-                    placeholder="Additional Pickup Info: ex. Pickup in front of Mario Pizzaria"
-                    labelText="Comments"
-                    value={comments}
-                    onChange={(e) => setComments(e.target.value)}
-                    type="text"
-                  />
-                  <button
-                    className="btn btn-primary"
-                    type="button"
-                    onClick={handleNextButtonClick}
-                  >
-                    Next
-                  </button>
-                </form>
-              )}
-              {showEstimate && (
-                <div>
-                  <p>Cost Estimate: ${costEstimate}</p>
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Request a ride
-                  </button>
+                  {showEstimate && (
+                    <div>
+                      <p>Cost Estimate: ${costEstimate}</p>
+                      <button
+                        className="ghost-button-inverse"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        Request A Ride
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <div className="row">
         <Footer />
       </div>

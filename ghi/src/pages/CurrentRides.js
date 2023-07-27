@@ -99,11 +99,7 @@ const CurrentRides = ({ userData }) => {
               return (
                 <div key={ride.id} className="">
                   <div className="d-flex flex-row">
-                    <h1>Current ride</h1>
-                    <div className="col">
-                      {" "}
-                      <div className="float-right">Ride ID#{ride.id}</div>
-                    </div>
+                    <h2>Current Ride ID {ride.id}</h2>
                   </div>
                   <div className="row">
                     <div className="col">
@@ -199,9 +195,11 @@ const CurrentRides = ({ userData }) => {
             } else {
               return (
                 <>
-                  <h1>
-                    No current ride, clck Request a Ride from the sidebar.
-                  </h1>
+                  <div>
+                    <h7>
+                      No current ride, click 'Request a Ride' from the sidebar.
+                    </h7>
+                  </div>
                 </>
               );
             }
@@ -209,7 +207,9 @@ const CurrentRides = ({ userData }) => {
         </>
       ) : (
         <>
-          <h1>No current ride, click 'Request a Ride' from the sidebar.</h1>
+          <div>
+            <h7>No current ride, click 'Request a Ride' from the sidebar.</h7>
+          </div>
         </>
       )}
     </div>
