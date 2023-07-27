@@ -63,7 +63,16 @@ const RideView = ({ userData }) => {
                   <td>{ride && ride.start_location}</td>
                   <td>{ride && ride.end_location}</td>
                   <td>{ride && ride.ride_status}</td>
-                  <td>{ride && ride.datetime}</td>
+                  <td>
+                    {new Date(ride.datetime).toLocaleString("en-US", {
+                      month: "numeric",
+                      day: "numeric",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </td>
                   <td>{ride && ride.vehicle_info}</td>
                   <td>{ride && ride.comments}</td>
                   <td>
