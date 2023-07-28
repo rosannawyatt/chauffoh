@@ -13,10 +13,10 @@
   color: white;
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=Average+Sans&family=Barlow&family=Lato:wght@300&display=swap"); */
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Open+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,500;1,900&display=swap');
 
 * {
-  font-family: roboto;
+  font-family: 'Roboto', sans-serif;
 }
 
 .greeting {
@@ -27,6 +27,15 @@
 
 .image {
   border-radius: 25px;
+}
+
+.driver-image {
+  width: 100%;
+  padding-top: 90px;
+}
+
+.picture {
+  box-shadow: 1px 2px 9px 2px #000000;
 }
 
 .article {
@@ -44,16 +53,60 @@
 }
 
 .header {
-  font-size: 70px;
+  font-size: 50px;
   color: rgb(69, 55, 15);
   text-align: center;
-  font-weight: bolder;
+  font-weight: 600;
+}
+
+.line1 {
+  position: relative; left: 15%; top: 50px;
+  font-size: 250%;
+  color: #000000;
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.line2 {
+  position: relative; left: 40%; bottom: 50px;
+  font-size: 50px;
+  color: #000000;
+  font-weight: 600;
+  margin: 0px;
+  padding-top: 100px;
+}
+
+.line3 {
+  font-size: 50px;
+  color: #000000;
+  font-weight: 400;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.line4 {
+  font-size: 50px;
+  color: #000000;
+  font-weight: 400;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.line5 {
+  font-size: 50px;
+  color: #000000;
+  font-weight: 400;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
 
 .signup-button {
-  --c: #08797e; /* the color*/
+  --c: #08797e;
 
   box-shadow: 0 0 0 0.1em inset var(--c);
   --_g: linear-gradient(var(--c) 0 0) no-repeat;
@@ -64,6 +117,20 @@
   background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
   outline-offset: 0.1em;
   transition: background-size 0.4s, background-position 0s 0.4s;
+  font-size: 200%;
+  font-weight: 900;
+  background-color: #c44817;
+  color: #FFFFFF;
+  border-radius: 40px;
+  margin: 5px;
+  width: 40%;
+  height: 80px;
+  border-color: #FFFFFF;
+  box-shadow: 1px 1px 1px 1px #c44817;
+  cursor: pointer;
+  padding: 0.1em 0.1em;
+  font-weight: bold;
+  border: none;
 }
 .signup-button:hover {
   --_p: 100%;
@@ -75,16 +142,56 @@
   color: #fff;
 }
 
-.signup-button {
+.signup-button2 {
+  --c: #08797e;
+
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p, 0%)) 0%,
+    var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p, 0%)) 100%;
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  transition: background-size 0.4s, background-position 0s 0.4s;
+  font-size: 200%;
+  font-weight: 900;
+  background-color: #c44817;
+  color: #FFFFFF;
+  border-radius: 40px;
+  margin: 5px;
+  width: 40%;
+  height: 20%;
+  border-color: #FFFFFF;
+  box-shadow: 0px 0px 10px 5px #FFFFFF;
   cursor: pointer;
   padding: 0.1em 0.1em;
   font-weight: bold;
   border: none;
 }
+.signup-button2:hover {
+  --_p: 100%;
+  transition: background-position 0.4s, background-size 0s;
+}
+.signup-button2:active {
+  box-shadow: 0 0 9e9Q inset #0009;
+  background-color: var(--c);
+  color: #fff;
+}
 
 .login-button {
   border: none;
   cursor: pointer;
+  background-color: #C4B691;
+  color: #FFFFFF;
+  border-color: #08797E;
+  border-radius: 25px;
+  margin: 5px;
+  width: 20%;
+  height: 50px;
+  font-weight: 900;
+  font-size: 25px;
+  box-shadow: 1px 2px 9px 2px #FFFFFF;
 }
 
 .login-button:hover {
@@ -98,7 +205,6 @@
   border-radius: 40px;
   width: 100%;
   padding: 5px;
-  /* box-shadow: 2px 2px 9px #111111; */
 }
 
 .data-table {
@@ -116,8 +222,12 @@
 }
 
 .nbody {
-  background-color: #f6f6f6;
+  position: fixed;
+  width: 100%;
+  background-color: #FFFFFF;
   padding: 10px;
+  z-index: 10;
+  font-weight: 600;
 }
 
 .fbody {
@@ -132,14 +242,13 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
-  grid-gap: 10px; /* Gap between grid items */
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px; 
 }
 
 .grid-item {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid #ccc; */
   padding: 10px;
 }
 
@@ -235,4 +344,152 @@
 
 .about {
   font-size: 20px;
+}
+
+.text-section {
+  margin: 0;
+  padding-bottom: 5%;
+  background-color: #F7F3E8;
+}
+
+
+.home-carousel {
+  padding: 20px;
+  padding-bottom: 70px;
+  margin: 0 auto;
+  width: 60%;
+}
+
+.locations {
+  background-color: #08797E;
+  height: 60px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-top: solid;
+  border-bottom: solid;
+  border-width: 10px;
+  border-color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+
+.textbox {
+  width: 25%;
+  position: relative; left: 30%;
+  opacity: 80%;
+}
+
+.review-section {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #F7F3E8;
+}
+
+.headline {
+  color: #08797E;
+  padding-left: 30px;
+  font-size: 50px;
+}
+
+.car-picture {
+  box-shadow: 1px 2px 9px 2px #000000;
+  width: 50%;
+  position: relative; left: 30%;
+}
+
+.blurb {
+  width: 70%;
+  font-size: larger;
+  position: relative; left: 25%; bottom: 5%;
+  text-align: justify;
+}
+
+.nav {
+  position: fixed;
+}
+
+.counter {
+  font-weight: 900;
+  font-size: 500%;
+  padding-bottom: 30px;
+  color: #08797e;
+}
+
+.counter-head {
+  font-size: 30px;
+  padding: 10px;
+  font-weight: 700;
+}
+
+.counter-box {
+  position: relative; top: 20%; left: 35%; right: 40%;
+  background-color: #FFFFFF;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  box-shadow: 1px 2px 9px 2px #6a6a6a;
+}
+
+.counter-line1 {
+  position: relative; top: 30px;
+}
+
+.counter-line2 {
+  position: relative; bottom: 10px; left: 0%;
+}
+.closing {
+  position: relative; top: 30%;
+}
+
+.closing1 {
+  font-size: xx-large;
+  font-weight: 900;
+}
+
+.closing2 {
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+.closing3 {
+  font-size: xx-large;
+  font-weight: 900;
+}
+
+.review-text {
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 50px;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.banner {
+  position: relative;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.signup {
+  position: relative; top: 30%; left: 34%;
+}
+
+.big {
+  position: absolute; top: 13%;
+}
+
+.signup1 {
+  position: absolute; left: 40%; top: 80%;
+  width: 50%;
+}
+
+.signup3 {
+  position: relative; top: 40%; left: 45%;
 }

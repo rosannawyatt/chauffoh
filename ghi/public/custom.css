@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Average+Sans&family=Barlow:wght@400;900&family=Lato:wght@300&display=swap');
+
+* {
+  font-family: "Barlow", sans-serif;
+}
+
+.greeting {
+  font-size: 50px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.image {
+  border-radius: 25px;
+}
+
+.article {
+  height: 50%;
+  width: 75%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  border-radius: 50px 25px 5px 25px;
+  animation: 10s;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  font-size: 70px;
+  color: rgb(69, 55, 15);
+  text-align: center;
+  font-weight: bolder;
+}
+
+.signup-button {
+  --c: #08797e; /* the color*/
+
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p, 0%)) 0%,
+    var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p, 0%)) 100%;
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  transition: background-size 0.4s, background-position 0s 0.4s;
+  font-size: 25px;
+  font-weight: 900;
+  background-color: #FFFFFF;
+  color: #e08080;
+  border-radius: 25px;
+  margin: 5px;
+  width: 20%;
+  height: 50px;
+  border-color: #FFFFFF;
+  box-shadow: 1px 2px 9px 2px #e08080;
+}
+.signup-button:hover {
+  --_p: 100%;
+  transition: background-position 0.4s, background-size 0s;
+}
+.signup-button:active {
+  box-shadow: 0 0 9e9Q inset #0009;
+  background-color: var(--c);
+  color: #fff;
+}
+
+.signup-button {
+  cursor: pointer;
+  padding: 0.1em 0.1em;
+  border: none;
+}
+
+.login-button {
+  border: none;
+  cursor: pointer;
+  background-color: #C4B691;
+  color: #FFFFFF;
+  border-color: #08797E;
+  border-radius: 25px;
+  margin: 5px;
+  width: 20%;
+  height: 50px;
+  font-weight: 900;
+  font-size: 25px;
+  box-shadow: 1px 2px 9px 2px #FFFFFF;
+}
+
+.login-button:hover {
+  border: 10;
+  border-style: solid;
+  border-color: #08797e;
+}
+
+.table-back {
+  background-color: #91cacc;
+  border-radius: 25px;
+  width: 110%;
+  padding: 30px;
+  box-shadow: 2px 2px 9px #111111;
+}
+
+.data-table {
+  width: 90%;
+  overflow: auto;
+}
+
+.banner {
+  /* background-image: url("./banner-new-thin.webp"); */
+  background-size: 50%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.banner-image {
+  z-index: 8;
+  width: 100%;
+  position: relative
+}

@@ -4,10 +4,11 @@ import wheelTealLogo from "../images/Chauffoh-wheel-teal.png";
 export default function Nav({ userData }) {
   if (userData === null) {
     return (
+      <div>
       <div className="nbody">
         <nav
           className="navbar navbar-expand-lg"
-          style={{ backgroundColor: "transparent" }}
+          style={{ backgroundColor: "#FFFFFF"}}
         >
           <div className="container-fluid">
             <NavLink to="/">
@@ -77,11 +78,11 @@ export default function Nav({ userData }) {
           </div>
         </nav>
       </div>
+      </div>
     );
   } else {
     return (
       <>
-        {/* <div className="nbody"> */}
         <nav
           className="navbar navbar-expand-lg"
           style={{ backgroundColor: "transparent" }}
@@ -130,7 +131,6 @@ export default function Nav({ userData }) {
             </div>
           </div>
         </nav>
-        {/* </div> */}
       </>
     );
   }

@@ -24,7 +24,7 @@ const RideCounter = () => {
 
   return (
     <div>
-      <div>Completed Rides: {rideCount}</div>
+      <div>{rideCount}</div>
     </div>
   );
 };

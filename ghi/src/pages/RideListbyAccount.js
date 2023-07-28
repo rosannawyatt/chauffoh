@@ -99,7 +99,7 @@ const RideListbyAccount = ({ userData }) => {
         ) : (
           <div className="container-fluid ubody p-3">
             <div className="user-table shadow p-3">
-              <h7>No ride history, you have not requested any rides.</h7>
+              <p>No ride history, you have not requested any rides.</p>
             </div>
           </div>
         )}
