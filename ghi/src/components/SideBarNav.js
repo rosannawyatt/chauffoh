@@ -20,14 +20,8 @@ function SideBarNav({ userData }) {
       >
         <CDBSidebar textColor="#f6f6f6" backgroundColor="#08797e">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-            <a
-              href="/"
-              className="text-decoration-none"
-              style={{ color: "inherit" }}
-            >
               {" "}
               Hi, {userData.first_name}
-            </a>
           </CDBSidebarHeader>
           <CDBSidebarContent className="sidebar-content">
             <CDBSidebarMenu>
