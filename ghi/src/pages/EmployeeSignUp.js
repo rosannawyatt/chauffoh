@@ -70,12 +70,11 @@ function EmployeeSignUp() {
     <>
       <div className="container-fluid">
         <div className="page-body">
-
           <div className="row align-items-stretch">
             <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
               <div className="shadow p-5">
-                <div className="float-right">
-                  <h6>Already Have An Account?</h6>
+                <div className="mt-1">
+                  <h6 className="mb-0">Already Have An Account?</h6>
                   <NavLink
                     to="/employee-login"
                     className="float-right text-color-primary"
@@ -84,7 +83,7 @@ function EmployeeSignUp() {
                   </NavLink>
                 </div>
                 <div>
-                  <h2 className="text-second-color ">Employee Sign Up</h2>
+                  <h2 className="text-second-color  mt-3">Employee Sign Up</h2>
                   <form onSubmit={handleSubmit} id="create-account-form">
                     <FormInputRequired
                       id="first_name"

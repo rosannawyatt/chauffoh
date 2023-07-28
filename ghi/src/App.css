@@ -13,10 +13,10 @@
   color: white;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Open+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,500;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Open+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,500;1,900&display=swap");
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .greeting {
@@ -31,7 +31,6 @@
 
 .driver-image {
   width: 100%;
-  padding-top: 90px;
 }
 
 .picture {
@@ -60,7 +59,9 @@
 }
 
 .line1 {
-  position: relative; left: 15%; top: 50px;
+  position: relative;
+  left: 15%;
+  top: 50px;
   font-size: 250%;
   color: #000000;
   font-weight: 400;
@@ -68,7 +69,9 @@
 }
 
 .line2 {
-  position: relative; left: 40%; bottom: 50px;
+  position: relative;
+  left: 40%;
+  bottom: 50px;
   font-size: 50px;
   color: #000000;
   font-weight: 600;
@@ -119,14 +122,13 @@
   transition: background-size 0.4s, background-position 0s 0.4s;
   font-size: 200%;
   font-weight: 900;
-  background-color: #c44817;
-  color: #FFFFFF;
+  background-color: #c44817e2;
+  color: #ffffff;
   border-radius: 40px;
   margin: 5px;
   width: 40%;
   height: 80px;
-  border-color: #FFFFFF;
-  box-shadow: 1px 1px 1px 1px #c44817;
+  box-shadow: none;
   cursor: pointer;
   padding: 0.1em 0.1em;
   font-weight: bold;
@@ -157,13 +159,13 @@
   font-size: 200%;
   font-weight: 900;
   background-color: #c44817;
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 40px;
   margin: 5px;
   width: 40%;
   height: 20%;
-  border-color: #FFFFFF;
-  box-shadow: 0px 0px 10px 5px #FFFFFF;
+  border-color: #f7f3e8a8;
+  box-shadow: 0px 0px 10px 5px #f7f3e8a8;
   cursor: pointer;
   padding: 0.1em 0.1em;
   font-weight: bold;
@@ -182,16 +184,16 @@
 .login-button {
   border: none;
   cursor: pointer;
-  background-color: #C4B691;
-  color: #FFFFFF;
-  border-color: #08797E;
+  background-color: #c4b691;
+  color: #ffffff;
+  border-color: #08797e;
   border-radius: 25px;
   margin: 5px;
   width: 20%;
   height: 50px;
   font-weight: 900;
   font-size: 25px;
-  box-shadow: 1px 2px 9px 2px #FFFFFF;
+  box-shadow: 1px 2px 9px 2px #ffffff;
 }
 
 .login-button:hover {
@@ -224,9 +226,9 @@
 .nbody {
   position: fixed;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 10px;
-  font-weight: 600;
+  font-weight: 500;
   z-index: 10;
 }
 
@@ -349,9 +351,8 @@
 .text-section {
   margin: 0;
   padding-bottom: 5%;
-  background-color: #F7F3E8;
+  background-color: #f7f3e8a8;
 }
-
 
 .home-carousel {
   padding: 20px;
@@ -361,33 +362,34 @@
 }
 
 .locations {
-  background-color: #08797E;
+  background-color: #08797e;
   height: 60px;
   padding-top: 10px;
   padding-bottom: 20px;
   border-top: solid;
   border-bottom: solid;
   border-width: 10px;
-  border-color: #FFFFFF;
+  border-color: #08797e;
   font-size: 20px;
   font-weight: 900;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .textbox {
   width: 25%;
-  position: relative; left: 30%;
+  position: relative;
+  left: 30%;
   opacity: 80%;
 }
 
 .review-section {
   margin: 0;
   min-height: 100vh;
-  background-color: #F7F3E8;
+  background-color: #08797e;
 }
 
 .headline {
-  color: #08797E;
+  color: #08797e;
   padding-left: 30px;
   font-size: 50px;
 }
@@ -395,13 +397,16 @@
 .car-picture {
   box-shadow: 1px 2px 9px 2px #000000;
   width: 50%;
-  position: relative; left: 30%;
+  position: relative;
+  left: 30%;
 }
 
 .blurb {
   width: 70%;
   font-size: larger;
-  position: relative; left: 25%; bottom: 5%;
+  position: relative;
+  left: 25%;
+  bottom: 5%;
   text-align: justify;
 }
 
@@ -423,8 +428,11 @@
 }
 
 .counter-box {
-  position: relative; top: 20%; left: 35%; right: 40%;
-  background-color: #FFFFFF;
+  position: relative;
+  top: 20%;
+  left: 35%;
+  right: 40%;
+  background-color: #ffffff;
   width: 40%;
   height: auto;
   text-align: center;
@@ -432,29 +440,36 @@
 }
 
 .counter-line1 {
-  position: relative; top: 30px;
+  position: relative;
+  top: 30px;
 }
 
 .counter-line2 {
-  position: relative; bottom: 10px; left: 0%;
+  position: relative;
+  bottom: 10px;
+  left: 0%;
 }
 .closing {
-  position: relative; top: 30%;
+  position: relative;
+  top: 30%;
 }
 
 .closing1 {
   font-size: xx-large;
   font-weight: 900;
+  color: #08797e;
 }
 
 .closing2 {
   font-size: xx-large;
-  font-weight: 500;
+  font-weight: 900;
+  color: #047070a0;
 }
 
 .closing3 {
   font-size: xx-large;
   font-weight: 900;
+  color: #c44817e2;
 }
 
 .review-text {
@@ -478,27 +493,36 @@
 }
 
 .signup {
-  position: relative; top: 30%; left: 34%;
+  position: relative;
+  top: 30%;
+  left: 34%;
 }
 
 .big {
-  position: absolute; top: 13%;
+  position: absolute;
+  top: 13%;
 }
 
 .signup1 {
-  position: absolute; left: 40%; top: 80%;
+  position: absolute;
+  left: 40%;
+  top: 80%;
   width: 50%;
 }
 
 .signup3 {
-  position: relative; top: 40%; left: 45%;
+  position: relative;
+  top: 40%;
+  left: 45%;
 }
 
 .page-body {
-  position: absolute; top: 13%;
+  position: absolute;
+  top: 13%;
 }
 
 .logout-body {
-  position: absolute; top: 13%;
+  position: absolute;
+  top: 13%;
   width: 100%;
 }

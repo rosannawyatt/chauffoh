@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 
 const EmployeeDashboard = ({ userData }) => {
   const navigate = useNavigate();
-  const onChange = (key) => {};
   const items = [
     {
       key: "1",
@@ -39,11 +38,9 @@ const EmployeeDashboard = ({ userData }) => {
   }, [userData, navigate]);
   return (
     <>
-      <div className="container-fluid ">
-        <div className="row p-3 mt-3">
-          <div className="row p-3 mt-3">
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-          </div>
+      <div className="container-fluid">
+        <div className="row p-3">
+          <Tabs defaultActiveKey="1" items={items} />
         </div>
       </div>
       <div className="row">

@@ -39,9 +39,9 @@ const RideListbyAccount = ({ userData }) => {
         {rides.length > 0 ? (
           <>
             <div className="container-fluid ubody p-3">
-              <div className="user-table shadow p-3">
+              <div className="user-table shadow p-3 table-responsive">
                 <h3>Ride History </h3>
-                <table className="table table-sm table-responsive table-hover">
+                <table className="table table-sm table-hover">
                   <thead>
                     <tr>
                       <th>Ride Status</th>

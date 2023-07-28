@@ -22,7 +22,6 @@ const RideForm = ({ userData }) => {
   const isRideActive = userData.current_ride;
   const navigate = useNavigate();
 
-
   const handleRoundtripChange = (e) => {
     setIsRoundtrip(e.target.checked);
   };
@@ -115,10 +114,10 @@ const RideForm = ({ userData }) => {
     <>
       <div className="container-fluid ubody p-3">
         <div className="user-table shadow p-3">
-          <h7>
+          <p>
             {" "}
             You already have an active ride, go to your dashboard to view it.{" "}
-          </h7>
+          </p>
         </div>
       </div>
     </>
@@ -136,9 +135,11 @@ const RideForm = ({ userData }) => {
               <div className="offset-3 col-6 p-4">
                 <div className="shadow p-4 bg-light">
                   <h2 className="text-color-primary">Request a Ride </h2>
-                  <div style={{
-                    borderBottom: '1px solid',
-                  }}></div>
+                  <div
+                    style={{
+                      borderBottom: "1px solid",
+                    }}
+                  ></div>
                   <br></br>
                   {!showEstimate && (
                     <form id="create-ride-form" onSubmit={handleSubmit}>

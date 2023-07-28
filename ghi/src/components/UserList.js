@@ -38,33 +38,31 @@ const UserList = () => {
 
   const ListUser = () => (
     <>
-      <div className="container-fluid table-responsive">
-        <h2>List of Users</h2>
-        <table className="table table-sm table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Contact</th>
-              <th>Current Ride</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filterUsers.map((userF) => {
-              return (
-                <tr key={userF.id}>
-                  <td>{userF.id}</td>
-                  <td>
-                    {userF.first_name} {userF.last_name}
-                  </td>
-                  <td>{userF.email}</td>
-                  <td>{userF.current_ride ? "Yes" : "No"}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <h2>List of Users</h2>
+      <table className="table table-sm table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Current Ride</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filterUsers.map((userF) => {
+            return (
+              <tr key={userF.id}>
+                <td>{userF.id}</td>
+                <td>
+                  {userF.first_name} {userF.last_name}
+                </td>
+                <td>{userF.email}</td>
+                <td>{userF.current_ride ? "Yes" : "No"}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </>
   );
 

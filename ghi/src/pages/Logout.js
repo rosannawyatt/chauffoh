@@ -20,8 +20,11 @@ const Logout = () => {
   return (
     <>
       <div className="logout-body">
-        <div className="row" style={{width: "100%"}}>
-          <p className="text-danger text-center mt-3" style={{paddingBottom: "25%", width: "100%"}}>
+        <div className="row mt-2" style={{ width: "100%" }}>
+          <p
+            className="text-danger text-center mt-3"
+            style={{ paddingBottom: "25%", width: "100%" }}
+          >
             You have been successfully logged out.
           </p>
         </div>

@@ -79,13 +79,13 @@ function SignUp() {
               />
             </div>
             <div className="col-lg-5 p-5">
-              <div className="float-right">
-                <h6>Already Have An Account?</h6>
-                <Link to="/login" className="float-right text-second-color">
+              <div className="mt-1">
+                <h6 className="mb-0">Already Have An Account?</h6>
+                <Link to="/login" className="text-second-color">
                   Login
                 </Link>
               </div>
-              <h2 className="text-color-primary">Sign Up</h2>
+              <h2 className="text-color-primary mt-3">Sign Up</h2>
               <form onSubmit={handleSubmit} id="create-account-form">
                 <FormInputRequired
                   id="first_name"
@@ -127,7 +127,11 @@ function SignUp() {
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                 />
-                <button className="button-primary" type="submit" value="Register">
+                <button
+                  className="button-primary"
+                  type="submit"
+                  value="Register"
+                >
                   Create
                 </button>
               </form>

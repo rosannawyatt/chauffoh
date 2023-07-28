@@ -4,7 +4,7 @@ const EmployeeList = () => {
   const [currentEmployees, setCurrentEmployees] = useState([]);
   const [allEmployees, setAllEmployees] = useState([]);
 
-const loadCurrentEmployees = useCallback(async () => {
+  const loadCurrentEmployees = useCallback(async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/employees/current`;
     const response = await fetch(url, {
       method: "GET",
@@ -46,9 +46,9 @@ const loadCurrentEmployees = useCallback(async () => {
   }, [loadCurrentEmployees, loadAllEmployees]);
   return (
     <>
-      <div className="container-fluid p-3 mt-4">
+      <div className="container-fluid p-3 mt-4 table-responsive">
         <h2>Employees With Current Rides</h2>
-        <table className="table table-sm table-responsive">
+        <table className="table table-sm">
           <thead className="thead-dark">
             <tr>
               <th>Name</th>
@@ -67,9 +67,9 @@ const loadCurrentEmployees = useCallback(async () => {
           </tbody>
         </table>
       </div>
-            <div className="container-fluid p-3 mt-4">
+      <div className="container-fluid p-3 mt-4 table-responsive">
         <h2>All Employees</h2>
-        <table className="table table-sm table-responsive">
+        <table className="table table-sm">
           <thead className="thead-dark">
             <tr>
               <th>Name</th>
@@ -80,7 +80,7 @@ const loadCurrentEmployees = useCallback(async () => {
               return (
                 <tr key={employee.id}>
                   <td>
-                   {employee.last_name}, {employee.first_name}
+                    {employee.last_name}, {employee.first_name}
                   </td>
                 </tr>
               );
