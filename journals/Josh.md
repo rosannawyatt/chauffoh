@@ -2,13 +2,13 @@
 
 Group 9 began designing the wireframe and mvp of our project with excalidraw and google docs. We were able to put together our domain and basic functionality of our app. We were also able to come up with the group-9 name "Chauffoh". Trello and google docs were also used to organize our schema and endpoints,.
 
-# week 14 28th
+# week 14
 
 As a group we began group coding the initial database setup and started setting up backend authorization for all of our accounts. We did have a blocker with authorization post request. We also created front end-authorization and we were able to create a sign up page. I was also able to create most the groups first initial issues on gitlab.
 
 # Week 15
 
-As a group we created a bunch of backend points to get us started.
+As a group we created a bunch of backend points to get us started. We set up pydantic models, SQL queries to understand what we need to do for our indivual backend endpoints.
 
 # Week 16
 
@@ -20,4 +20,6 @@ On Thursday of this week I began the process of deploying the frontend image. I 
 
 # Week 17
 
-I was able to pick up from where I left off last Thursday with frontend image deployment. I didn't run into any blockers; but I did have to do the tedious task of fixing code errors that would cause the frontend image tests to fail. Once the errors were fixed the frontend image test passed. I was also able to create my unit test for users and update ride status. I then fixed a console error in my FinalReceipt.js page.
+I was able to pick up from where I left off last Thursday with frontend image deployment. I didn't run into any blockers; but I did have to do the tedious task of fixing code errors that would cause the frontend image tests to fail. Once the errors were fixed the frontend image test passed.
+
+I was also able to create my unit test for users and update ride status. I then fixed a console error in my FinalReceipt.js page. As a group we were able to put the finishing touches to the docs/read.me file. I added wireframe images from excalidraw to the graphical human interface file and gave descriptions for each page.
