@@ -28,7 +28,6 @@ class GetReceiptRide(BaseModel):
     id: int
     account_id: int
     is_roundtrip: bool
-    # roundtrip_date: str | None
     roundtrip_date: datetime | None
     start_location: str
     end_location: str
@@ -53,10 +52,8 @@ class DuplicateReceiptError(ValueError):
 class ReceiptQueries:
     def create(self, receipt: ReceiptIn) -> ReceiptOut:
         try:
-            print("receipt: ", receipt)
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    print("connected to db")
                     result = db.execute(
                         """
                         INSERT INTO receipts
@@ -77,26 +74,8 @@ class ReceiptQueries:
         except Exception as e:
             return {"error": e}
 
-    def refund(self, ride_id):
-        try:
-            print("ride_id: ", ride_id)
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        UPDATE receipts
-                        SET total = -total
-                        WHERE ride_id = %s;
-                        """,
-                        [ride_id],
-                    )
-                    print(result)
-        except Exception as e:
-            return {"error": e}
-
     def delete(self, ride_id):
         try:
-            print("ride_id: ", ride_id)
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
@@ -106,8 +85,8 @@ class ReceiptQueries:
                         """,
                         [ride_id],
                     )
-                    print(result)
-                    return {"message": "Deleted"}
+                    if result:
+                        return {"message": "Deleted"}
         except Exception as e:
             return {"error": e}
 
@@ -180,7 +159,6 @@ class ReceiptQueries:
                     )
 
                     returned_values = result.fetchone()
-                print('receipt: ', returned_values)
                 return self.get_receipt_record_with_driver(returned_values)
         except Exception as e:
             return {"error": e}

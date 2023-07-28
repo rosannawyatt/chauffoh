@@ -117,7 +117,6 @@ class RideQueries:
                         roundtrip_date = None
                     else:
                         roundtrip_date = returned_values[1].isoformat()
-                    print("ID GOTTEN", returned_values)
                     return RideOut(
                         id=returned_values[0],
                         account_id=ride.account_id,
@@ -151,7 +150,6 @@ class RideQueries:
                     )
 
                     returned_values = result.fetchone()
-                    print("ride: ", returned_values)
                     return self.get_ride_record(returned_values)
         except Exception as e:
             return {"error": e}
@@ -172,9 +170,7 @@ class RideQueries:
                         """,
                         [account_id],
                     )
-                    print("values fetched \n\n\n")
                     returned_values = result.fetchall()
-                    print("ride: ", returned_values)
                     return [
                         self.get_ride_record(returned_value)
                         for returned_value in returned_values
@@ -223,7 +219,6 @@ class RideQueries:
                     )
 
                     returned_values = result.fetchall()
-                    print("ride: ", returned_values)
                     return [
                         self.get_ride_record(returned_value)
                         for returned_value in returned_values
@@ -235,7 +230,6 @@ class RideQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    print("start update")
                     returned_values = None
                     if RideUpdate.ride_status:
                         result = db.execute(
@@ -335,7 +329,6 @@ class RideQueries:
                             [RideUpdate.driver_id, _id],
                         )
                     returned_values = result.fetchone()
-                    print("ride: ", returned_values)
                     return self.record_to_ride(returned_values)
         except Exception as e:
             return {"error": e}

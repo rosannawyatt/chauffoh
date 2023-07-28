@@ -3,7 +3,6 @@ import { Collapse } from "antd";
 
 const RideList = ({ userData }) => {
   const [rides, setRides] = useState([]);
-  // const [hasClaimedRide, setHasClaimedRide] = useState(false);
 
   const loadRides = async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides`;

@@ -27,11 +27,7 @@ async def create_ride(
     repo: RideQueries = Depends(),
 ):
     try:
-        print("info: ", info)
-        print("trying")
         ride = repo.create(info)
-        print("ride from create method", ride)
-        print("done trying")
         return ride
     except DuplicateRideError:
         raise HTTPException(
@@ -47,7 +43,6 @@ def get_ride(
     queries: RideQueries = Depends(),
 ):
     record = queries.get_ride(ride_id)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -60,7 +55,6 @@ def get_all_rides(
     queries: RideQueries = Depends(),
 ):
     record = queries.get_all_ride()
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -73,7 +67,6 @@ def get_all_roundtrips(
     queries: RideQueries = Depends(),
 ):
     record = queries.get_all_roundtrips()
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -87,7 +80,6 @@ def get_rides_by_account(
     queries: RideQueries = Depends(),
 ):
     record = queries.get_rides_by_account(account_id)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:

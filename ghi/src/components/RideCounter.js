@@ -5,7 +5,7 @@ const RideCounter = () => {
   const [rideCount, setRideCount] = useState(0);
 
   const loadRides = async () => {
-    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides/`;
+    const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/rides`;
     const response = await fetch(url);
     if (!response.ok) {
       console.log("error with fetch");

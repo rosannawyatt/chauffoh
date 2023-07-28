@@ -1,7 +1,7 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { FormInputRequired } from "../components/Forms.js";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import Footer from "../components/Footer";
 import tesla from "../images/tesla.jpeg";
@@ -78,12 +78,12 @@ const EmployeeLogin = () => {
             <div className="p-4">
               <div className="float-right">
                 <h6>Create an Account</h6>
-                <a
-                  href="/employee-signup"
+                <Link
+                  to="/employee-signup"
                   className="float-right text-color-primary"
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
               <h2 className="text-second-color">Employee Login</h2>
               <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>

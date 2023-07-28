@@ -40,7 +40,6 @@ class AccountUpdate(BaseModel):
 class AccountQueries:
     def create(self, account: AccountIn, hash_password: str) -> AccountOut:
         try:
-            print("Username", account)
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
@@ -71,9 +70,7 @@ class AccountQueries:
                             account.current_ride,
                         ],
                     )
-                    print("insert worked?")
                     id = result.fetchone()[0]
-                    print("ID GOTTEN", id)
                     return AccountOut(
                         id=id,
                         username=account.username,
@@ -101,7 +98,6 @@ class AccountQueries:
                     )
 
                     record = cur.fetchone()
-                    print("account row:", record)
                     return self.record_to_account(record)
         except Exception as e:
             return {"error": e}
@@ -117,7 +113,6 @@ class AccountQueries:
                                 """
                     )
                     record = cur.fetchall()
-                    print("account row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
@@ -127,7 +122,6 @@ class AccountQueries:
             with conn.cursor() as db:
                 returned_values = None
                 if AccountUpdate.first_name:
-                    print("printing first name")
                     result = db.execute(
                         """
                         UPDATE accounts
@@ -139,7 +133,6 @@ class AccountQueries:
                     )
 
                 if AccountUpdate.last_name:
-                    print("printing last name")
                     result = db.execute(
                         """
                         UPDATE accounts
@@ -151,7 +144,6 @@ class AccountQueries:
                     )
 
                 if AccountUpdate.email:
-                    print("printing email")
                     result = db.execute(
                         """
                         UPDATE accounts
@@ -163,7 +155,6 @@ class AccountQueries:
                     )
 
                 if AccountUpdate.current_ride is not None:
-                    print("printing current ride")
                     result = db.execute(
                         """
                         UPDATE accounts
@@ -174,7 +165,6 @@ class AccountQueries:
                         [AccountUpdate.current_ride, _username],
                     )
                 returned_values = result.fetchone()
-                print("updates: ", returned_values)
                 return self.record_to_account(returned_values)
 
     def get_all_employees(self):
@@ -189,7 +179,6 @@ class AccountQueries:
                                 """
                     )
                     record = cur.fetchall()
-                    print("employee row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
@@ -208,7 +197,6 @@ class AccountQueries:
                                 """
                     )
                     records = cur.fetchall()
-                    print("employee row:", records)
                     return self.record_to_all_account(records)
         except Exception as e:
             return {"error": e}
@@ -226,7 +214,6 @@ class AccountQueries:
                                 """
                     )
                     record = cur.fetchall()
-                    print("user row:", record)
                     return self.record_to_all_account(record)
         except Exception as e:
             return {"error": e}
@@ -258,5 +245,4 @@ class AccountQueries:
                     current_ride=record[7],
                 )
             )
-        print(accounts)
         return accounts

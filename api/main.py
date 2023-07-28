@@ -38,7 +38,6 @@ app.include_router(authenticator.router)
 
 @app.get("/api/launch-details")
 def launch_details():
-    print(os.environ['CORS_HOST'])
     return {
         "launch_details": {
             "module": 3,

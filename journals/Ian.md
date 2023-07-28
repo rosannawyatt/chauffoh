@@ -23,5 +23,4 @@ Found an issue with receipt endpoint after we refactored for flake testing. Adde
 Created a unit test for all rides + create a ride
 
 # H1 Week of Jul 24th
-Created a 2nd navbar that shows once a user logins. Shows details based on user type. Implented 3 APIS to get routing data on Ride view. React Leaflet, Leaflet Routing Machine, and Geocoding API. Leaflet generates the map, leaflet routing generates the routes, and geocoding
-turns lat lon coordinates into addresses.
+Created a 2nd navbar that shows once a user logins. Shows details based on user type. Implented 3 APIS to get routing data on Ride view. React Leaflet, Leaflet Routing Machine, and Geocoding API. Leaflet generates the map, leaflet routing generates the routes, and geocoding turns lat lon coordinates into addresses. Finished up the project with some code clean-up.

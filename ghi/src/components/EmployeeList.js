@@ -1,10 +1,9 @@
-
 import { useState, useEffect, useCallback } from "react";
 
 const EmployeeList = () => {
   const [currentEmployees, setCurrentEmployees] = useState([]);
   const [allEmployees, setAllEmployees] = useState([]);
-  
+
 const loadCurrentEmployees = useCallback(async () => {
     const url = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/employees/current`;
     const response = await fetch(url, {

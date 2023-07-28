@@ -65,9 +65,7 @@ def update(
     response: Response,
     queries: AccountQueries = Depends(),
 ):
-    print(response)
     record = queries.update_account(username, info)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -143,18 +141,12 @@ async def create_account(
 ):
     hash_password = authenticator.hash_password(info.password)
     try:
-        print("trying")
         account = repo.create(info, hash_password)
-        print("account from create method", account)
-        print("done trying")
     except DuplicateAccountError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
-    print("here we are now")
     form = AccountForm(username=info.username, password=info.password)
-    print("Testing ")
     token = await authenticator.login(response, request, form, repo)
-    print("token", token)
     return AccountToken(account=account, **token.dict())

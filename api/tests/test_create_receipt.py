@@ -59,7 +59,6 @@ def test_create_receipt():
     response = client.post("/api/receipts", json=receipt)
 
     app.dependency_overrides = {}
-    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
         "receipt_id": 1,

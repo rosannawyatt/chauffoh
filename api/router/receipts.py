@@ -19,11 +19,7 @@ async def create_receipts(
     repo: ReceiptQueries = Depends(),
 ):
     try:
-        print("info: ", info)
-        print("trying")
         receipt = repo.create(info)
-        print("receipt from create method", receipt)
-        print("done trying")
         return receipt
     except DuplicateReceiptError:
         raise HTTPException(
@@ -48,7 +44,6 @@ def get_receipt(
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipt(receipt_id)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -64,7 +59,6 @@ def get_receipt_by_ride_id_add_driver(
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipt_by_ride_id(ride_id)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -77,7 +71,6 @@ def get_all_receipts(
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_all_receipts()
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:
@@ -93,7 +86,6 @@ def get_receipts_by_account(
     queries: ReceiptQueries = Depends(),
 ):
     record = queries.get_receipts_by_account(account_id)
-    print("record got: ", record)
     if record is None:
         response.status_code = 404
     else:

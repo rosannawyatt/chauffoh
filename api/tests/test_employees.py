@@ -78,7 +78,6 @@ def test_update_account():
     response = client.patch("/api/accounts/3", json=update)
 
     app.dependency_overrides = {}
-    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
         "id": 3,

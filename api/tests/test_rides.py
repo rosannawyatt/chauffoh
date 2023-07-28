@@ -171,7 +171,6 @@ def test_create_ride():
     response = client.post("/api/rides", json=ride)
 
     app.dependency_overrides = {}
-    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
         "id": 5,
