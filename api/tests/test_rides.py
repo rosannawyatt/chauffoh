@@ -1,134 +1,120 @@
 from main import app
 from fastapi.testclient import TestClient
 from queries.rides_queries import RideQueries
-from authenticator import authenticator
 
 
 fake_rides_db = [
-  {
-    "id": 2,
-    "account": {
-      "username": "123",
-      "first_name": "name",
-      "last_name": "last",
-      "email": "123@123",
-      "current_ride": False
+    {
+        "id": 2,
+        "account": {
+            "username": "123",
+            "first_name": "name",
+            "last_name": "last",
+            "email": "123@123",
+            "current_ride": False,
+        },
+        "is_roundtrip": True,
+        "roundtrip_date": None,
+        "start_location": "3223",
+        "end_location": "32323",
+        "ride_status": "Requested",
+        "datetime": "2023-07-20T18:42:31.846482",
+        "vehicle_info": "232332",
+        "comments": "",
+        "driver": {
+            "username": None,
+            "first_name": None,
+            "last_name": None,
+            "email": None,
+            "current_ride": None,
+        },
     },
-    "is_roundtrip": True,
-    "roundtrip_date": None,
-    "start_location": "3223",
-    "end_location": "32323",
-    "ride_status": "Requested",
-    "datetime": "2023-07-20T18:42:31.846482",
-    "vehicle_info": "232332",
-    "comments": "",
-    "driver": {
-      "username": None,
-      "first_name": None,
-      "last_name": None,
-      "email": None,
-      "current_ride": None
-    }
-  },
-  {
-    "id": 3,
-    "account": {
-      "username": "123",
-      "first_name": "name",
-      "last_name": "last",
-      "email": "123@123",
-      "current_ride": False
+    {
+        "id": 3,
+        "account": {
+            "username": "123",
+            "first_name": "name",
+            "last_name": "last",
+            "email": "123@123",
+            "current_ride": False,
+        },
+        "is_roundtrip": False,
+        "roundtrip_date": None,
+        "start_location": "3232",
+        "end_location": "3223",
+        "ride_status": "Requested",
+        "datetime": "2023-07-20T18:42:40.788292",
+        "vehicle_info": "2332",
+        "comments": "",
+        "driver": {
+            "username": None,
+            "first_name": None,
+            "last_name": None,
+            "email": None,
+            "current_ride": None,
+        },
     },
-    "is_roundtrip": False,
-    "roundtrip_date": None,
-    "start_location": "3232",
-    "end_location": "3223",
-    "ride_status": "Requested",
-    "datetime": "2023-07-20T18:42:40.788292",
-    "vehicle_info": "2332",
-    "comments": "",
-    "driver": {
-      "username": None,
-      "first_name": None,
-      "last_name": None,
-      "email": None,
-      "current_ride": None
-    }
-  },
-  {
-    "id": 4,
-    "account": {
-      "username": "emp",
-      "first_name": "emp",
-      "last_name": "emp",
-      "email": "emp@emp",
-      "current_ride": False
+    {
+        "id": 4,
+        "account": {
+            "username": "emp",
+            "first_name": "emp",
+            "last_name": "emp",
+            "email": "emp@emp",
+            "current_ride": False,
+        },
+        "is_roundtrip": False,
+        "roundtrip_date": None,
+        "start_location": "sdds",
+        "end_location": "dsasd",
+        "ride_status": "Cancelled",
+        "datetime": "2023-07-20T18:44:44.797382",
+        "vehicle_info": "asdasd",
+        "comments": "",
+        "driver": {
+            "username": None,
+            "first_name": None,
+            "last_name": None,
+            "email": None,
+            "current_ride": None,
+        },
     },
-    "is_roundtrip": False,
-    "roundtrip_date": None,
-    "start_location": "sdds",
-    "end_location": "dsasd",
-    "ride_status": "Cancelled",
-    "datetime": "2023-07-20T18:44:44.797382",
-    "vehicle_info": "asdasd",
-    "comments": "",
-    "driver": {
-      "username": None,
-      "first_name": None,
-      "last_name": None,
-      "email": None,
-      "current_ride": None
-    }
-  },
-  {
-    "id": 1,
-    "account": {
-      "username": "string",
-      "first_name": "string",
-      "last_name": "string",
-      "email": "string",
-      "current_ride": False
+    {
+        "id": 1,
+        "account": {
+            "username": "string",
+            "first_name": "string",
+            "last_name": "string",
+            "email": "string",
+            "current_ride": False,
+        },
+        "is_roundtrip": True,
+        "roundtrip_date": "2023-07-20T18:41:28.792000",
+        "start_location": "string",
+        "end_location": "string",
+        "ride_status": "Requested",
+        "datetime": "2023-07-20T18:41:54.257693",
+        "vehicle_info": "string",
+        "comments": "string",
+        "driver": {
+            "username": "emp",
+            "first_name": "emp",
+            "last_name": "emp",
+            "email": "emp@emp",
+            "current_ride": False,
+        },
     },
-    "is_roundtrip": True,
-    "roundtrip_date": "2023-07-20T18:41:28.792000",
-    "start_location": "string",
-    "end_location": "string",
-    "ride_status": "Requested",
-    "datetime": "2023-07-20T18:41:54.257693",
-    "vehicle_info": "string",
-    "comments": "string",
-    "driver": {
-      "username": "emp",
-      "first_name": "emp",
-      "last_name": "emp",
-      "email": "emp@emp",
-      "current_ride": False
-    }
-  }
 ]
-
-
-def account_data():
-    data = {
-      "id": 1,
-      "username": "123",
-      "hash_password": "$2b$12$Bov1Aw6PZFYkRgaIlBWAVe1LVHWRRnqKni3g",
-      "first_name": "123",
-      "last_name": "123",
-      "email": "123@123",
-      "is_employee": False,
-      "current_ride": False
-    }
-    return data
 
 
 class TestRideQueries:
     def create(self, ride_info):
-        result = {"id": 5,
-                  "ride_status": "Requested",
-                  "datetime": "2023-07-20T19:45:10.867877",
-                  "driver_id": None
-                  }
+        result = {
+            "id": 5,
+            "ride_status": "Requested",
+            "datetime": "2023-07-20T19:45:10.867877",
+            "driver_id": None,
+        }
         result.update(ride_info)
         return result
 
@@ -140,11 +126,12 @@ class TestAllRides:
 
 class TestCreateRide:
     def create(self, ride_info):
-        result = {"id": 5,
-                  "ride_status": "Requested",
-                  "datetime": "2023-07-20T19:45:10.867877",
-                  "driver_id": None
-                  }
+        result = {
+            "id": 5,
+            "ride_status": "Requested",
+            "datetime": "2023-07-20T19:45:10.867877",
+            "driver_id": None,
+        }
         result.update(ride_info)
 
         return result
@@ -158,7 +145,6 @@ def test_init():
 
 
 def test_get_all_rides():
-
     app.dependency_overrides[RideQueries] = TestAllRides
 
     response = client.get("/api/rides/")
@@ -170,38 +156,33 @@ def test_get_all_rides():
 
 
 def test_create_ride():
-
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-        ] = account_data
     app.dependency_overrides[RideQueries] = TestRideQueries
 
     ride = {
-            "account_id": 1,
-            "is_roundtrip": True,
-            "roundtrip_date": "2023-07-20T21:14:36.992Z",
-            "start_location": "string",
-            "end_location": "string",
-            "vehicle_info": "string",
-            "comments": "string"
-            }
+        "account_id": 1,
+        "is_roundtrip": True,
+        "roundtrip_date": "2023-07-20T21:14:36.992Z",
+        "start_location": "string",
+        "end_location": "string",
+        "vehicle_info": "string",
+        "comments": "string",
+    }
 
     response = client.post("/api/rides", json=ride)
 
     app.dependency_overrides = {}
-    print('test response', response.json())
+    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
-                                "id": 5,
-                                "account_id": 1,
-                                "is_roundtrip": True,
-                                "roundtrip_date":
-                                "2023-07-20T21:14:36.992000+00:00",
-                                "start_location": "string",
-                                "end_location": "string",
-                                "ride_status": "Requested",
-                                "datetime": "2023-07-20T19:45:10.867877",
-                                "vehicle_info": "string",
-                                "comments": "string",
-                                "driver_id": None
-                                }
+        "id": 5,
+        "account_id": 1,
+        "is_roundtrip": True,
+        "roundtrip_date": "2023-07-20T21:14:36.992000+00:00",
+        "start_location": "string",
+        "end_location": "string",
+        "ride_status": "Requested",
+        "datetime": "2023-07-20T19:45:10.867877",
+        "vehicle_info": "string",
+        "comments": "string",
+        "driver_id": None,
+    }

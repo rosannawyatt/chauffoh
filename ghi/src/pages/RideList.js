@@ -33,7 +33,18 @@ const RideList = ({ userData }) => {
           "Content-Type": "application/json",
         },
       });
-      if (!response.ok) {
+      const url4 = `${process.env.REACT_APP_USER_SERVICE_API_HOST}/api/accounts/${userData.username}`;
+      const response4 = await fetch(url4, {
+        method: "PATCH",
+        body: JSON.stringify({
+          current_ride: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok && !response4.ok) {
         console.log("Can not update ride status");
       } else {
         const updatedRides = rides.map((ride) =>

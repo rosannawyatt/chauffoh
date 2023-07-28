@@ -15,7 +15,6 @@ from queries.rides_queries import (
     RideUpdate,
     GetRide,
 )
-from authenticator import authenticator
 
 router = APIRouter(tags=["rides"])
 
@@ -26,23 +25,19 @@ async def create_ride(
     request: Request,
     response: Response,
     repo: RideQueries = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data)
 ):
-    if account_data is not None:
-        try:
-            print("info: ", info)
-            print("trying")
-            ride = repo.create(info)
-            print("ride from create method", ride)
-            print("done trying")
-            return ride
-        except DuplicateRideError:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Cannot create an ride with that informations",
-            )
-    else:
-        return {'message': 'No account data'}
+    try:
+        print("info: ", info)
+        print("trying")
+        ride = repo.create(info)
+        print("ride from create method", ride)
+        print("done trying")
+        return ride
+    except DuplicateRideError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot create an ride with that informations",
+        )
 
 
 @router.get("/api/rides/{ride_id}", response_model=GetRide)
@@ -106,7 +101,6 @@ def update(
     response: Response,
     queries: RideQueries = Depends(),
 ):
-
     record = queries.update(ride_id, info)
 
     if record is None:

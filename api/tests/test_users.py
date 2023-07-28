@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.account_queries import AccountQueries
-from authenticator import authenticator
 
 client = TestClient(app)
 
@@ -14,7 +13,7 @@ fake_users_db = [
         "last_name": "Branch",
         "email": "joeyb23@email.com",
         "is_employee": False,
-        "current_ride": False
+        "current_ride": False,
     },
     {
         "id": 2,
@@ -24,23 +23,9 @@ fake_users_db = [
         "last_name": "Cruise",
         "email": "Jcruise@email.com",
         "is_employee": False,
-        "current_ride": False
-    }
+        "current_ride": False,
+    },
 ]
-
-
-def account_data():
-    data = {
-      "id": 1,
-      "username": "Joe23",
-      "hash_password": "$2b$12$Bov1Aw6PZFYkRgaIlBWAVe1LVHWRRnqKni3g",
-      "first_name": "Joey",
-      "last_name": "Branch",
-      "email": "joeyb23@email.com",
-      "is_employee": False,
-      "current_ride": True
-    }
-    return data
 
 
 class TestUserAccountQueries:
@@ -53,7 +38,7 @@ class TestUserAccountQueries:
             "last_name": "Branch",
             "email": "joeyb23@email.com",
             "is_employee": False,
-            "current_ride": False
+            "current_ride": False,
         }
         result.update(AccountUpdate)
         return result
@@ -80,10 +65,6 @@ def test_get_current_users():
 
 
 def test_update_user_account():
-
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-        ] = account_data
     app.dependency_overrides[AccountQueries] = TestUserAccountQueries
 
     update = {
@@ -92,13 +73,13 @@ def test_update_user_account():
         "last_name": "Branch",
         "email": "joeyb23@email.com",
         "is_employee": False,
-        "current_ride": True
+        "current_ride": True,
     }
 
     response = client.patch("/api/accounts/3", json=update)
 
     app.dependency_overrides = {}
-    print('test response', response.json())
+    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
         "id": 3,
@@ -108,5 +89,5 @@ def test_update_user_account():
         "last_name": "Branch",
         "email": "joeyb23@email.com",
         "is_employee": False,
-        "current_ride": True
+        "current_ride": True,
     }

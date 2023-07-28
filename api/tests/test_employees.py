@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.account_queries import AccountQueries
-from authenticator import authenticator
 
 client = TestClient(app)
 
@@ -14,7 +13,7 @@ fake_employees_db = [
         "last_name": "Belcher",
         "email": "bob@email.com",
         "is_employee": True,
-        "current_ride": False
+        "current_ride": False,
     },
     {
         "id": 2,
@@ -24,23 +23,9 @@ fake_employees_db = [
         "last_name": "Belcher",
         "email": "linda@email.com",
         "is_employee": True,
-        "current_ride": False
-    }
+        "current_ride": False,
+    },
 ]
-
-
-def account_data():
-    data = {
-      "id": 1,
-      "username": "bobb",
-      "hash_password": "$2b$12$Bov1Aw6PZFYkRgaIlBWAVe1LVHWRRnqKni3g",
-      "first_name": "Bob",
-      "last_name": "Belcher",
-      "email": "bob@burgers.com",
-      "is_employee": True,
-      "current_ride": False
-    }
-    return data
 
 
 class TestAccountQueries:
@@ -52,7 +37,7 @@ class TestAccountQueries:
             "first_name": "Bob",
             "last_name": "Belcher",
             "is_employee": True,
-            "current_ride": False
+            "current_ride": False,
         }
         result.update(AccountUpdate)
         return result
@@ -79,9 +64,6 @@ def test_get_all_employees():
 
 
 def test_update_account():
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-        ] = account_data
     app.dependency_overrides[AccountQueries] = TestAccountQueries
 
     update = {
@@ -90,13 +72,13 @@ def test_update_account():
         "last_name": "Belcher",
         "email": "bob@burgers.com",
         "is_employee": True,
-        "current_ride": False
+        "current_ride": False,
     }
 
     response = client.patch("/api/accounts/3", json=update)
 
     app.dependency_overrides = {}
-    print('test response', response.json())
+    print("test response", response.json())
     assert response.status_code == 200
     assert response.json() == {
         "id": 3,
@@ -106,5 +88,5 @@ def test_update_account():
         "last_name": "Belcher",
         "email": "bob@burgers.com",
         "is_employee": True,
-        "current_ride": False
+        "current_ride": False,
     }

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import { SideBarNav } from "../components/SideBarNav";
 import Footer from "../components/Footer";
-import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const EditAccountDetails = () => {
   const { userData, setUserData } = useContext(UserContext);
@@ -16,9 +15,8 @@ const EditAccountDetails = () => {
   const username = userData.username;
   const is_employee = userData.is_employee;
   const current_ride = userData.current_ride;
-  const { token } = useToken();
-  
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const accountEdits = {};
@@ -30,7 +28,6 @@ const EditAccountDetails = () => {
       method: "PATCH",
       body: JSON.stringify(accountEdits),
       headers: {
-        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     };
