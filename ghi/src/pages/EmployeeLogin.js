@@ -73,57 +73,60 @@ const EmployeeLogin = () => {
   return (
     <>
       <div className="container-fluid">
-        <div className="row align-items-stretch">
-          <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
-            <div className="p-4">
-              <div className="float-right">
-                <h6>Create an Account</h6>
-                <Link
-                  to="/employee-signup"
-                  className="float-right text-color-primary"
-                >
-                  Sign Up
-                </Link>
+        <div className="page-body">
+
+          <div className="row align-items-stretch">
+            <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
+              <div className="p-4">
+                <div className="float-right">
+                  <h6>Create an Account</h6>
+                  <Link
+                    to="/employee-signup"
+                    className="float-right text-color-primary"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+                <h2 className="text-second-color">Employee Login</h2>
+                <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+                  <FormInputRequired
+                    id="username"
+                    placeholder="username"
+                    labelText="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    type="text"
+                  />
+                  <FormInputRequired
+                    id="password"
+                    placeholder="********"
+                    labelText="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type="password"
+                  />
+                  <button
+                    className=" ghost-button-second"
+                    type="submit"
+                    value="Login"
+                  >
+                    Login
+                  </button>
+                </form>
               </div>
-              <h2 className="text-second-color">Employee Login</h2>
-              <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
-                <FormInputRequired
-                  id="username"
-                  placeholder="username"
-                  labelText="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  type="text"
-                />
-                <FormInputRequired
-                  id="password"
-                  placeholder="********"
-                  labelText="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                />
-                <button
-                  className=" ghost-button-second"
-                  type="submit"
-                  value="Login"
-                >
-                  Login
-                </button>
-              </form>
+            </div>
+            <div className="col-lg-7 p-0 d-flex align-items-center">
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={tesla}
+                alt="car-signup"
+              />
             </div>
           </div>
-          <div className="col-lg-7 p-0 d-flex align-items-center">
-            <img
-              style={{ width: "100%", height: "100%" }}
-              src={tesla}
-              alt="car-signup"
-            />
+          <div className="row">
+            <Footer />
           </div>
         </div>
-      </div>
-      <div className="row">
-        <Footer />
       </div>
     </>
   );

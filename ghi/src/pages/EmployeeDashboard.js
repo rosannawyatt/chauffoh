@@ -41,7 +41,6 @@ const EmployeeDashboard = ({ userData }) => {
     <>
       <div className="container-fluid ">
         <div className="row p-3 mt-3">
-          <h1>EMPLOYEE ONLY</h1>
           <div className="row p-3 mt-3">
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
           </div>

@@ -19,13 +19,15 @@ const Logout = () => {
 
   return (
     <>
-      <div className="row">
-        <p className="text-danger text-center mt-3">
-          You have been successfully logged out.
-        </p>
-      </div>
-      <div className="row">
-        <Footer />
+      <div className="logout-body">
+        <div className="row" style={{width: "100%"}}>
+          <p className="text-danger text-center mt-3" style={{paddingBottom: "25%", width: "100%"}}>
+            You have been successfully logged out.
+          </p>
+        </div>
+        <div className="row">
+          <Footer />
+        </div>
       </div>
     </>
   );

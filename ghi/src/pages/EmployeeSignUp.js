@@ -69,83 +69,86 @@ function EmployeeSignUp() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row align-items-stretch">
-          <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
-            <div className="shadow p-5">
-              <div className="float-right">
-                <h6>Already Have An Account?</h6>
-                <NavLink
-                  to="/employee-login"
-                  className="float-right text-color-primary"
-                >
-                  Login
-                </NavLink>
-              </div>
-              <div>
-                <h2 className="text-second-color ">Employee Sign Up</h2>
-                <form onSubmit={handleSubmit} id="create-account-form">
-                  <FormInputRequired
-                    id="first_name"
-                    placeholder="First"
-                    labelText="First name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputRequired
-                    id="last_name"
-                    placeholder="Last"
-                    labelText="Last name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputRequired
-                    id="email"
-                    placeholder="you@example.com"
-                    labelText="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                  />
-                  <FormInputRequired
-                    id="username"
-                    placeholder="Username"
-                    labelText="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    type="text"
-                  />
-                  <FormInputRequired
-                    id="password"
-                    placeholder="********"
-                    labelText="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="password"
-                  />
-                  <button
-                    className="ghost-button-second"
-                    type="submit"
-                    value="Register"
+        <div className="page-body">
+
+          <div className="row align-items-stretch">
+            <div className="col-lg-5 p-0 d-flex flex-column justify-content-center">
+              <div className="shadow p-5">
+                <div className="float-right">
+                  <h6>Already Have An Account?</h6>
+                  <NavLink
+                    to="/employee-login"
+                    className="float-right text-color-primary"
                   >
-                    Create
-                  </button>
-                </form>
+                    Login
+                  </NavLink>
+                </div>
+                <div>
+                  <h2 className="text-second-color ">Employee Sign Up</h2>
+                  <form onSubmit={handleSubmit} id="create-account-form">
+                    <FormInputRequired
+                      id="first_name"
+                      placeholder="First"
+                      labelText="First name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      type="text"
+                    />
+                    <FormInputRequired
+                      id="last_name"
+                      placeholder="Last"
+                      labelText="Last name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      type="text"
+                    />
+                    <FormInputRequired
+                      id="email"
+                      placeholder="you@example.com"
+                      labelText="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                    />
+                    <FormInputRequired
+                      id="username"
+                      placeholder="Username"
+                      labelText="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      type="text"
+                    />
+                    <FormInputRequired
+                      id="password"
+                      placeholder="********"
+                      labelText="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      type="password"
+                    />
+                    <button
+                      className="ghost-button-second"
+                      type="submit"
+                      value="Register"
+                    >
+                      Create
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
+            <div className="col-lg-7 p-0 d-flex align-items-center">
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={drivingImg}
+                alt="drive-login"
+              />
+            </div>
           </div>
-          <div className="col-lg-7 p-0 d-flex align-items-center">
-            <img
-              style={{ width: "100%", height: "100%" }}
-              src={drivingImg}
-              alt="drive-login"
-            />
+          <div className="row">
+            <Footer />
           </div>
         </div>
-      </div>
-      <div className="row">
-        <Footer />
       </div>
     </>
   );

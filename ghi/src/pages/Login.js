@@ -73,48 +73,50 @@ const Login = () => {
   return (
     <>
       <div className="container-fluid">
-        <div className="row align-items-stretch">
-          <div className="col-lg-7 p-0 d-flex align-items-center">
-            <img
-              style={{ width: "100%", height: "100%" }}
-              src={drivingImg}
-              alt="drive-login"
-            />
-          </div>
-          <div className="col-lg-5 p-5 d-flex flex-column justify-content-center">
-            <div className="text-right">
-              <h6>Create an Account</h6>
-              <Link to="/signup" className="float-righ text-second-color">
-                Sign Up
-              </Link>
+        <div className="page-body">
+          <div className="row align-items-stretch">
+            <div className="col-lg-7 p-0 d-flex align-items-center">
+              <img
+                style={{ width: "100%", height: "100%" }}
+                src={drivingImg}
+                alt="drive-login"
+              />
             </div>
-            <h2 className="text-color-primary">Login</h2>
-            <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
-              <FormInputRequired
-                id="username"
-                placeholder="username"
-                labelText="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                type="text"
-              />
-              <FormInputRequired
-                id="password"
-                placeholder="********"
-                labelText="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-              />
-              <button className="button-primary" type="submit" value="Login">
-                Login
-              </button>
-            </form>
+            <div className="col-lg-5 p-5 d-flex flex-column justify-content-center">
+              <div className="text-right">
+                <h6>Create an Account</h6>
+                <Link to="/signup" className="float-righ text-second-color">
+                  Sign Up
+                </Link>
+              </div>
+              <h2 className="text-color-primary">Login</h2>
+              <form id="login-account-form" onSubmit={(e) => handleSubmit(e)}>
+                <FormInputRequired
+                  id="username"
+                  placeholder="username"
+                  labelText="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                />
+                <FormInputRequired
+                  id="password"
+                  placeholder="********"
+                  labelText="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                />
+                <button className="button-primary" type="submit" value="Login">
+                  Login
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="row">
+            <Footer />
           </div>
         </div>
-      </div>
-      <div className="row">
-        <Footer />
       </div>
     </>
   );
