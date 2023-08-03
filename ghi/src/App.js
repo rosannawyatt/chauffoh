@@ -25,6 +25,8 @@ import EditAccountDetails from "./pages/EditAccountDetails";
 import { useState } from "react";
 import { UserContext } from "./components/UserContext";
 import EmployeeCheck from "./utils/EmployeeCheck";
+import Chipmunk from "./pages/Chipmunk";
+
 function App() {
   const [userData, setUserData] = useState(null);
   const domain = /https:\/\/[^/]+/;
@@ -44,6 +46,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="logout" element={<Logout userData={userData} />} />
               <Route path="ride-counter" element={<RideCounter />} />
+              <Route path="chipmunk" element={<Chipmunk/>} />
               <Route element={<PrivateRoutes />}>
                 <Route path="dashboard">
                   <Route

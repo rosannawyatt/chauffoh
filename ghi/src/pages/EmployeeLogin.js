@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import Footer from "../components/Footer";
-import tesla from "../images/tesla.jpeg";
+import drive from "../images/car-drive.webp";
 
 const EmployeeLogin = () => {
   const [username, setUsername] = useState("");
@@ -117,7 +117,7 @@ const EmployeeLogin = () => {
             <div className="col-lg-7 p-0 d-flex align-items-center">
               <img
                 style={{ width: "100%", height: "100%" }}
-                src={tesla}
+                src={drive}
                 alt="car-signup"
               />
             </div>

@@ -4,7 +4,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
 import Footer from "../components/Footer";
-import drivingImg from "../images/driving.jpeg";
+import drivingImg from "../images/cityscape.webp";
 
 function EmployeeSignUp() {
   const { setUserData } = useContext(UserContext);

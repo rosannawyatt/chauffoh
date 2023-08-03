@@ -3,7 +3,7 @@ import { FormInputRequired } from "../components/Forms.js";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
-import tesla from "../images/tesla.jpeg";
+import hand from "../images/hand.webp";
 import Footer from "../components/Footer";
 
 function SignUp() {
@@ -74,7 +74,7 @@ function SignUp() {
             <div className="col-lg-7 p-0 d-flex align-items-center">
               <img
                 style={{ width: "100%", height: "100%" }}
-                src={tesla}
+                src={hand}
                 alt="car-signup"
               />
             </div>

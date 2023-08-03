@@ -78,7 +78,7 @@ export default function Home() {
           </div>
           <div className="review-section">
             <div className="review-text">
-              <p style={{ color: "#fafafaf1" }}>What people are saying...</p>
+              <p style={{ color: "#08797e" }}>What people are saying...</p>
             </div>
             <div className="home-carousel">
               <div

@@ -3,7 +3,7 @@ import { FormInputRequired } from "../components/Forms.js";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../components/UserContext.js";
-import drivingImg from "../images/driving.jpeg";
+import drivingImg from "../images/cityscape.webp";
 import Footer from "../components/Footer";
 
 const Login = () => {
